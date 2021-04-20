@@ -1,8 +1,7 @@
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
-  <a href="https://www.gatsbyjs.com">
-    <img alt="Gatsby" src="https://stbensonimoh.com/wp-content/uploads/2019/03/logo.svg
-" width="60" />
+  <a href="https://stbensonimoh.com">
+    <img alt="Benson's logo" src="https://stbensonimoh.com/wp-content/uploads/2019/03/logo.svg" width="120" />
   </a>
 </p>
 <h1 align="center">
