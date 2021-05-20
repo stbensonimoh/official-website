@@ -1,14 +1,18 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `Benson Imoh,ST`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Benson Imoh,ST`,
+      summary: `Experience Designer(xD) & Software Engineer. Passionate about blending engineering and design, to creatively and efficiently solve problems.`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
+    description: `Experience Designer(xD) & Software Engineer.`,
+    siteUrl: `https://stbensonimoh.com/`,
     social: {
-      twitter: `kylemathews`,
+        twitter: `stbensonimoh`,
+            linkedin: `https://linkedin.com/in/stbensonimoh`,
+            github: `stbensonimoh`,
+            instagram: `stbensonimoh`,
+            facebook: `stbensonimoh`,
     },
   },
   plugins: [
