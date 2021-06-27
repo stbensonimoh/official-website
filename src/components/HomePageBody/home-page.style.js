@@ -4,17 +4,23 @@ import theme from "../../theme.json"
 export const PageWrapper = styled.div`
   display: flex;
 `
+export const FeaturedImageWrapper = styled.div`
+  display: flex;
+  margin-top: 1rem;
+`
 
 export const FeaturedImage = styled.img`
-  margin-left: 21rem;
-  margin-top: 1rem;
+  padding-left: 3rem;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 `
 
 export const FeaturedTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 40%;
-  margin-top: 3rem ;
+  width: 50%;
+  margin-top: 3rem;
 `
 
 export const GreetingWrapper = styled.div`
@@ -53,10 +59,15 @@ export const Description = styled.p`
     black ? theme.colors.bensonBlack : theme.colors.bensonGrey};
 `
 
+export const CopyrightWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+
 export const Copyright = styled.div`
- position: absolute;
- bottom: 1rem;
- right: 2rem;
- font-family: "Roboto";
- font-size: 14px;
+  margin-right: 3rem;
+  align-self: center;
+  font-family: "Roboto";
+  font-size: 14px;
+  color: ${theme.colors.bensonGrey};
 `
