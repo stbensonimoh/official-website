@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Copyright } from "../components/HomePageBody/home-page.style"
+import { Copyright, CopyrightWrapper } from "../components/HomePageBody/home-page.style"
 
 import Layout from "../components/layout"
 import HomePageBody from "../components/HomePageBody/HomePageBody"
@@ -13,9 +13,11 @@ const App = ({ data, location }) => {
     <Layout location={location} title={siteTitle}>
       <HomePageBody />
       <SocialIcons />
-      <Copyright>
-        Copyright &copy; {new Date().getFullYear()} Benson Imoh,ST
-      </Copyright>
+      <CopyrightWrapper>
+        <Copyright>
+          Copyright &copy; {new Date().getFullYear()} Benson Imoh,ST
+        </Copyright>
+      </CopyrightWrapper>
     </Layout>
   )
 }

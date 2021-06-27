@@ -10,7 +10,7 @@ export const FeaturedImageWrapper = styled.div`
 `
 
 export const FeaturedImage = styled.img`
-  padding-left: 15rem;
+  padding-left: 3rem;
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -19,7 +19,7 @@ export const FeaturedImage = styled.img`
 export const FeaturedTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 50%;
   margin-top: 3rem;
 `
 
@@ -59,10 +59,15 @@ export const Description = styled.p`
     black ? theme.colors.bensonBlack : theme.colors.bensonGrey};
 `
 
+export const CopyrightWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+
 export const Copyright = styled.div`
-  margin-left: 87%;
+  margin-right: 3rem;
+  align-self: center;
   font-family: "Roboto";
   font-size: 14px;
-  margin-top: -1rem;
   color: ${theme.colors.bensonGrey};
 `
