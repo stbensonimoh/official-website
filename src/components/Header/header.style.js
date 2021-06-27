@@ -24,6 +24,7 @@ export const NavItem = styled(Link)`
   text-transform: uppercase;
   color: ${theme.colors.bensonGrey};
   font-size: 1rem;
+  text-decoration: none;
 
   &:hover {
     color: ${theme.colors.bensonPink};

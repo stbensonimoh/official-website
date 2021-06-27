@@ -6,14 +6,14 @@ const Header = () => {
     <HeaderWrapper>
       <Logo src="/logo.svg" />
       <NavWrapper>
-        <NavItem>Home</NavItem>
-        <NavItem>About</NavItem>
-        <NavItem>Resume</NavItem>
-        <NavItem>Projects</NavItem>
-        <NavItem>Writing</NavItem>
-        <NavItem>Speaking</NavItem>
-        <NavItem>Blog</NavItem>
-        <NavItem>Contact</NavItem>
+        <NavItem to="/">Home</NavItem>
+        <NavItem to="/about">About</NavItem>
+        <NavItem to="/resume">Resume</NavItem>
+        <NavItem to="/projects">Projects</NavItem>
+        <NavItem to="/writing">Writing</NavItem>
+        <NavItem to="/speaking">Speaking</NavItem>
+        <NavItem to="/blog">Blog</NavItem>
+        <NavItem to="/contact">Contact</NavItem>
       </NavWrapper>
     </HeaderWrapper>
   )
