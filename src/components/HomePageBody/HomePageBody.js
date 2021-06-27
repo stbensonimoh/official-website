@@ -8,6 +8,7 @@ import {
   Greeting,
   GreetingWrapper,
   FeaturedTextWrapper,
+  FeaturedImageWrapper,
 } from "./home-page.style"
 
 const HomePageBody = () => {
@@ -33,7 +34,9 @@ const HomePageBody = () => {
           engineering.
         </Description>
       </FeaturedTextWrapper>
-      <FeaturedImage src="front-image.png" />
+      <FeaturedImageWrapper>
+        <FeaturedImage src="front-image.png" />
+      </FeaturedImageWrapper>
     </PageWrapper>
   )
 }

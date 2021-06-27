@@ -4,17 +4,23 @@ import theme from "../../theme.json"
 export const PageWrapper = styled.div`
   display: flex;
 `
+export const FeaturedImageWrapper = styled.div`
+  display: flex;
+  margin-top: 1rem;
+`
 
 export const FeaturedImage = styled.img`
-  margin-left: 21rem;
-  margin-top: 1rem;
+  padding-left: 15rem;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
 `
 
 export const FeaturedTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 40%;
-  margin-top: 3rem ;
+  margin-top: 3rem;
 `
 
 export const GreetingWrapper = styled.div`
@@ -54,9 +60,10 @@ export const Description = styled.p`
 `
 
 export const Copyright = styled.div`
- position: absolute;
- bottom: 1rem;
- right: 2rem;
- font-family: "Roboto";
- font-size: 14px;
+  margin-left: 87%;
+  font-family: "Roboto";
+  font-size: 14px;
+  margin-top: -2rem;
+  padding-bottom: 1rem;
+  color: ${theme.colors.bensonGrey};
 `
