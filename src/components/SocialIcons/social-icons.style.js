@@ -7,6 +7,7 @@ export const SocialIconsWrapper = styled.div`
   flex-direction: column;
   margin-left: 2rem;
   font-size: 2rem;
+  margin-top: -1rem;
   color: ${theme.colors.bensonGrey};
 
   & > a {

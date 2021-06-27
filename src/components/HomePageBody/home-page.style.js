@@ -63,7 +63,6 @@ export const Copyright = styled.div`
   margin-left: 87%;
   font-family: "Roboto";
   font-size: 14px;
-  margin-top: -2rem;
-  padding-bottom: 1rem;
+  margin-top: -1rem;
   color: ${theme.colors.bensonGrey};
 `
