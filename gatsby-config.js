@@ -8,14 +8,21 @@ module.exports = {
     description: `Experience Designer(xD) & Software Engineer.`,
     siteUrl: `https://stbensonimoh.com/`,
     social: {
-        twitter: `stbensonimoh`,
-            linkedin: `https://linkedin.com/in/stbensonimoh`,
-            github: `stbensonimoh`,
-            instagram: `stbensonimoh`,
-            facebook: `stbensonimoh`,
+      twitter: `stbensonimoh`,
+      linkedin: `https://linkedin.com/in/stbensonimoh`,
+      github: `stbensonimoh`,
+      instagram: `stbensonimoh`,
+      facebook: `stbensonimoh`,
     },
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [`Roboto`, `Bebas Neue`, `Dosis`, `Bad Script`],
+        display: "swap",
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -74,6 +81,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-styled-components`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
