@@ -1,8 +1,11 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Copyright, CopyrightWrapper } from "../components/HomePageBody/home-page.style"
-
-import Layout from "../components/layout"
+import {
+  Copyright,
+  CopyrightWrapper,
+  HomePageWrapper,
+} from "../components/HomePageBody/home-page.style"
+import Header from "../components/Header/Header"
 import HomePageBody from "../components/HomePageBody/HomePageBody"
 import SocialIcons from "../components/SocialIcons/SocialIcons"
 
@@ -10,7 +13,8 @@ const App = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata?.title || `Title`
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <HomePageWrapper location={location} title={siteTitle}>
+      <Header />
       <HomePageBody />
       <SocialIcons />
       <CopyrightWrapper>
@@ -18,7 +22,7 @@ const App = ({ data, location }) => {
           Copyright &copy; {new Date().getFullYear()} Benson Imoh,ST
         </Copyright>
       </CopyrightWrapper>
-    </Layout>
+    </HomePageWrapper>
   )
 }
 

@@ -1,6 +1,10 @@
 import styled from "styled-components"
 import theme from "../../theme.json"
 
+export const HomePageWrapper = styled.div`
+  height: 100vh;
+`
+
 export const PageWrapper = styled.div`
   display: flex;
 `
