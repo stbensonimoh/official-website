@@ -55,7 +55,7 @@ export const Description = styled.p`
   margin-left: 3rem;
   font-family: "Roboto";
   font-size: 0.875rem;
-  margin-top: -1rem;
+  margin-top: -0.31rem;
   width: 26rem;
   color: ${({ black }) =>
     black ? theme.colors.bensonBlack : theme.colors.bensonGrey};
