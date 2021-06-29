@@ -13,6 +13,7 @@ module.exports = {
       github: `stbensonimoh`,
       instagram: `stbensonimoh`,
       facebook: `stbensonimoh`,
+      youtube: `stbensonimoh`,
     },
   },
   plugins: [
