@@ -35,7 +35,7 @@ const HomePageBody = () => {
         </Description>
       </FeaturedTextWrapper>
       <FeaturedImageWrapper>
-        <FeaturedImage src="front-image.png" />
+        <FeaturedImage src="images/front-image.png" />
       </FeaturedImageWrapper>
     </PageWrapper>
   )
