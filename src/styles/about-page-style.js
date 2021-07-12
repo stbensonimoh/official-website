@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import theme from "../../theme.json"
+import theme from "../theme.json"
 
 export const AboutPageWrapper = styled.div``
 

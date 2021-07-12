@@ -11,7 +11,7 @@ import {
   AboutSectionWrapper,
   LeftContentWrapper,
   RightContentWrapper,
-} from "./about-page-style"
+} from "../../styles/about-page-style"
 
 const About = () => {
   return (
