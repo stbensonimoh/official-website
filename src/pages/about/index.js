@@ -11,7 +11,13 @@ import {
   AboutSectionWrapper,
   LeftContentWrapper,
   RightContentWrapper,
+  ThirdSectionWrapper,
+  OtherSectionWrapper,
+  OtherSectionTitle,
+  OtherSectionText,
+  Button,
 } from "../../styles/about-page-style"
+import { MdArrowForward } from "react-icons/md"
 
 const About = () => {
   return (
@@ -75,37 +81,35 @@ const About = () => {
             </p>
           </LeftContentWrapper>
           <RightContentWrapper>
-            <p>
-              At AWLO I:
-              <ul>
-                <li>
-                  designed and implemented a robust technology infrastructure
-                  that overhauled the organization's image and earned it
-                  strategic UN Partnerships.
-                </li>
-                <li>
-                  designed and implemented a DevOps culture throughout the
-                  organization.
-                </li>
-                <li>
-                  {" "}
-                  created value across the organization's strategic business
-                  units across 12 countries through the facilitation of
-                  innovative technology solutions to power processes and drive
-                  digital campaigns.
-                </li>
-                <li>
-                  {" "}
-                  initiated a technology internship program with resulting
-                  internal and external career placements for the candidates.
-                </li>
-                <li>
-                  {" "}
-                  designed and created a fully automated Volunteers Management
-                  and onboarding system for the AWLC held in 10 countries.
-                </li>
-              </ul>
-            </p>
+            <p>At AWLO I:</p>
+            <ul>
+              <li>
+                designed and implemented a robust technology infrastructure that
+                overhauled the organization's image and earned it strategic UN
+                Partnerships.
+              </li>
+              <li>
+                designed and implemented a DevOps culture throughout the
+                organization.
+              </li>
+              <li>
+                {" "}
+                created value across the organization's strategic business units
+                across 12 countries through the facilitation of innovative
+                technology solutions to power processes and drive digital
+                campaigns.
+              </li>
+              <li>
+                {" "}
+                initiated a technology internship program with resulting
+                internal and external career placements for the candidates.
+              </li>
+              <li>
+                {" "}
+                designed and created a fully automated Volunteers Management and
+                onboarding system for the AWLC held in 10 countries.
+              </li>
+            </ul>
 
             <p>
               I have stayed true to my creative inclinations by contributing to
@@ -134,6 +138,30 @@ const About = () => {
           </RightContentWrapper>
         </ContentWrapper>
       </AboutSectionWrapper>
+      <ThirdSectionWrapper>
+        <ContentWrapper>
+          <OtherSectionWrapper>
+            <OtherSectionTitle>I build and design stuff</OtherSectionTitle>
+            <OtherSectionText>
+              Web Apps, personal projects and experiments
+            </OtherSectionText>
+            <Button to="/projects">
+              See my work &nbsp;
+              <MdArrowForward />
+            </Button>
+          </OtherSectionWrapper>
+          <OtherSectionWrapper>
+            <OtherSectionTitle>I write too, sometimes</OtherSectionTitle>
+            <OtherSectionText>
+              About technology, design, engineering, productivity and business
+            </OtherSectionText>
+            <Button to="/blog">
+              Read my Blog &nbsp;
+              <MdArrowForward />
+            </Button>
+          </OtherSectionWrapper>
+        </ContentWrapper>
+      </ThirdSectionWrapper>
     </AboutPageWrapper>
   )
 }
