@@ -5,7 +5,7 @@ import {
   CopyrightWrapper,
   HomePageWrapper,
 } from "../components/HomePageBody/home-page.style"
-import Header from "../components/Header/Header"
+import Header from "../components/Header"
 import HomePageBody from "../components/HomePageBody/HomePageBody"
 import SocialIcons from "../components/SocialIcons/SocialIcons"
 
