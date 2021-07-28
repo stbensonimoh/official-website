@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import theme from "../theme.json"
 import Header from "../components/Header"
+import Button from "../components/Button"
 import { MdArrowForward } from "react-icons/md"
 
 const About = () => {
@@ -271,33 +272,6 @@ const OtherSectionText = styled.p`
   font-family: "Roboto", sans-serif;
   font-size: 1.5rem;
   color: ${theme.colors.bensonGrey};
-`
-
-const Button = styled(Link)`
-  padding: 1rem 3rem;
-  padding-right: 2rem;
-  width: 11rem;
-  background: #fff;
-  color: ${theme.colors.bensonPink};
-  text-transform: uppercase;
-  font-family: "Dosis";
-  text-decoration: none;
-  font-size: 1.5rem;
-  border: 1px solid ${theme.colors.bensonPink};
-  background: linear-gradient(
-      to right,
-      ${theme.colors.bensonPink} 50%,
-      #fff 50%
-    )
-    right;
-  background-size: 200% 100%;
-  background-position: right;
-  transition: all 0.7s ease-out;
-
-  &:hover {
-    background-position: left;
-    color: #fff;
-  }
 `
 
 const ContentWrapper = styled.div`
