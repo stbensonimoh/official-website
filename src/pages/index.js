@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import { graphql } from "gatsby"
 import Header from "../components/Header"
+import Copyright from "../components/Copyright"
 import SocialIcons from "../components/SocialIcons"
 import theme from "../theme.json"
 
@@ -36,9 +37,7 @@ const App = () => {
       </BodyWrapper>
       <SocialIcons />
       <CopyrightWrapper>
-        <Copyright>
-          Copyright &copy; {new Date().getFullYear()} Benson Imoh,ST
-        </Copyright>
+        <Copyright />
       </CopyrightWrapper>
     </HomePageWrapper>
   )
@@ -108,14 +107,9 @@ const Description = styled.p`
 const CopyrightWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-`
-
-const Copyright = styled.div`
   margin-right: 3rem;
-  align-self: center;
-  font-family: "Roboto";
-  font-size: 14px;
-  color: ${theme.colors.bensonGrey};
+  position: relative;
+  bottom: 2rem;
 `
 
 export default App
