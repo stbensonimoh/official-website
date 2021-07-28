@@ -8,7 +8,9 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <LogoWrapper>
-        <Logo width="120" />
+        <Link to="/">
+          <Logo width="120" />
+        </Link>
       </LogoWrapper>
       <NavWrapper>
         <NavItem to="/" activeClassName="active">
