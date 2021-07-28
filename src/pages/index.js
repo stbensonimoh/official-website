@@ -1,6 +1,5 @@
 import React from "react"
 import styled from "styled-components"
-import { graphql } from "gatsby"
 import Header from "../components/Header"
 import Copyright from "../components/Copyright"
 import SocialIcons from "../components/SocialIcons"
