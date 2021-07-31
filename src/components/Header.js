@@ -44,7 +44,7 @@ const Header = () => {
 
 /* -----------------    STYLES  ----------------- */
 const LogoWrapper = styled.div`
-  margin-top: 1rem;
+  margin-top: 0rem;
   margin-left: 1rem;
 `
 
@@ -54,6 +54,7 @@ const HeaderWrapper = styled.div`
   align-items: center;
   margin-top: 1rem;
   justify-content: space-between;
+  background-color: white;
 `
 const NavWrapper = styled.nav`
   margin-right: 6rem;
