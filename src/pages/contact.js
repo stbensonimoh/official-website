@@ -1,10 +1,8 @@
 import React from "react"
-import styled from "styled-components"
 import Header from "../components/Header"
 import SocialIcons from "../components/SocialIcons"
 import Copyright from "../components/Copyright"
 import Button from "../components/Button"
-import theme from "../theme.json"
 import { FiSend } from "react-icons/fi"
 
 const Contact = () => {

@@ -1,8 +1,6 @@
 import React from "react"
 import Logo from "./Logo"
-import styled from "styled-components"
 import { Link } from "gatsby"
-import theme from "../theme.json"
 
 const Header = () => {
   return (

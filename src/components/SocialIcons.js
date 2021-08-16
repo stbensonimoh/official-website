@@ -1,7 +1,5 @@
 import React from "react"
-import styled from "styled-components"
 import { FaGithub, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa"
-import theme from "../theme.json"
 
 const SocialIcons = () => {
   return (

@@ -1,6 +1,4 @@
 import React from "react"
-import styled from "styled-components"
-import theme from "../theme.json"
 
 const Copyright = () => {
   return <Text>Copyright &copy; {new Date().getFullYear()} Benson Imoh,ST</Text>

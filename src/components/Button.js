@@ -1,7 +1,5 @@
 import React from "react"
-import styled from "styled-components"
 import { Link } from "gatsby"
-import theme from "../theme.json"
 
 const Button = ({ children,...props}) => {
     return <ButtonStyle {...props}> {children}</ButtonStyle>

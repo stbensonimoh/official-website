@@ -1,6 +1,4 @@
 import React from "react"
-import styled from "styled-components"
-import theme from "../theme.json"
 import Header from "../components/Header"
 import Button from "../components/Button"
 import { MdArrowForward } from "react-icons/md"

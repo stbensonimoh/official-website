@@ -1,9 +1,7 @@
 import React from "react"
-import styled from "styled-components"
 import Header from "../components/Header"
 import Copyright from "../components/Copyright"
 import SocialIcons from "../components/SocialIcons"
-import theme from "../theme.json"
 
 const App = () => {
   return (
