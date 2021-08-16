@@ -1,11 +1,7 @@
 import React from "react"
-import {
-  SocialIconsWrapper,
-  GitHub,
-  LinkedIn,
-  Twitter,
-  Instagram,
-} from "./social-icons.style"
+import styled from "styled-components"
+import { FaGithub, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa"
+import theme from "../theme.json"
 
 const SocialIcons = () => {
   return (
@@ -41,5 +37,29 @@ const SocialIcons = () => {
     </SocialIconsWrapper>
   )
 }
+
+/* ----------------- STYLES ------------------ */
+const SocialIconsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 2rem;
+  font-size: 2rem;
+  margin-top: -1rem;
+  color: ${theme.colors.bensonGrey};
+  width: 32px;
+
+  & > a {
+    text-decoration: none;
+    color: ${theme.colors.bensonGrey};
+  }
+`
+
+const GitHub = styled(FaGithub)``
+
+const LinkedIn = styled(FaLinkedinIn)``
+
+const Twitter = styled(FaTwitter)``
+
+const Instagram = styled(FaInstagram)``
 
 export default SocialIcons

@@ -1,6 +1,6 @@
 import React from "react"
 // import { Link } from "gatsby"
-import Header from "./Header/Header"
+import Header from "./Header"
 
 const Layout = ({ children }) => {
   return (
