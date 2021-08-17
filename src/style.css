@@ -1,3 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* GLOBAL STYLES */
+.main-navigation a {
+  @apply mx-4 p-2;
+}
+.active, .active-menu-item {
+  @apply text-bensonpink;
+}
+
 /* SCROLL BAR Styling  */
 
 /* width */
