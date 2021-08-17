@@ -5,35 +5,35 @@ import { MdArrowForward } from "react-icons/md"
 
 const About = () => {
   return (
-    <AboutPageWrapper>
-      <FirstSectionWrapper>
+    <div>
+      <div>
         <Header />
-        <ContentWrapper>
-          <HeaderImage src="images/about-page-picture.png" />
-          <IntroWrapper>
-            <IntroTitle>
+        <div>
+          <img src="images/about-page-picture.png" />
+          <div>
+            <h1>
               Experience Designer<span>.</span>
               <br />
               Software Engineer<span>.</span>
               <br />
               Technology Advocate<span>.</span>
-            </IntroTitle>
-            <IntroText>
+            </h1>
+            <p>
               I always come up with interesting ways to blend engineering and
               design in efficiently solving everyday problems for individuals
               and businesses that I work with; seeking smarter and newer ways to
               do old things while saving time and resources at the same time.
-            </IntroText>
-            <IntroText grey>
+            </p>
+            <p>
               Highly skilled at design systems, automation, and customer
               experience (CX) engineering.
-            </IntroText>
-          </IntroWrapper>
-        </ContentWrapper>
-      </FirstSectionWrapper>
-      <AboutSectionWrapper>
-        <ContentWrapper>
-          <LeftContentWrapper>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div>
             <h1>Over the past years,</h1>
             <p>
               I have helped to design and build great products, processes,
@@ -63,8 +63,8 @@ const About = () => {
               various teams, operations, and individuals - in a stint that
               lasted until November 2020.
             </p>
-          </LeftContentWrapper>
-          <RightContentWrapper>
+          </div>
+          <div>
             <p>At AWLO I:</p>
             <ul>
               <li>
@@ -119,163 +119,33 @@ const About = () => {
               I am passionate about technology, engineering, design, and
               education.
             </p>
-          </RightContentWrapper>
-        </ContentWrapper>
-      </AboutSectionWrapper>
-      <ThirdSectionWrapper>
-        <ContentWrapper>
-          <OtherSectionWrapper>
-            <OtherSectionTitle>I build and design stuff</OtherSectionTitle>
-            <OtherSectionText>
-              Web Apps, personal projects and experiments
-            </OtherSectionText>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          <div>
+            <h1>I build and design stuff</h1>
+            <p>Web Apps, personal projects and experiments</p>
             <Button to="/projects">
               See my work &nbsp;
               <MdArrowForward />
             </Button>
-          </OtherSectionWrapper>
-          <OtherSectionWrapper>
-            <OtherSectionTitle>I write too, sometimes</OtherSectionTitle>
-            <OtherSectionText>
+          </div>
+          <div>
+            <h1>I write too, sometimes</h1>
+            <p>
               About technology, design, engineering, productivity and business
-            </OtherSectionText>
+            </p>
             <Button to="/blog">
               Read my Blog &nbsp;
               <MdArrowForward />
             </Button>
-          </OtherSectionWrapper>
-        </ContentWrapper>
-      </ThirdSectionWrapper>
-    </AboutPageWrapper>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
-
-
-/* ------------------------- STYLES ------------------------- */
-const AboutPageWrapper = styled.div``
-
-const FirstSectionWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`
-const HeaderImage = styled.img`
-  margin-left: 9rem;
-  margin-top: 5rem;
-`
-
-const IntroWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 8rem;
-`
-
-const IntroTitle = styled.h1`
-  font-family: "Roboto", sans-serif;
-  font-weight: 700;
-  font-size: 4.375em;
-  margin-bottom: 1rem;
-
-  & > span {
-    color: ${theme.colors.bensonPink};
-  }
-`
-
-const IntroText = styled.p`
-  width: 55%;
-  font-family: "Roboto", sans-serif;
-  color: ${({ grey }) =>
-    grey ? theme.colors.bensonGrey : theme.colors.bensonBlack};
-  font-size: 1.125rem;
-  margin-top: ${({ grey }) => (grey ? "1rem" : "0.5rem")};
-`
-
-const AboutSectionWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: ${theme.colors.bensonPink};
-  height: 100vh;
-  color: #fff;
-`
-const LeftContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 8rem;
-  margin-top: 8rem;
-  width: 30%;
-
-  & > h1 {
-    font-family: "Roboto", sans-serif;
-    font-weight: 700;
-    font-size: 4rem;
-    width: 60%;
-  }
-
-  & > p {
-    font-family: "Roboto", sans-serif;
-    font-size: 1.125rem;
-    line-height: 1.318rem;
-  }
-`
-
-const RightContentWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 45%;
-  margin-left: 8rem;
-  margin-top: 8rem;
-
-  & > p {
-    font-family: "Roboto", sans-serif;
-    font-size: 1.125rem;
-    line-height: 1.318rem;
-  }
-
-  & > ul {
-    font-family: "Roboto", sans-serif;
-    font-size: 1.125rem;
-    line-height: 1.318rem;
-  }
-`
-
-const ThirdSectionWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 100vh;
-  background-color: #f9f9f9;
-`
-const OtherSectionWrapper = styled.div`
-  width: 33.875rem;
-  height: 34.813rem;
-  background-color: #fff;
-  padding-left: 4.875rem;
-  padding-top: 5rem;
-  padding-right: 10.688rem;
-  padding-bottom: 7.6rem;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`
-
-const OtherSectionTitle = styled.h1`
-  font-size: 3rem;
-  font-family: "Roboto", sans-serif;
-  font-weight: 900;
-  color: ${theme.colors.bensonPink};
-`
-
-const OtherSectionText = styled.p`
-  font-family: "Roboto", sans-serif;
-  font-size: 1.5rem;
-  color: ${theme.colors.bensonGrey};
-`
-
-const ContentWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-
 
 export default About

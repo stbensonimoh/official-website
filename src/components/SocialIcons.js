@@ -3,61 +3,37 @@ import { FaGithub, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa"
 
 const SocialIcons = () => {
   return (
-    <SocialIconsWrapper>
+    <div>
       <a
         href="https://github.com/stbensonimoh"
         target="_blank"
         rel="noreferrer"
       >
-        <GitHub />
+        <FaGithub />
       </a>
       <a
         href="https://linkedin.com/in/stbensonimoh"
         target="_blank"
         rel="noreferrer"
       >
-        <LinkedIn />
+        <FaLinkedinIn />
       </a>
       <a
         href="https://twitter.com/stbensonimoh"
         target="_blank"
         rel="noreferrer"
       >
-        <Twitter />
+        <FaTwitter />
       </a>
       <a
         href="https://instagram.com/stbensonimoh"
         target="_blank"
         rel="noreferrer"
       >
-        <Instagram />
+        <FaInstagram />
       </a>
-    </SocialIconsWrapper>
+    </div>
   )
 }
-
-/* ----------------- STYLES ------------------ */
-const SocialIconsWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-left: 2rem;
-  font-size: 2rem;
-  margin-top: -1rem;
-  color: ${theme.colors.bensonGrey};
-  width: 32px;
-
-  & > a {
-    text-decoration: none;
-    color: ${theme.colors.bensonGrey};
-  }
-`
-
-const GitHub = styled(FaGithub)``
-
-const LinkedIn = styled(FaLinkedinIn)``
-
-const Twitter = styled(FaTwitter)``
-
-const Instagram = styled(FaInstagram)``
 
 export default SocialIcons
