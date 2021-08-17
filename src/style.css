@@ -3,11 +3,19 @@
 @tailwind utilities;
 
 /* GLOBAL STYLES */
+/* Header */
 .main-navigation a {
   @apply mx-4 p-2;
 }
-.active, .active-menu-item {
+.active,
+.active-menu-item {
   @apply text-bensonpink;
+}
+
+/* Social Icons */
+.social-icons a {
+  @apply m-0 text-3xl leading-none transition-transform duration-300 ease-in-out origin-center transform hover:scale-150;
+  padding: 5px;
 }
 
 /* SCROLL BAR Styling  */
