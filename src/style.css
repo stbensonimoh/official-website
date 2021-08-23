@@ -36,3 +36,14 @@
   background: #ec2c7c;
   border-radius: 10px;
 }
+
+.button {
+  background: linear-gradient(to right, #ec2c7c 50%, #fff 50%) right;
+  background-size: 200% 100%;
+  background-position: right;
+  transition: all 0.7s ease-out;
+}
+
+.button:hover {
+  background-position: left;
+}
