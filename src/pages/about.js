@@ -5,37 +5,36 @@ import { MdArrowForward } from "react-icons/md"
 
 const About = () => {
   return (
-    <div>
-      <div>
+    <div className="flex flex-col">
+      <div className="lg:h-screen">
         <Header />
-        <div>
-          <img src="images/about-page-picture.png" />
-          <div>
-            <h1>
-              Experience Designer<span>.</span>
+        <div className="flex items-center justify-center">
+          <img src="images/about-page-picture.png" className="ml-16 my-20" />
+          <div className="mx-16 w-2/5">
+            <h1 className="lg:text-4xl xl:text-5xl font-roboto font-bold leading-tight">
+              Experience Designer<span className="text-bensonpink">.</span>
               <br />
-              Software Engineer<span>.</span>
+              Software Engineer<span className="text-bensonpink">.</span>
               <br />
-              Technology Advocate<span>.</span>
+              Technology Advocate<span className="text-bensonpink">.</span>
             </h1>
-            <p>
+            <p className="my-4">
               I always come up with interesting ways to blend engineering and
               design in efficiently solving everyday problems for individuals
               and businesses that I work with; seeking smarter and newer ways to
               do old things while saving time and resources at the same time.
             </p>
-            <p>
-              Highly skilled at design systems, automation, and customer
-              experience (CX) engineering.
+            <p className="text-bensongrey">
+              Highly skilled at design systems, automation, developer experience
+              (DX), and customer experience (CX) engineering.
             </p>
           </div>
         </div>
       </div>
-      <div>
-        <div>
-          <div>
-            <h1>Over the past years,</h1>
-            <p>
+      <div className="flex px-12 py-20 items-center bg-bensonpink h-screen text-white font-roboto">
+          <div className="mx-10">
+            <h1 className="text-6xl font-bold w-2/3 py-8">Over the past years,</h1>
+            <p className="my-4">
               I have helped to design and build great products, processes,
               services, and teams for companies and individuals. I helped them
               to win customers by solving complex user experience problems, from
@@ -47,7 +46,7 @@ const About = () => {
               and I automate the boring stuff.
             </p>
 
-            <p>
+            <p className="my-4">
               I am currently the Consultant Chief Technology Officer of the
               Nyuma Harrison Foundation (NHF) - a Zambian Not-for-profit focused
               on making healthcare accessible to children in underserved
@@ -64,9 +63,9 @@ const About = () => {
               lasted until November 2020.
             </p>
           </div>
-          <div>
+          <div className="mx-10">
             <p>At AWLO I:</p>
-            <ul>
+            <ul className="list-disc ml-8">
               <li>
                 designed and implemented a robust technology infrastructure that
                 overhauled the organization's image and earned it strategic UN
@@ -77,25 +76,22 @@ const About = () => {
                 organization.
               </li>
               <li>
-                {" "}
                 created value across the organization's strategic business units
                 across 12 countries through the facilitation of innovative
                 technology solutions to power processes and drive digital
                 campaigns.
               </li>
               <li>
-                {" "}
                 initiated a technology internship program with resulting
                 internal and external career placements for the candidates.
               </li>
               <li>
-                {" "}
                 designed and created a fully automated Volunteers Management and
                 onboarding system for the AWLC held in 10 countries.
               </li>
             </ul>
 
-            <p>
+            <p className="my-4">
               I have stayed true to my creative inclinations by contributing to
               Open Source projects and always working on personal projects. I
               built a drug bot that reminds people to take their medications in
@@ -120,7 +116,6 @@ const About = () => {
               education.
             </p>
           </div>
-        </div>
       </div>
       <div>
         <div>
