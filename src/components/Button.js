@@ -13,8 +13,23 @@ const Button = props => {
           {props.children}
         </Link>
       )}
-      {type === "external" && <a {...props}>{props.children}</a>}
-      {type === "button" && <button {...props}> {props.children}</button>}
+      {type === "external" && (
+        <a
+          {...props}
+          className="button flex items-center border border-bensonpink w-max py-4 px-12 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
+        >
+          {props.children}
+        </a>
+      )}
+      {type === "button" && (
+        <button
+          {...props}
+          className="button flex items-center border border-bensonpink w-max py-4 px-12 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
+            >
+          {" "}
+          {props.children}
+        </button>
+      )}
     </>
   )
 }
