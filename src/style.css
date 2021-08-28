@@ -12,6 +12,10 @@
   @apply text-bensonpink;
 }
 
+.article-body p {
+    @apply my-3.5
+}
+
 /* Social Icons */
 .social-icons a {
   @apply m-0 text-3xl leading-none transition-transform duration-300 ease-in-out origin-center transform hover:scale-150;
