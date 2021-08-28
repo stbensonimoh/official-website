@@ -8,7 +8,7 @@ const Button = props => {
       {type === "internal" && (
         <Link
           {...props}
-          className="button flex items-center border border-bensonpink w-max py-4 px-12 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
+          className="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
         >
           {props.children}
         </Link>
@@ -16,7 +16,7 @@ const Button = props => {
       {type === "external" && (
         <a
           {...props}
-          className="button flex items-center border border-bensonpink w-max py-4 px-12 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
+          className="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
         >
           {props.children}
         </a>
@@ -24,7 +24,7 @@ const Button = props => {
       {type === "button" && (
         <button
           {...props}
-          className="button flex items-center border border-bensonpink w-max py-4 px-12 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
+          className="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
             >
           {" "}
           {props.children}
