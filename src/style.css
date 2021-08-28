@@ -47,3 +47,28 @@
 .button:hover {
   background-position: left;
 }
+
+/* CONTACT PAGE */
+.contact-form {
+    @apply font-roboto;
+}
+
+.contact-form label {
+    @apply text-xl text-bensongrey mb-4;
+}
+
+.contact-form input, .contact-form input::placeholder, .contact-form textarea, .contact-form textarea::placeholder {
+    @apply text-2xl text-bensonblack border-bensonpink border-b;
+}
+
+.contact-form input:focus-visible, .contact-form textarea:focus-visible {
+    outline: none;
+}
+
+.row {
+    @apply flex flex-wrap;
+}
+
+.column {
+    @apply flex flex-col;
+}
