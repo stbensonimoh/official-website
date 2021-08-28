@@ -1,81 +1,41 @@
 import React from "react"
 import Logo from "./Logo"
-import styled from "styled-components"
 import { Link } from "gatsby"
-import theme from "../theme.json"
 
 const Header = () => {
   return (
-    <HeaderWrapper>
-      <LogoWrapper>
-        <Link to="/">
-          <Logo width="120" />
+    <div className="header flex justify-between items-center my-4">
+        <Link to="/" className="logo ml-4">
+          <Logo className="w-24" />
         </Link>
-      </LogoWrapper>
-      <NavWrapper>
-        <NavItem to="/" activeClassName="active">
+      <nav className="main-navigation uppercase text-base font-dosis mr-8">
+        <Link to="/" activeClassName="active">
           Home
-        </NavItem>
-        <NavItem to="/about" activeClassName="active">
+        </Link>
+        <Link to="/about" activeClassName="active-menu-item">
           About
-        </NavItem>
-        <NavItem to="/resume" activeClassName="active">
+        </Link>
+        <Link to="/resume" activeClassName="active-menu-item">
           Resume
-        </NavItem>
-        <NavItem to="/projects" activeClassName="active">
+        </Link>
+        {/* <Link to="/projects" activeClassName="active-menu-item">
           Projects
-        </NavItem>
-        <NavItem to="/writing" activeClassName="active">
+        </Link>
+        <Link to="/writing" activeClassName="active-menu-item">
           Writing
-        </NavItem>
-        <NavItem to="/speaking" activeClassName="active">
+        </Link>
+        <Link to="/speaking" activeClassName="active-menu-item">
           Speaking
-        </NavItem>
-        <NavItem to="/blog" activeClassName="active">
+        </Link> */}
+        <Link to="/blog" activeClassName="active-menu-item">
           Blog
-        </NavItem>
-        <NavItem to="/contact" activeClassName="active">
+        </Link>
+        <Link to="/contact" activeClassName="active-menu-item">
           Contact
-        </NavItem>
-      </NavWrapper>
-    </HeaderWrapper>
+        </Link>
+      </nav>
+    </div>
   )
 }
-
-/* -----------------    STYLES  ----------------- */
-const LogoWrapper = styled.div`
-  margin-top: 0rem;
-  margin-left: 1rem;
-`
-
-const HeaderWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  margin-top: 1rem;
-  justify-content: space-between;
-  background-color: white;
-`
-const NavWrapper = styled.nav`
-  margin-right: 6rem;
-`
-
-const NavItem = styled(Link)`
-  padding-left: 3rem;
-  font-family: "Dosis";
-  text-transform: uppercase;
-  color: ${theme.colors.bensonGrey};
-  font-size: 1rem;
-  text-decoration: none;
-
-  &:hover {
-    color: ${theme.colors.bensonPink};
-    cursor: pointer;
-  }
-
-  &.active {
-    color: ${theme.colors.bensonPink};
-  }
-`
 
 export default Header

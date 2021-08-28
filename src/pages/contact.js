@@ -1,153 +1,62 @@
 import React from "react"
-import styled from "styled-components"
 import Header from "../components/Header"
 import SocialIcons from "../components/SocialIcons"
 import Copyright from "../components/Copyright"
 import Button from "../components/Button"
-import theme from "../theme.json"
 import { FiSend } from "react-icons/fi"
 
 const Contact = () => {
   return (
-    <ContactWrapper>
+    <div className="h-screen">
       <Header />
-      <FormTitle>Send me a message</FormTitle>
-      <FormSubtitle>
-        Do you have a question, a project you’d like to have me on, or just want
-        to say hi?
-      </FormSubtitle>
-      <FormContainer>
-        <Row>
-          <InputGroup style={{ marginRight: "6rem" }}>
-            <label htmlFor="name">Your Name</label>
-            <Input type="text" placeholder="John Doe" id="name" />
-          </InputGroup>
-          <InputGroup>
-            <label htmlFor="email">Your Email</label>
-            <Input type="email" placeholder="johndoe@example.com" id="email" />
-          </InputGroup>
-        </Row>
-        <Row>
-          <InputGroup>
-            <label htmlFor="message">Your message</label>
-            <TextArea
-              rows="2"
-              placeholder="Hi, I think we need a design system for our products at Company X. How soon can you hop on to discuss this?" id="message"
-            ></TextArea>
-          </InputGroup>
-        </Row>
-        <ButtonWrapper>
-                  <Button as="button" style={{paddingLeft: "3rem", paddingRight: "3rem", boxSizing: "content-box", display: "flex", flexDirection: "row", justifyContent: "center"}}>
-            Send <FiSend />
-          </Button>
-        </ButtonWrapper>
-      </FormContainer>
-      <SocialIconsWrapper>
-        <SocialIcons />
-      </SocialIconsWrapper>
-      <CopyrightWrapper>
-        <Copyright />
-      </CopyrightWrapper>
-    </ContactWrapper>
+      <div className="main flex flex-col items-center justify-center mt-12">
+        <h1 className="font-roboto font-bold text-6xl text-bensonpink">
+          Send me a message
+        </h1>
+        <p className="font-roboto text-2xl my-6 w-5/12 text-center">
+          Do you have a question, a project you’d like to have me on, or just
+          want to say hi?
+        </p>
+        <form className="contact-form flex flex-col w-3/4 items-center mt-14">
+          <div className="row flex w-full">
+            <div className="column w-1/2 px-12">
+              <label htmlFor="name">Your Name</label>
+              <input type="text" placeholder="John Doe" id="name" />
+            </div>
+            <div className="column w-1/2 px-12">
+              <label htmlFor="email">Your Email</label>
+              <input
+                type="email"
+                placeholder="johndoe@example.com"
+                id="email"
+              />
+            </div>
+          </div>
+          <div className="row my-14 w-full">
+            <div className="column w-full px-12">
+              <label htmlFor="message">Your message</label>
+              <textarea
+                rows="2"
+                placeholder="Hi, I think we need a design system for our products at Company X. How soon can you hop on to discuss this?"
+                id="message"
+              ></textarea>
+            </div>
+          </div>
+          <div>
+            <Button>
+              Send &nbsp; <FiSend />
+            </Button>
+          </div>
+        </form>
+      </div>
+        <SocialIcons className="absolute bottom-10 social-icons flex flex-col w-8 ml-4 text-center text-bensongrey" />
+        <div>
+          <div className="copyright-container absolute right-8 bottom-8 font-roboto text-sm text-bensongrey">
+            <Copyright />
+          </div>
+        </div>
+    </div>
   )
 }
-
-/* ----------------- COMPONENT ------------------ */
-const ContactWrapper = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-image: url("/images/front-image.svg");
-  background-repeat: no-repeat;
-  background-position: 80% center;
-  height: 100vh;
-`
-
-const FormTitle = styled.h1`
-  font-size: 4rem;
-  font-family: "Roboto", sans-serif;
-  color: ${theme.colors.bensonPink};
-`
-
-const FormSubtitle = styled.p`
-  font-family: "Roboto", sans-serif;
-  font-size: 1.5rem;
-  width: 35rem;
-  text-align: center;
-  margin-top: 0;
-`
-
-const FormContainer = styled.form`
- width: 58rem;
-
- & label {
-     font-size: 1.25rem;
-     font-family: "Roboto", sans-serif;
-     color: ${theme.colors.bensonGrey};
-     margin-bottom: 1.3rem;
-`
-
-const InputGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`
-
-const Row = styled.div`
-  display: flex;
-  margin-top: 3rem;
-`
-const Input = styled.input`
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  border-bottom: 1px solid ${theme.colors.bensonPink};
-  font-size: 1.5rem;
-  font-family: "Roboto", sans-serif;
-
-  &:focus-visible,
-  &:focus {
-    border: none;
-    outline: none;
-    border-bottom: 1px solid ${theme.colors.bensonPink};
-  }
-`
-
-const TextArea = styled.textarea`
-  width: 100%;
-  border-left: none;
-  border-right: none;
-  border-top: none;
-  border-bottom: 1px solid ${theme.colors.bensonPink};
-  font-size: 1.5rem;
-  font-family: "Roboto", sans-serif;
-
-  &:focus-visible,
-  &:focus {
-    border: none;
-    outline: none;
-    border-bottom: 1px solid ${theme.colors.bensonPink};
-  }
-`
-
-const SocialIconsWrapper = styled.div`
-  position: fixed;
-  bottom: 2rem;
-  align-self: flex-start;
-`
-
-const CopyrightWrapper = styled.div`
-  position: absolute;
-  bottom: 1rem;
-  align-self: flex-end;
-  margin-right: 2rem;
-`
-
-const ButtonWrapper = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: center;
-margin-top: 8.2rem;
-`
 
 export default Contact

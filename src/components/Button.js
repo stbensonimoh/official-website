@@ -1,39 +1,37 @@
 import React from "react"
-import styled from "styled-components"
 import { Link } from "gatsby"
-import theme from "../theme.json"
 
-const Button = ({ children,...props}) => {
-    return <ButtonStyle {...props}> {children}</ButtonStyle>
+const Button = props => {
+  const type = props.type || "button"
+  return (
+    <>
+      {type === "internal" && (
+        <Link
+          {...props}
+          className="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
+        >
+          {props.children}
+        </Link>
+      )}
+      {type === "external" && (
+        <a
+          {...props}
+          className="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
+        >
+          {props.children}
+        </a>
+      )}
+      {type === "button" && (
+        <button
+          {...props}
+          className="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
+            >
+          {" "}
+          {props.children}
+        </button>
+      )}
+    </>
+  )
 }
-
-/* -----------------       STYLES          ------------------ */
-const ButtonStyle = styled(Link)`
-  padding: 1rem 3rem;
-  padding-right: 2rem;
-  width: 11rem;
-  background: #fff;
-  color: ${theme.colors.bensonPink};
-  text-transform: uppercase;
-  font-family: "Dosis";
-  text-decoration: none;
-  font-size: 1.5rem;
-  border: 1px solid ${theme.colors.bensonPink};
-  background: linear-gradient(
-      to right,
-      ${theme.colors.bensonPink} 50%,
-      #fff 50%
-    )
-    right;
-  background-size: 200% 100%;
-  background-position: right;
-  transition: all 0.7s ease-out;
-  cursor: pointer;
-
-  &:hover {
-    background-position: left;
-    color: #fff;
-  }
-`
 
 export default Button
