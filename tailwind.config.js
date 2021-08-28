@@ -20,6 +20,7 @@ module.exports = {
         bebas: ["Bebas Neue"],
         badscript: ["Bad Script"],
         dosis: ["Dosis"],
+        slab: ["Roboto Slab"],
       },
     },
     variants: {
