@@ -16,50 +16,32 @@ const BlogPostTemplate = ({ data, location }) => {
         title={post.frontmatter.title}
         description={post.frontmatter.description || post.excerpt}
       />
-      <article
-        className="blog-post"
-        itemScope
-        itemType="http://schema.org/Article"
-      >
-        <header>
-          <h1 itemProp="headline">{post.frontmatter.title}</h1>
-          <p>{post.frontmatter.date}</p>
-        </header>
-        <section
-          dangerouslySetInnerHTML={{ __html: post.html }}
-          itemProp="articleBody"
-        />
-        <hr />
-        <footer>
-          <Bio />
-        </footer>
-      </article>
-      <nav className="blog-post-nav">
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
-          <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
-      </nav>
+      <section className="blog-header h-1/2">
+        <img src="/images/blog-header1.png" style={{ width: `100%` }} />
+      </section>
+      <section className="blog-body flex justify-center">
+              <div className="article-div w-9/12 bg-white py-24 px-24 relative bottom-44 h-72" style={{boxShadow: `0px -30px 40px -15px #666` }}>
+          <article
+            className="blog-post"
+            itemScope
+            itemType="http://schema.org/Article"
+          >
+            <header>
+              <h1 itemProp="headline" className="text-5xl font-roboto font-bold text-bensonpink">{post.frontmatter.title}</h1>
+              <p className="my-8">{post.frontmatter.date}</p>
+            </header>
+            <section
+              dangerouslySetInnerHTML={{ __html: post.html }}
+                          itemProp="articleBody"
+                          className="article-body font-slab text-lg"
+            />
+            <hr />
+            <footer>
+              <Bio />
+            </footer>
+          </article>
+        </div>
+      </section>
     </Layout>
   )
 }

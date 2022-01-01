@@ -1,17 +1,30 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `Benson Imoh,ST`,
     author: {
-      name: `Kyle Mathews`,
-      summary: `who lives and works in San Francisco building useful things.`,
+      name: `Benson Imoh,ST`,
+      summary: `Experience Designer(xD) & Software Engineer. Passionate about blending engineering and design, to creatively and efficiently solve problems.`,
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://gatsby-starter-blog-demo.netlify.app/`,
+    description: `Experience Designer(xD) & Software Engineer.`,
+    siteUrl: `https://stbensonimoh.com/`,
     social: {
-      twitter: `kylemathews`,
+      twitter: `stbensonimoh`,
+      linkedin: `https://linkedin.com/in/stbensonimoh`,
+      github: `stbensonimoh`,
+      instagram: `stbensonimoh`,
+      facebook: `stbensonimoh`,
+      youtube: `stbensonimoh`,
     },
   },
   plugins: [
+    `gatsby-plugin-postcss`,
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [`Roboto`, `Bebas Neue`, `Dosis`, `Bad Script`],
+        display: "swap",
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -50,12 +63,12 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        //trackingId: `ADD YOUR TRACKING ID HERE`,
-      },
-    },
+    // {
+    //   resolve: `gatsby-plugin-google-analytics`,
+    //   options: {
+    //     //trackingId: `ADD YOUR TRACKING ID HERE`,
+    //   },
+    // },
     `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-manifest`,
