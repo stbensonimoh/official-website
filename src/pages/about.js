@@ -9,7 +9,7 @@ const About = () => {
       <div className="lg:h-screen">
         <Header />
         <div className="flex items-center justify-center">
-          <img src="images/about-page-picture.png" className="ml-16 my-20" />
+          <img src="/images/about-page-picture.png" className="ml-16 my-20" />
           <div className="mx-16 w-2/5">
             <h1 className="lg:text-4xl xl:text-5xl font-roboto font-bold leading-tight">
               Experience Designer<span className="text-bensonpink">.</span>
