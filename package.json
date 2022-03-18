@@ -38,6 +38,8 @@
   "devDependencies": {
     "autoprefixer": "^10.4.2",
     "gatsby-plugin-postcss": "^5.5.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
     "tailwindcss": "^3.0.15"
@@ -56,10 +58,23 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "heroku-postbuild": "gatsby build",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css,eslintrc}\"",
+    "lint": "prettier --check .",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,md,css,eslintrc}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
