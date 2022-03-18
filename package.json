@@ -36,9 +36,15 @@
     "typeface-montserrat": "^1.1.13"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
     "autoprefixer": "^10.4.2",
+    "babel-jest": "^27.5.1",
+    "babel-preset-gatsby": "^2.10.0",
     "gatsby-plugin-postcss": "^5.5.0",
     "husky": "^7.0.4",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1",
     "lint-staged": "^12.3.7",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
@@ -63,7 +69,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "test": "jest --passWithNoTests",
     "prepare": "husky install"
   },
   "husky": {
