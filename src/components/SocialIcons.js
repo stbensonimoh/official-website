@@ -22,8 +22,6 @@ const SocialIcons = props => {
         href="https://twitter.com/stbensonimoh"
         target="_blank"
         rel="noreferrer"
-
-        
       >
         <FaTwitter />
       </a>
