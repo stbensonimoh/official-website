@@ -5,9 +5,9 @@ import { Link } from "gatsby"
 const Header = () => {
   return (
     <div className="header flex justify-between items-center my-4">
-        <Link to="/" className="logo ml-4">
-          <Logo className="w-24" />
-        </Link>
+      <Link to="/" className="logo ml-4">
+        <Logo className="w-24" />
+      </Link>
       <nav className="main-navigation uppercase text-base font-dosis mr-8">
         <Link to="/" activeClassName="active">
           Home

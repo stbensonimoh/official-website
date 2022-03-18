@@ -23,7 +23,9 @@ const NotFoundPage = ({ data, location }) => {
           Awww... Are you lost? It seems like the page you are looking for does
           not exist.
         </p>
-        <Button type="internal" to="/">Let's go home</Button>
+        <Button type="internal" to="/">
+          Let's go home
+        </Button>
       </div>
     </Layout>
   )

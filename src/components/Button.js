@@ -25,7 +25,7 @@ const Button = props => {
         <button
           {...props}
           className="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white"
-            >
+        >
           {" "}
           {props.children}
         </button>
