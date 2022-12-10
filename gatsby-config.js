@@ -42,7 +42,8 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
-        plugins: [{
+        plugins: [
+          {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 630,
@@ -83,26 +84,24 @@ module.exports = {
             }
           }
         `,
-        feeds: [{
-          serialize: ({
-            query: {
-              site,
-              allMarkdownRemark
-            }
-          }) => {
-            return allMarkdownRemark.nodes.map(node => {
-              return Object.assign({}, node.frontmatter, {
-                description: node.excerpt,
-                date: node.frontmatter.date,
-                url: site.siteMetadata.siteUrl + node.fields.slug,
-                guid: site.siteMetadata.siteUrl + node.fields.slug,
-                custom_elements: [{
-                  "content:encoded": node.html
-                }],
+        feeds: [
+          {
+            serialize: ({ query: { site, allMarkdownRemark } }) => {
+              return allMarkdownRemark.nodes.map(node => {
+                return Object.assign({}, node.frontmatter, {
+                  description: node.excerpt,
+                  date: node.frontmatter.date,
+                  url: site.siteMetadata.siteUrl + node.fields.slug,
+                  guid: site.siteMetadata.siteUrl + node.fields.slug,
+                  custom_elements: [
+                    {
+                      "content:encoded": node.html,
+                    },
+                  ],
+                })
               })
-            })
-          },
-          query: `
+            },
+            query: `
               {
                 allMarkdownRemark(
                   sort: { order: DESC, fields: [frontmatter___date] },
@@ -121,16 +120,17 @@ module.exports = {
                 }
               }
             `,
-          output: "/rss.xml",
-          title: "Your Site's RSS Feed",
-          // optional configuration to insert feed reference in pages:
-          // if `string` is used, it will be used to create RegExp and then test if pathname of
-          // current page satisfied this regular expression;
-          // if not provided or `undefined`, all pages will have feed reference inserted
-          match: "^/blog/",
-          // optional configuration to specify external rss feed, such as feedburner
-          link: "https://feeds.feedburner.com/gatsby/blog",
-        }, ],
+            output: "/rss.xml",
+            title: "Your Site's RSS Feed",
+            // optional configuration to insert feed reference in pages:
+            // if `string` is used, it will be used to create RegExp and then test if pathname of
+            // current page satisfied this regular expression;
+            // if not provided or `undefined`, all pages will have feed reference inserted
+            match: "^/blog/",
+            // optional configuration to specify external rss feed, such as feedburner
+            link: "https://feeds.feedburner.com/gatsby/blog",
+          },
+        ],
       },
     },
     {

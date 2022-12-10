@@ -36,8 +36,16 @@
     "typeface-montserrat": "^1.1.13"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
     "autoprefixer": "^10.4.2",
+    "babel-jest": "^27.5.1",
+    "babel-preset-gatsby": "^2.10.0",
     "gatsby-plugin-postcss": "^5.5.0",
+    "husky": "^7.0.4",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.5.1",
+    "lint-staged": "^12.3.7",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
     "tailwindcss": "^3.0.15"
@@ -56,10 +64,23 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "heroku-postbuild": "gatsby build",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css,eslintrc}\"",
+    "lint": "prettier --check .",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
+    "test": "jest --passWithNoTests",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,md,css,eslintrc}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

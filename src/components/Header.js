@@ -3,36 +3,70 @@ import Logo from "./Logo"
 import { Link } from "gatsby"
 
 const Header = () => {
+  const menuItems = [
+    {
+      name: "Home",
+      link: "/",
+      internal: true,
+    },
+    {
+      name: "About",
+      link: "/about",
+      internal: true,
+    },
+    // {
+    //   name: "Resume",
+    //   link: "/resume",
+    //   internal: true,
+    // },
+    // {
+    //   name: "Projects",
+    //   link: "/projects",
+    //   internal: true,
+    // },
+    // {
+    //   name: "Writing",
+    //   link: "/writing",
+    //   internal: true,
+    // },
+    // {
+    //   name: "Speaking",
+    //   link: "/speaking",
+    //   internal: true,
+    // },
+    {
+      name: "Blog",
+      link: "/blog",
+      internal: true,
+    },
+    {
+      name: "Contact",
+      link: "/contact",
+      internal: true,
+    },
+  ]
   return (
     <div className="header flex justify-between items-center my-4">
-        <Link to="/" className="logo ml-4">
-          <Logo className="w-24" />
-        </Link>
+      <Link to="/" className="logo ml-4">
+        <Logo className="w-24" />
+      </Link>
       <nav className="main-navigation uppercase text-base font-dosis mr-8">
-        <Link to="/" activeClassName="active">
-          Home
-        </Link>
-        <Link to="/about" activeClassName="active-menu-item">
-          About
-        </Link>
-        <Link to="/resume" activeClassName="active-menu-item">
-          Resume
-        </Link>
-        {/* <Link to="/projects" activeClassName="active-menu-item">
-          Projects
-        </Link>
-        <Link to="/writing" activeClassName="active-menu-item">
-          Writing
-        </Link>
-        <Link to="/speaking" activeClassName="active-menu-item">
-          Speaking
-        </Link> */}
-        <Link to="/blog" activeClassName="active-menu-item">
-          Blog
-        </Link>
-        <Link to="/contact" activeClassName="active-menu-item">
-          Contact
-        </Link>
+        {menuItems.map((item, index) =>
+          item.internal ? (
+            <Link
+              key={index}
+              to={item.link}
+              className="nav-item"
+              activeClassName="active-menu-item"
+            >
+              {item.name}
+            </Link>
+          ) : (
+            <a key={index} href={item.link} className="nav-item">
+              {item.name}
+            </a>
+          )
+        )}
       </nav>
     </div>
   )

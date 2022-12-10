@@ -38,8 +38,8 @@ const Blog = () => {
           </div>
           <img src="/images/blog-header-image.png" />
         </section>
-          </div>
-          <div className="second-section"></div>
+      </div>
+      <div className="second-section"></div>
     </div>
   )
 }

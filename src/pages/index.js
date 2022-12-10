@@ -9,9 +9,9 @@ const App = () => {
       <Header />
       <div className="flex items-center justify-center mt-12">
         <div className="flex flex-col mx-10 w-1/3">
-            <h3 className="text-4xl font-roboto">Hello!</h3>
-            <h4 className="text-2xl font-badscript">I am Benson...</h4>
-                  <h1 className="font-bebas my-4 lg:text-3xl xl:text-5xl">
+          <h3 className="text-4xl font-roboto">Hello!</h3>
+          <h4 className="text-2xl font-badscript">I am Benson...</h4>
+          <h1 className="font-bebas my-4 lg:text-3xl xl:text-5xl">
             Experience Designer (xD) <br />
             Software Engineer <br />
             Technology Advocate
@@ -22,8 +22,8 @@ const App = () => {
             methods. I build products with great User Experiences.
           </p>
           <p className="pt-4 text-bensongrey xl:w-3/5">
-            Highly skilled at design systems, automation, customer
-            experience, and developer experience engineering.
+            Highly skilled at design systems, automation, customer experience,
+            and developer experience engineering.
           </p>
         </div>
         <div className="image-section mx-10">
