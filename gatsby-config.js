@@ -16,6 +16,7 @@ module.exports = {
       youtube: `stbensonimoh`,
     },
   },
+  trailingSlash: `never`,
   plugins: [
     `gatsby-plugin-postcss`,
     {
@@ -101,25 +102,21 @@ module.exports = {
                 })
               })
             },
-            query: `
-              {
-                allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] },
-                ) {
-                  nodes {
-                    excerpt
-                    html
-                    fields { 
-                      slug 
-                    }
-                    frontmatter {
-                      title
-                      date
-                    }
-                  }
-                }
-              }
-            `,
+            query: `{
+  allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
+    nodes {
+      excerpt
+      html
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+        date
+      }
+    }
+  }
+}`,
             output: "/rss.xml",
             title: "Your Site's RSS Feed",
             // optional configuration to insert feed reference in pages:
