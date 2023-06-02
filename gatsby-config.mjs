@@ -1,8 +1,3 @@
-import { dirname } from "path"
-import { fileURLToPath } from "url"
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
 const config = {
   siteMetadata: {
     title: `Benson Imoh,ST`,
@@ -29,20 +24,6 @@ const config = {
       options: {
         fonts: [`Roboto`, `Bebas Neue`, `Dosis`, `Bad Script`],
         display: "swap",
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/assets`,
-        name: `assets`,
       },
     },
   ],

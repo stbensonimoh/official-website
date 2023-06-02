@@ -1,23 +1,23 @@
-import path from 'node:path'
-import { createFilePath } from 'gatsby-source-filesystem'
+// import path from 'node:path'
+// import { createFilePath } from 'gatsby-source-filesystem'
 
-export async function createPages({ graphql, actions, reporter }) {
-  const { createPage } = actions
-}
+// export async function createPages({ graphql, actions, reporter }) {
+//   const { createPage } = actions
+// }
 
-export function onCreateNode({ node, actions, getNode }) {
-  const { createNodeField } = actions
+// export function onCreateNode({ node, actions, getNode }) {
+//   const { createNodeField } = actions
 
-  if (node.internal.type === `MarkdownRemark`) {
-    const value = createFilePath({ node, getNode })
+//   if (node.internal.type === `MarkdownRemark`) {
+//     const value = createFilePath({ node, getNode })
 
-    createNodeField({
-      name: `slug`,
-      node,
-      value,
-    })
-  }
-}
+//     createNodeField({
+//       name: `slug`,
+//       node,
+//       value,
+//     })
+//   }
+// }
 
 export function createSchemaCustomization({ actions }) {
   const { createTypes } = actions
