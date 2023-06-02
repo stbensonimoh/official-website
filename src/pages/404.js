@@ -3,14 +3,12 @@ import { graphql } from "gatsby"
 import Button from "../components/Button"
 
 import Layout from "../components/layout"
-import SEO from "../components/seo"
 
 const NotFoundPage = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO title="404: Not Found" />
       <div className="flex flex-col items-center justify-center font-roboto">
         <img
           src="/images/404.png"
