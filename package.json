@@ -7,6 +7,9 @@
   "bugs": {
     "url": "https://stbensonimoh.com"
   },
+  "engines": {
+    "node": "18.x"
+  },
   "dependencies": {
     "acorn": "^8.8.1",
     "babel-eslint": "^10.1.0",
