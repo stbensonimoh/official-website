@@ -8,8 +8,6 @@
     "url": "https://stbensonimoh.com"
   },
   "dependencies": {
-    "acorn": "^8.8.1",
-    "babel-eslint": "^10.1.0",
     "gatsby": "^5.2.0",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-feed": "^5.2.0",
