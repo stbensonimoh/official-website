@@ -1,11 +1,11 @@
-const path = require(`path`)
-const { createFilePath } = require(`gatsby-source-filesystem`)
+import path from 'node:path'
+import { createFilePath } from 'gatsby-source-filesystem'
 
-exports.createPages = async ({ graphql, actions, reporter }) => {
+export async function createPages({ graphql, actions, reporter }) {
   const { createPage } = actions
 }
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
+export function onCreateNode({ node, actions, getNode }) {
   const { createNodeField } = actions
 
   if (node.internal.type === `MarkdownRemark`) {
@@ -19,7 +19,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 }
 
-exports.createSchemaCustomization = ({ actions }) => {
+export function createSchemaCustomization({ actions }) {
   const { createTypes } = actions
 
   // Explicitly define the siteMetadata {} object

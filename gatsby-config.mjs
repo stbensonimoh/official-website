@@ -1,4 +1,9 @@
-module.exports = {
+import { dirname } from "path"
+import { fileURLToPath } from "url"
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
+const config = {
   siteMetadata: {
     title: `Benson Imoh,ST`,
     author: {
@@ -42,3 +47,5 @@ module.exports = {
     },
   ],
 }
+
+export default config
