@@ -45,14 +45,18 @@ const About = () => {
             between people and brands, and the ideas, emotions, and memories
             that these moments create. In the process, I create culturally
             relevant solutions, with a focus on the quality of user experience
-            and I automate the boring stuff.
+            and I automates the boring stuff.
           </p>
 
           <p className="my-4">
-            I am currently the Consultant Chief Technology Officer of the Nyuma
-            Harrison Foundation (NHF) - a Zambian Not-for-profit focused on
-            making healthcare accessible to children in underserved communities
-            in Zambia.
+            I am currently the Lead Developer of 350.org - an international
+            environmental organization that focuses on addressing climate change
+            and promoting sustainable solutions by engaging and empowering
+            individuals, communities, and decision-makers to take meaningful
+            action on climate change. I am responsible for leading a team of
+            developers in the development and maintenance of the organization's
+            engineering infrastructure to achieve its mission of building a
+            global movement to solve the climate crisis.
           </p>
 
           <p>
@@ -62,7 +66,10 @@ const About = () => {
             time developing innovative products, managing the technical
             strategy, maximizing efficiency, and coordinating the various teams,
             operations, and individuals - in a stint that lasted until November
-            2020.
+            2020. Thereafter I worked as the Consultant Chief Technology Officer
+            of the Nyuma Harrison Foundation (NHF) - a Zambian Not-for-profit
+            focused on making healthcare accessible to children in underserved
+            communities in Zambia.
           </p>
         </div>
         <div className="mx-10">
@@ -95,16 +102,13 @@ const About = () => {
 
           <p className="my-4">
             I have stayed true to my creative inclinations by contributing to
-            Open Source projects and always working on personal projects. I
-            built a drug bot that reminds people to take their medications in
-            friendly and customized SMS and email messages. I also support
-            causes that bring access to justice and social good for communities
-            by volunteering my time and skills at fledgling and established
-            not-for-profits like Hope Behind Bars Africa - where I built the
-            "Connect Lawyer" app to help indigent prison inmates find legal
-            representation by connecting them with experienced and qualified pro
-            bono lawyers - and TGIU Africa where they use technology to
-            efficiently power the free distribution of sanitary towels.
+            Open Source projects and working on personal projects. I also
+            supports causes that bring access to justice and social good for
+            communities by volunteering my time and skills at fledgling and
+            established not-for-profits like Hope Behind Bars Africa - where I
+            built the "Connect Lawyer" app to help indigent prison inmates find
+            legal representation by connecting them with experienced and
+            qualified pro bono lawyers.
           </p>
           <p>
             I am a realist with a leaning towards optimism. I am a big believer
