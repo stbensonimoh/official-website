@@ -25,8 +25,8 @@ const About = () => {
               do old things while saving time and resources at the same time.
             </p>
             <p className="text-bensongrey">
-              Highly skilled at design systems, automation, developer experience
-              (DX), and customer experience (CX) engineering.
+              Highly skilled in Experience Design(xD), Customer Experience(Cx),
+              automation, and Developer Experience(Dx) Engineering.
             </p>
           </div>
         </div>

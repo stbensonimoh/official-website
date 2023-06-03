@@ -19,11 +19,11 @@ const App = () => {
           <p className="xl:w-4/5">
             I'm passionate about blending technology and arts, to creatively and
             efficiently solve problems, using new and experimental ideas and
-            methods. I build products with great User Experiences.
+            methods.
           </p>
           <p className="pt-4 text-bensongrey xl:w-3/5">
-            Highly skilled at design systems, automation, customer experience,
-            and developer experience engineering.
+            Highly skilled in Experience Design(xD), Customer Experience(Cx),
+            automation, and Developer Experience(Dx) Engineering.
           </p>
         </div>
         <div className="image-section mx-10">
