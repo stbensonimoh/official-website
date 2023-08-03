@@ -14,12 +14,12 @@ const App = () => {
           <h1 className="font-bebas my-4 lg:text-3xl xl:text-5xl">
             Experience Designer (xD) <br />
             Software Engineer <br />
-            Technology Advocate
+            OSS Advocate
           </h1>
           <p className="xl:w-4/5">
             I'm passionate about blending technology and arts, to creatively and
             efficiently solve problems, using new and experimental ideas and
-            methods.
+            methods. I'm enthusiastic about OSS.
           </p>
           <p className="pt-4 text-bensongrey xl:w-3/5">
             Highly skilled in Experience Design(xD), Customer Experience(Cx),

@@ -16,13 +16,14 @@ const About = () => {
               <br />
               Software Engineer<span className="text-bensonpink">.</span>
               <br />
-              Technology Advocate<span className="text-bensonpink">.</span>
+              OSS Advocate<span className="text-bensonpink">.</span>
             </h1>
             <p className="my-4">
               I always come up with interesting ways to blend engineering and
               design in efficiently solving everyday problems for individuals
               and businesses that I work with; seeking smarter and newer ways to
               do old things while saving time and resources at the same time.
+              I'm enthusiastic about OSS.
             </p>
             <p className="text-bensongrey">
               Highly skilled in Experience Design(xD), Customer Experience(Cx),
@@ -101,14 +102,15 @@ const About = () => {
           </ul>
 
           <p className="my-4">
-            I have stayed true to my creative inclinations by contributing to
-            Open Source projects and working on personal projects. I also
-            supports causes that bring access to justice and social good for
-            communities by volunteering my time and skills at fledgling and
-            established not-for-profits like Hope Behind Bars Africa - where I
-            built the "Connect Lawyer" app to help indigent prison inmates find
-            legal representation by connecting them with experienced and
-            qualified pro bono lawyers.
+            I have stayed true to my creative inclinations by actively
+            contributing to Open Source projects - something I'm passionate
+            about - and working on personal projects. I also supports causes
+            that bring access to justice and social good for communities by
+            volunteering my time and skills at fledgling and established
+            not-for-profits like Hope Behind Bars Africa - where I built the
+            "Connect Lawyer" app to help indigent prison inmates find legal
+            representation by connecting them with experienced and qualified pro
+            bono lawyers.
           </p>
           <p>
             I am a realist with a leaning towards optimism. I am a big believer
@@ -143,7 +145,8 @@ const About = () => {
             I write too, sometimes
           </h1>
           <p className="text-2xl my-10 text-bensongrey w-11/12">
-            About technology, design, engineering, productivity and business
+            About OSS, technology, design, engineering, productivity and
+            business
           </p>
           <Button type="internal" to="/projects">
             Read my Blog &nbsp;
