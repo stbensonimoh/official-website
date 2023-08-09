@@ -3,9 +3,9 @@ const config = {
     title: `Benson Imoh,ST`,
     author: {
       name: `Benson Imoh,ST`,
-      summary: `Experience Designer(xD) & Software Engineer. Passionate about blending engineering and design, to creatively and efficiently solve problems.`,
+      summary: `Experience Designer(xD) & Software Engineer. Passionate about blending engineering and design, to creatively and efficiently solve problems. OSS Enthusiast.`,
     },
-    description: `Experience Designer(xD) & Software Engineer.`,
+    description: `Experience Designer(xD) & Software Engineer. OSS Enthusiast`,
     siteUrl: `https://stbensonimoh.com/`,
     social: {
       twitter: `stbensonimoh`,
