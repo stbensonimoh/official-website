@@ -1,4 +1,5 @@
 import slugify from "@sindresorhus/slugify"
+import readingTime from "reading-time";
 
 /**
  * Adds a `slug` field to the `Mdx` nodes.
@@ -23,6 +24,13 @@ export function onCreateNode({ node, actions }) {
       name: `slug`,
       value: slug,
     });
+
+    // Create the `readingTime` field for the node
+    createNodeField({
+      node,
+      name: `timeToRead`,
+      value: readingTime(node.body),
+    })
   }
 };
 
