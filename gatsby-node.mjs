@@ -1,23 +1,30 @@
-// import path from 'node:path'
-// import { createFilePath } from 'gatsby-source-filesystem'
+import slugify from "@sindresorhus/slugify"
 
-// export async function createPages({ graphql, actions, reporter }) {
-//   const { createPage } = actions
-// }
+/**
+ * Adds a `slug` field to the `Mdx` nodes.
+ * The `slug` field is generated from the `title` field of the node.
+ * The `slug` field is used to generate a URL for the node.
+ *
+ * @param {Object} params - The parameters object.
+ * @param {Object} params.node - The node being created.
+ * @param {Object} params.actions - The actions object from Gatsby Node API.
+ */
+export function onCreateNode({ node, actions }) {
+  const { createNodeField } = actions;
 
-// export function onCreateNode({ node, actions, getNode }) {
-//   const { createNodeField } = actions
+  // Check if the node is of type `Mdx`
+  if (node.internal.type === `Mdx`) {
+    // Generate the `slug` value from the `title` field using the `slugify` function
+    const slug = `/${slugify(node.frontmatter.title)}`;
 
-//   if (node.internal.type === `MarkdownRemark`) {
-//     const value = createFilePath({ node, getNode })
-
-//     createNodeField({
-//       name: `slug`,
-//       node,
-//       value,
-//     })
-//   }
-// }
+    // Create the `slug` field for the node
+    createNodeField({
+      node,
+      name: `slug`,
+      value: slug,
+    });
+  }
+};
 
 export function createSchemaCustomization({ actions }) {
   const { createTypes } = actions

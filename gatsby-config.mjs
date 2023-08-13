@@ -1,3 +1,10 @@
+import path from "node:path"
+import { fileURLToPath } from "node:url"
+
+const __filename = fileURLToPath(import.meta.url)
+
+const __dirname = path.dirname(__filename)
+
 const config = {
   siteMetadata: {
     title: `Benson Imoh,ST`,
@@ -24,6 +31,21 @@ const config = {
       options: {
         fonts: [`Roboto`, `Bebas Neue`, `Dosis`, `Bad Script`],
         display: "swap",
+      },
+    },
+    `gatsby-plugin-mdx`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `pages`,
+        path: `${__dirname}/src/pages`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blog`,
+        path: `${__dirname}/content/blog`,
       },
     },
   ],
