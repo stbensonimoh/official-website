@@ -1,5 +1,5 @@
 import slugify from "@sindresorhus/slugify"
-import readingTime from "reading-time";
+import readingTime from "reading-time"
 
 /**
  * Adds a `slug` field to the `Mdx` nodes.
@@ -11,19 +11,19 @@ import readingTime from "reading-time";
  * @param {Object} params.actions - The actions object from Gatsby Node API.
  */
 export function onCreateNode({ node, actions }) {
-  const { createNodeField } = actions;
+  const { createNodeField } = actions
 
   // Check if the node is of type `Mdx`
   if (node.internal.type === `Mdx`) {
     // Generate the `slug` value from the `title` field using the `slugify` function
-    const slug = `/${slugify(node.frontmatter.title)}`;
+    const slug = `/${slugify(node.frontmatter.title)}`
 
     // Create the `slug` field for the node
     createNodeField({
       node,
       name: `slug`,
       value: slug,
-    });
+    })
 
     // Create the `readingTime` field for the node
     createNodeField({
@@ -32,7 +32,51 @@ export function onCreateNode({ node, actions }) {
       value: readingTime(node.body),
     })
   }
-};
+}
+
+/**
+ * Creates pages based on MDX data.
+ *
+ * @param {Object} options - The options object.
+ * @param {Object} options.graphql - The graphql function.
+ * @param {Object} options.actions - The actions object.
+ */
+export const createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions
+
+  // Query MDX data
+  const result = await graphql(`
+    query {
+      allMdx {
+        nodes {
+          id
+          fields {
+            slug
+          }
+          internal {
+            contentFilePath
+          }
+        }
+      }
+    }
+  `)
+
+  // Check for errors in the query result
+  if (result.errors) {
+    reporter.panicOnBuild("Error loading MDX result", result.errors)
+  }
+
+  const posts = result.data.allMdx.nodes
+
+  // Create pages for each MDX node
+  posts.forEach(node => {
+    createPage({
+      path: node.fields.slug, // Set the page path to the slug
+      component: node.internal.contentFilePath, // Specify the component for the page
+      context: { id: node.id }, // Pass additional data to the page
+    })
+  })
+}
 
 export function createSchemaCustomization({ actions }) {
   const { createTypes } = actions
