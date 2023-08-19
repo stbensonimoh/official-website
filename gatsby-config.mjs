@@ -11,6 +11,7 @@ const config = {
     author: {
       name: `Benson Imoh,ST`,
       summary: `Experience Designer(xD) & Software Engineer. Passionate about blending engineering and design, to creatively and efficiently solve problems. OSS Enthusiast.`,
+      image: `https://res.cloudinary.com/stbensonimoh/image/upload/v1692398633/sq_xmnmhb.jpg`,
     },
     description: `Experience Designer(xD) & Software Engineer. OSS Enthusiast`,
     siteUrl: `https://stbensonimoh.com/`,
