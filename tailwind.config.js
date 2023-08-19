@@ -2,7 +2,11 @@
 import colors from "tailwindcss/colors"
 export default {
   purge: false,
-  content: ["./src/pages/**/*.{html,js}", "./src/components/**/*.{html,js}"],
+  content: [
+    "./src/pages/**/*.{html,js}",
+    "./src/components/**/*.{html,js}",
+    "./src/templates/**/*.{html,js,jsx}",
+  ],
   darkMode: "media", // or 'media' or 'class'
   theme: {
     extend: {
@@ -26,5 +30,5 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 }
