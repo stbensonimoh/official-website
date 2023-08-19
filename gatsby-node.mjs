@@ -1,5 +1,11 @@
+import path from "node:path"
+import { fileURLToPath } from "node:url"
 import slugify from "@sindresorhus/slugify"
 import readingTime from "reading-time"
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const postTemplate = `${__dirname}/src/templates/post.jsx`
 
 /**
  * Adds a `slug` field to the `Mdx` nodes.
@@ -72,7 +78,7 @@ export const createPages = async ({ graphql, actions }) => {
   posts.forEach(node => {
     createPage({
       path: node.fields.slug, // Set the page path to the slug
-      component: node.internal.contentFilePath, // Specify the component for the page
+      component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`, // Specify the component for the page
       context: { id: node.id }, // Pass additional data to the page
     })
   })
@@ -97,6 +103,7 @@ export function createSchemaCustomization({ actions }) {
     type Author {
       name: String
       summary: String
+      image: String
     }
 
     type Social {
@@ -108,10 +115,20 @@ export function createSchemaCustomization({ actions }) {
       fields: Fields
     }
 
+    type MdxFrontmatter {
+      title: String
+      date: Date @dateformat
+      author: String
+      featured_image: String
+      author_image: String
+    }
+
     type Frontmatter {
       title: String
-      description: String
       date: Date @dateformat
+      author: String
+      featured_image: String
+      author_image: String
     }
 
     type Fields {
