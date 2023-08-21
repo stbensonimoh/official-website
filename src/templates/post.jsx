@@ -51,6 +51,9 @@ export default function PageTemplate({ data, children }) {
               {children}
             </MDXProvider>
           </article>
+          <p className="text-bensonpink text-lg mt-8">
+            Tags: {data.mdx.frontmatter?.tags.map(tag => `#${tag} `)}
+          </p>
         </div>
       </main>
     </div>
@@ -74,6 +77,7 @@ export const query = graphql`
         featured_image
         author_image
         author
+        tags
       }
       fields {
         timeToRead {
