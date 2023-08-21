@@ -148,7 +148,7 @@ const About = () => {
             About OSS, technology, design, engineering, productivity and
             business
           </p>
-          <Button type="internal" to="/projects">
+          <Button type="internal" to="/blog">
             Read my Blog &nbsp;
             <MdArrowForward />
           </Button>
