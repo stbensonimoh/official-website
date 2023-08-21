@@ -1,8 +1,32 @@
 import React from "react"
+import { graphql } from "gatsby"
 import Button from "../components/Button"
 import Header from "../components/Header"
+import BlogPostCard from "../components/BlogPostCard"
 
-const Blog = () => {
+const Blog = ({ data }) => {
+  // Extracting posts from data
+  const posts = data.allMdx.nodes
+
+  // Extracting featured posts
+  const getFeaturedPosts = posts => {
+    const featuredPosts = posts.filter(post =>
+      post.frontmatter.tags.includes("featured")
+    )
+    featuredPosts.sort(
+      (a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
+    )
+    return featuredPosts.slice(0, 3)
+  }
+
+  // Extracting latest posts
+  const getLatestPosts = posts => {
+    const sortedPosts = [...posts].sort(
+      (a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
+    )
+    return sortedPosts.slice(0, 3)
+  }
+
   return (
     <div className="flex flex-col">
       <div className="first-section flex flex-col h-screen">
@@ -39,9 +63,63 @@ const Blog = () => {
           <img src="/images/blog-header-image.png" />
         </section>
       </div>
-      <div className="second-section"></div>
+      <div className="second-section bg-slate-100 py-12 flex flex-col items-center">
+        <div className="flex flex-col items-start w-4/5">
+          <h2 className="text-3xl font-roboto font-bold text-bensonblack my-8">
+            Latest Posts
+          </h2>
+          <div className="posts w-full grid gap-8 grid-cols-3">
+            {getLatestPosts(posts).map(post => (
+              <BlogPostCard key={post.id} post={post} />
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col items-start w-4/5">
+          <h2 className="text-3xl font-roboto font-bold text-bensonblack my-8">
+            Featured Posts
+          </h2>
+          <div className="posts w-full grid gap-8 grid-cols-3">
+            {getFeaturedPosts(posts).map(post => (
+              <BlogPostCard key={post.id} post={post} />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
 
 export default Blog
+
+export const pageQuery = graphql`
+  query BlogPageQuery {
+    site {
+      siteMetadata {
+        author {
+          name
+          image
+        }
+      }
+    }
+    allMdx {
+      nodes {
+        id
+        excerpt
+        frontmatter {
+          title
+          date
+          featured_image
+          author_image
+          author
+          tags
+        }
+        fields {
+          slug
+          timeToRead {
+            text
+          }
+        }
+      }
+    }
+  }
+`

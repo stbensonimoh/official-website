@@ -80,3 +80,7 @@
 .column {
   @apply flex flex-col;
 }
+
+article {
+  @apply font-slab text-lg;
+}
