@@ -121,6 +121,7 @@ export function createSchemaCustomization({ actions }) {
       author: String
       featured_image: String
       author_image: String
+      tags: [String]
     }
 
     type Frontmatter {
@@ -129,6 +130,7 @@ export function createSchemaCustomization({ actions }) {
       author: String
       featured_image: String
       author_image: String
+      tags: [String]
     }
 
     type Fields {
