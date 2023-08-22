@@ -2,6 +2,7 @@ import React from "react"
 import Header from "../components/Header"
 import Copyright from "../components/Copyright"
 import SocialIcons from "../components/SocialIcons"
+import { HeadSeo } from "gatsby-plugin-head-seo/src"
 
 const App = () => {
   return (
@@ -39,3 +40,7 @@ const App = () => {
 }
 
 export default App
+
+export const Head = ({ location }) => {
+  return <HeadSeo location={location} />
+}

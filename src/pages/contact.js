@@ -4,6 +4,7 @@ import SocialIcons from "../components/SocialIcons"
 import Copyright from "../components/Copyright"
 import Button from "../components/Button"
 import { FiSend } from "react-icons/fi"
+import { HeadSeo } from "gatsby-plugin-head-seo/src"
 
 const Contact = () => {
   return (
@@ -60,3 +61,7 @@ const Contact = () => {
 }
 
 export default Contact
+
+export const Head = ({ location }) => {
+  return <HeadSeo location={location} />
+}

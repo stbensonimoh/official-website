@@ -2,6 +2,7 @@ import React from "react"
 import Header from "../components/Header"
 import Button from "../components/Button"
 import { MdArrowForward } from "react-icons/md"
+import { HeadSeo } from "gatsby-plugin-head-seo/src"
 
 const About = () => {
   return (
@@ -159,3 +160,7 @@ const About = () => {
 }
 
 export default About
+
+export const Head = ({ location }) => {
+  return <HeadSeo location={location} />
+}

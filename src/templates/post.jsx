@@ -4,6 +4,7 @@ import { graphql } from "gatsby"
 import { MDXProvider } from "@mdx-js/react"
 import { Link } from "gatsby"
 import AuthorBlob from "../components/AuthorBlob"
+import { HeadSeo } from "gatsby-plugin-head-seo/src"
 
 const shortcodes = { Link }
 
@@ -87,3 +88,13 @@ export const query = graphql`
     }
   }
 `
+
+export const Head = ({ location, data }) => {
+  return (
+    <HeadSeo
+      location={location}
+      title={data.mdx.frontmatter.title}
+      description={data.mdx.excerpt}
+    />
+  )
+}

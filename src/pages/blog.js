@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 import Button from "../components/Button"
 import Header from "../components/Header"
 import BlogPostCard from "../components/BlogPostCard"
+import { HeadSeo } from "gatsby-plugin-head-seo/src"
 
 const Blog = ({ data }) => {
   // Extracting posts from data
@@ -123,3 +124,12 @@ export const pageQuery = graphql`
     }
   }
 `
+export const Head = ({ location }) => {
+  return (
+    <HeadSeo
+      location={location}
+      title={`Benson's Blog`}
+      description="I write about technology, design, engineering, productivity hacks, and life generally."
+    />
+  )
+}
