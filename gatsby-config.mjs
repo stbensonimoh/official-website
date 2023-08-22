@@ -26,6 +26,7 @@ const config = {
   },
   trailingSlash: `never`,
   plugins: [
+    `gatsby-plugin-head-seo`,
     `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-plugin-google-fonts`,
