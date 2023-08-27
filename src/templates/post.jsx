@@ -72,6 +72,7 @@ export const query = graphql`
       }
     }
     mdx(id: { eq: $id }) {
+      excerpt
       frontmatter {
         title
         date
