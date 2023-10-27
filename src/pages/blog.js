@@ -1,11 +1,16 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { graphql } from "gatsby"
 import Button from "../components/Button"
 import Header from "../components/Header"
 import BlogPostCard from "../components/BlogPostCard"
 import { HeadSeo } from "gatsby-plugin-head-seo/src"
+import Swal from "sweetalert2"
 
 const Blog = ({ data }) => {
+  const [subscriberName, setSubscriberName] = useState("")
+  const [subscriberEmail, setSubscriberEmail] = useState("")
+  const [userIsSubscribed, setUserIsSubscribed] = useState(false)
+
   // Extracting posts from data
   const posts = data.allMdx.nodes
 
@@ -26,6 +31,51 @@ const Blog = ({ data }) => {
       (a, b) => new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
     )
     return sortedPosts.slice(0, 3)
+  }
+
+  const handleSubscriberEmail = e => setSubscriberEmail(e.target.value)
+  const handleSubscriberName = e => setSubscriberName(e.target.value)
+
+  const handleSubscription = () => {
+    if (userIsSubscribed) {
+      Swal.fire({
+        title: "Already Subscribed!",
+        text: "You have already subscribed!",
+        icon: "warning",
+        confirmButtonText: "OK",
+      })
+      return
+    }
+
+    const postData = {
+      name: subscriberName,
+      email: subscriberEmail,
+    }
+
+    fetch(`/api/subscribe`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(postData),
+    })
+      .then(response => {
+        if (response.status === 201) {
+          Swal.fire({
+            title: "Success!",
+            text: "You have been successfully subscribed! Check your email for confirmation.",
+            icon: "success",
+            confirmButtonText: "OK",
+          })
+          setUserIsSubscribed(true)
+          setSubscriberEmail("")
+          setSubscriberName("")
+        }
+      })
+      .catch(err => {
+        // Handle errors and update the error state
+        console.log(err)
+      })
   }
 
   return (
@@ -50,15 +100,19 @@ const Blog = ({ data }) => {
             <div className="flex">
               <input
                 type="text"
+                value={subscriberName}
+                onChange={handleSubscriberName}
                 placeholder="Your name"
                 className="bg-transparent border text-roboto px-4 mr-4 outline-none"
               />
               <input
                 type="email"
+                value={subscriberEmail}
+                onChange={handleSubscriberEmail}
                 placeholder="Your email"
                 className="bg-transparent border text-roboto px-4 mr-4 outline-none"
               />
-              <Button>Subscribe</Button>
+              <Button onClick={handleSubscription}>Subscribe</Button>
             </div>
           </div>
           <img src="/images/blog-header-image.png" />
