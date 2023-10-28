@@ -36,8 +36,8 @@ const Blog = ({ data }) => {
   const handleSubscriberEmail = e => setSubscriberEmail(e.target.value)
   const handleSubscriberName = e => setSubscriberName(e.target.value)
 
-  const handleSubscription = () => {
-    if (userIsSubscribed) {
+  const handleSubscription = async () => {
+    if (userIsSubscribed === true) {
       Swal.fire({
         title: "Already Subscribed!",
         text: "You have already subscribed!",
@@ -47,35 +47,54 @@ const Blog = ({ data }) => {
       return
     }
 
-    const postData = {
-      name: subscriberName,
-      email: subscriberEmail,
-    }
-
-    fetch(`/api/subscribe`, {
+    const response = await fetch(`/api/fetchsubscriber`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(postData),
-    })
-      .then(response => {
-        if (response.status === 201) {
-          Swal.fire({
-            title: "Success!",
-            text: "You have been successfully subscribed! Check your email for confirmation.",
-            icon: "success",
-            confirmButtonText: "OK",
-          })
-          setUserIsSubscribed(true)
-          setSubscriberEmail("")
-          setSubscriberName("")
+      body: JSON.stringify({ email: subscriberEmail }),
+    }).then(response => {
+      if (response.status === 200) {
+        setUserIsSubscribed(true)
+        Swal.fire({
+          title: "Already Subscribed!",
+          text: "You have already subscribed!",
+          icon: "warning",
+          confirmButtonText: "OK",
+        })
+        return
+      } else {
+        const postData = {
+          name: subscriberName,
+          email: subscriberEmail,
         }
-      })
-      .catch(err => {
-        // Handle errors and update the error state
-        console.log(err)
-      })
+
+        fetch(`/api/subscribe`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(postData),
+        })
+          .then(response => {
+            if (response.status === 201) {
+              Swal.fire({
+                title: "Success!",
+                text: "You have been successfully subscribed! Check your email for confirmation.",
+                icon: "success",
+                confirmButtonText: "OK",
+              })
+              setUserIsSubscribed(true)
+              setSubscriberEmail("")
+              setSubscriberName("")
+            }
+          })
+          .catch(err => {
+            // Handle errors and update the error state
+            console.log(err)
+          })
+      }
+    })
   }
 
   return (
