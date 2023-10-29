@@ -1,12 +1,74 @@
-import React from "react"
+import React, { useState } from "react"
 import Header from "../components/Header"
 import SocialIcons from "../components/SocialIcons"
 import Copyright from "../components/Copyright"
 import Button from "../components/Button"
 import { FiSend } from "react-icons/fi"
 import { HeadSeo } from "gatsby-plugin-head-seo/src"
+import Swal from "sweetalert2"
 
 const Contact = () => {
+  const [contactName, setContactName] = useState("")
+  const [contactEmail, setContactEmail] = useState("")
+  const [contactMessage, setContactMessage] = useState("")
+
+  const handleContactName = e => setContactName(e.target.value)
+  const handleContactEmail = e => setContactEmail(e.target.value)
+  const handleContactMessage = e => setContactMessage(e.target.value)
+
+  const handleSendEmail = async e => {
+    e.preventDefault()
+    if (!contactName || !contactEmail || !contactMessage) {
+      Swal.fire({
+        title: "Error!",
+        text: "All fields are required!",
+        icon: "error",
+        confirmButtonText: "OK",
+      })
+      return
+    }
+
+    try {
+      const response = await fetch(`/api/sendemail`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: contactName,
+          email: contactEmail,
+          message: contactMessage,
+        }),
+      })
+
+      if (response.status === 200) {
+        Swal.fire({
+          title: "Success!",
+          text: "Message sent successfully!",
+          icon: "success",
+          confirmButtonText: "OK",
+        })
+        setContactName("")
+        setContactEmail("")
+        setContactMessage("")
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to send the message. Please try again.",
+          icon: "error",
+          confirmButtonText: "OK",
+        })
+      }
+    } catch (error) {
+      console.error("Error sending message:", error)
+      Swal.fire({
+        title: "Error!",
+        text: "Failed to send the message. Please try again.",
+        icon: "error",
+        confirmButtonText: "OK",
+      })
+    }
+  }
   return (
     <div className="h-screen">
       <Header />
@@ -22,13 +84,19 @@ const Contact = () => {
           <div className="row flex w-full">
             <div className="column w-1/2 px-12">
               <label htmlFor="name">Your Name</label>
-              <input type="text" placeholder="John Doe" id="name" />
+              <input
+                type="text"
+                placeholder="John Doe"
+                id="name"
+                onChange={handleContactName}
+              />
             </div>
             <div className="column w-1/2 px-12">
               <label htmlFor="email">Your Email</label>
               <input
                 type="email"
                 placeholder="johndoe@example.com"
+                onChange={handleContactEmail}
                 id="email"
               />
             </div>
@@ -38,13 +106,14 @@ const Contact = () => {
               <label htmlFor="message">Your message</label>
               <textarea
                 rows="2"
+                onChange={handleContactMessage}
                 placeholder="Hi, I think we need a design system for our products at Company X. How soon can you hop on to discuss this?"
                 id="message"
               ></textarea>
             </div>
           </div>
           <div>
-            <Button>
+            <Button onClick={handleSendEmail}>
               Send &nbsp; <FiSend />
             </Button>
           </div>
