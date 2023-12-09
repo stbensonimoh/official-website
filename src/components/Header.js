@@ -76,11 +76,13 @@ const Header = () => {
           )}
         </nav>
       </div>
-
+      <div className="flex justify-center absolute top-8 w-full items-center md:hidden">
+        <Logo className="w-24" />
+      </div>
       <div
         className={`${
           menuOpen ? "-translate-y-0" : "-translate-y-full"
-        } absolute w-full flex flex-col items-center h-screen bg-white z-[20] md:hidden transition transform ease-in-out duration-700`}
+        } absolute w-full flex flex-col items-center h-screen bg-white z-[20] py-8 md:hidden transition transform ease-in-out duration-700`}
       >
         <Link to="/" className="logo">
           <Logo className="w-24" />
@@ -106,7 +108,7 @@ const Header = () => {
       </div>
 
       <button
-        className="absolute top-8 right-8 text-3xl z-[21] md:hidden"
+        className="fixed top-8 right-8 text-3xl z-[21] md:hidden"
         onClick={toggleMenu}
       >
         {menuOpen ? <FiX /> : <FiMenu />}
