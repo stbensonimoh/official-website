@@ -42,7 +42,7 @@ const App = () => {
           SOFTWARE ENGINEER
         </div>
         <div className="bg-black text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4">
-          TECHNOLOGY ADVOCATE
+          OSS ADVOCATE
         </div>
       </div>
       <SocialIcons className="absolute bottom-10 social-icons hidden md:flex flex-col w-8 ml-4 text-center text-bensongrey" />
