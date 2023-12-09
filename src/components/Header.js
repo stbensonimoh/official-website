@@ -81,8 +81,8 @@ const Header = () => {
       </div>
       <div
         className={`${
-          menuOpen ? "-translate-y-0" : "-translate-y-full"
-        } absolute w-full flex flex-col items-center h-screen bg-white z-[20] py-8 md:hidden transition transform ease-in-out duration-700`}
+          menuOpen ? "-translate-y-0 fixed" : "-translate-y-full absolute"
+        } w-full flex flex-col items-center h-screen bg-white z-[20] py-8 md:hidden transition transform ease-in-out duration-700`}
       >
         <Link to="/" className="logo">
           <Logo className="w-24" />
