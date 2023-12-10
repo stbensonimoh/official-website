@@ -99,60 +99,63 @@ const Blog = ({ data }) => {
 
   return (
     <div className="flex flex-col">
-      <div className="first-section flex flex-col h-screen">
+      <div className="first-section flex flex-col md:h-screen">
         <Header />
         <section
-          className="flex justify-center items-center flex-grow space-x-12"
+          className="flex flex-col md:flex-row justify-center items-center flex-grow md:space-x-12 pt-40 md:pt-0"
           style={{ backgroundColor: "#f9f9f9" }}
         >
-          <div>
+          <div className="text-center md:text-left flex flex-col items-center md:items-start pb-20">
             <h2 className="text-lg font-dosis uppercase text-bensonpink">
               Welcome to my blog
             </h2>
-            <h1 className="text-5xl font-roboto font-bold w-2/4 my-6">
+            <h1 className="text-5xl font-roboto font-bold md:w-2/4 my-6 mx-10 md:mx-0">
               We all owe death a life.
             </h1>
-            <p className="font-roboto w-2/4 mb-4">
+            <p className="font-roboto md:w-2/4 mb-12 md:mb-4 mx-10 md:mx-0">
               I write about technology, design, engineering, productivity hacks,
               and life generally...
             </p>
-            <div className="flex">
+            <div className="flex flex-col md:flex-row items-center md:items-stretch">
               <input
                 type="text"
                 value={subscriberName}
                 onChange={handleSubscriberName}
                 placeholder="Your name"
-                className="bg-transparent border text-roboto px-4 mr-4 outline-none"
+                className="bg-transparent border text-roboto py-3 px-4 mr-4 outline-none mb-4 md:mb-0 w-full"
               />
               <input
                 type="email"
                 value={subscriberEmail}
                 onChange={handleSubscriberEmail}
                 placeholder="Your email"
-                className="bg-transparent border text-roboto px-4 mr-4 outline-none"
+                className="bg-transparent border text-roboto py-3 px-4 mr-4 outline-none w-full mb-8 md:mb-0"
               />
               <Button onClick={handleSubscription}>Subscribe</Button>
             </div>
           </div>
-          <img src="/images/blog-header-image.png" />
+          <img
+            src="/images/blog-header-image.png"
+            className="hidden md:block"
+          />
         </section>
       </div>
       <div className="second-section bg-slate-100 py-12 flex flex-col items-center">
-        <div className="flex flex-col items-start w-4/5">
+        <div className="flex flex-col items-start w-10/12 md:w-4/5">
           <h2 className="text-3xl font-roboto font-bold text-bensonblack my-8">
             Latest Posts
           </h2>
-          <div className="posts w-full grid gap-8 grid-cols-3">
+          <div className="posts w-full grid gap-8 md:grid-cols-3">
             {getLatestPosts(posts).map(post => (
               <BlogPostCard key={post.id} post={post} />
             ))}
           </div>
         </div>
-        <div className="flex flex-col items-start w-4/5">
+        <div className="flex flex-col items-start w-10/12 md:w-4/5">
           <h2 className="text-3xl font-roboto font-bold text-bensonblack my-8">
             Featured Posts
           </h2>
-          <div className="posts w-full grid gap-8 grid-cols-3">
+          <div className="posts w-full grid gap-8 md:grid-cols-3">
             {getFeaturedPosts(posts).map(post => (
               <BlogPostCard key={post.id} post={post} />
             ))}
