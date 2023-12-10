@@ -102,17 +102,17 @@ const Blog = ({ data }) => {
       <div className="first-section flex flex-col md:h-screen">
         <Header />
         <section
-          className="flex flex-col md:flex-row justify-center items-center flex-grow md:space-x-12 pt-40 md:pt-0"
+          className="flex flex-col md:flex-row justify-center items-center flex-grow lg:space-x-12 pt-40 md:pt-0 w-full pb-20"
           style={{ backgroundColor: "#f9f9f9" }}
         >
-          <div className="text-center md:text-left flex flex-col items-center md:items-start pb-20">
+          <div className="text-center md:text-left flex flex-col items-center lg:items-start lg:ml-12">
             <h2 className="text-lg font-dosis uppercase text-bensonpink">
               Welcome to my blog
             </h2>
-            <h1 className="text-5xl font-roboto font-bold md:w-2/4 my-6 mx-10 md:mx-0">
+            <h1 className="text-5xl font-roboto font-bold xl:w-2/4 my-6 mx-10 md:mx-0">
               We all owe death a life.
             </h1>
-            <p className="font-roboto md:w-2/4 mb-12 md:mb-4 mx-10 md:mx-0">
+            <p className="font-roboto xl:w-2/4 mb-12 md:mb-4 mx-10 md:mx-0">
               I write about technology, design, engineering, productivity hacks,
               and life generally...
             </p>
@@ -136,26 +136,26 @@ const Blog = ({ data }) => {
           </div>
           <img
             src="/images/blog-header-image.png"
-            className="hidden md:block"
+            className="hidden lg:block pt-12 lg:w-2/5 lg:pr-12"
           />
         </section>
       </div>
       <div className="second-section bg-slate-100 py-12 flex flex-col items-center">
-        <div className="flex flex-col items-start w-10/12 md:w-4/5">
+        <div className="flex flex-col items-start w-10/12 md:w-11/12 lg:w-4/5">
           <h2 className="text-3xl font-roboto font-bold text-bensonblack my-8">
             Latest Posts
           </h2>
-          <div className="posts w-full grid gap-8 md:grid-cols-3">
+          <div className="posts w-full grid gap-8 md:grid-cols-2 xl:grid-cols-3">
             {getLatestPosts(posts).map(post => (
               <BlogPostCard key={post.id} post={post} />
             ))}
           </div>
         </div>
-        <div className="flex flex-col items-start w-10/12 md:w-4/5">
+        <div className="flex flex-col items-start w-10/12 md:w-11/12 lg:w-4/5">
           <h2 className="text-3xl font-roboto font-bold text-bensonblack my-8">
             Featured Posts
           </h2>
-          <div className="posts w-full grid gap-8 md:grid-cols-3">
+          <div className="posts w-full grid gap-8 md:grid-cols-2 xl:grid-cols-3">
             {getFeaturedPosts(posts).map(post => (
               <BlogPostCard key={post.id} post={post} />
             ))}
