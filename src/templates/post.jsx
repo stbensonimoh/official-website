@@ -23,11 +23,11 @@ export default function PageTemplate({ data, children }) {
           }}
         ></div>
         <div
-          className="w-11/12 md:w-3/4 bg-white self-center h-60 relative bottom-36"
+          className="w-11/12 lg:w-4/5 xl:w-3/4 bg-white self-center h-60 relative bottom-36"
           style={{ boxShadow: `0px -20px 20px rgba(0, 0, 0, 0.2)` }}
         ></div>
-        <div className="w-11/12 md:w-3/4 px-10 md:px-32 self-center relative bottom-72">
-          <h1 className="my-4 text-3xl lg:text-5xl font-roboto font-bold text-bensonpink">
+        <div className="w-11/12 lg:w-4/5 xl:w-3/4 px-10 md:px-20 lg:px-20 xl:px-20 self-center relative bottom-72">
+          <h1 className="my-4 text-3xl md:text-5xl font-roboto font-bold text-bensonpink">
             {data.mdx.frontmatter.title}
           </h1>
           <AuthorBlob
