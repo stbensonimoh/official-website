@@ -131,8 +131,8 @@ const Contact = () => {
           </form>
         </div>
         <SocialIcons className="absolute bottom-10 social-icons flex flex-col w-8 ml-4 text-center text-bensongrey" />
-        <div>
-          <div className="copyright-container absolute right-8 bottom-8 font-roboto text-sm text-bensongrey">
+        <div className="flex justify-center pt-20 pb-8">
+          <div className="copyright-container relative font-roboto text-sm text-bensongrey">
             <Copyright />
           </div>
         </div>
