@@ -7,14 +7,14 @@ import { HeadSeo } from "gatsby-plugin-head-seo/src"
 const About = () => {
   return (
     <div className="flex flex-col">
-      <div className="w-full lg:h-screen">
+      <div className="w-full xl:h-screen">
         <Header />
-        <div className="flex flex-col pt-20 md:pt-0 pb-12 md:pb-0 md:flex-row items-center justify-center">
+        <div className="flex flex-col pt-20 md:pt-0 pb-12 lg:pb-0 lg:flex-row items-center justify-center">
           <img
             src="/images/about-page-picture.png"
             className="px-10 md:ml-16 mt-20 mb-9 md:mt-0"
           />
-          <div className="mx-10 md:mx-16 md:w-2/5 text-center md:text-left">
+          <div className="mx-10 lg:mx-16 lg:w-2/5 text-center lg:text-left">
             <h1 className="text-3xl lg:text-4xl xl:text-5xl font-roboto font-bold leading-tight">
               Experience Designer<span className="text-bensonpink">.</span>
               <br />
@@ -29,14 +29,14 @@ const About = () => {
               do old things while saving time and resources at the same time.
               I'm enthusiastic about OSS.
             </p>
-            <p className="hidden md:flex text-bensongrey">
+            <p className="hidden lg:flex text-bensongrey">
               Highly skilled in Experience Design(xD), Customer Experience(Cx),
               automation, and Developer Experience(Dx) Engineering.
             </p>
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-full md:flex-row px-12 py-20 items-center bg-bensonpink md:h-screen text-white font-roboto">
+      <div className="flex flex-col w-full lg:flex-row px-12 py-20 items-center bg-bensonpink xl:h-screen text-white font-roboto">
         <div className="md:mx-10">
           <h1 className="text-6xl font-bold md:w-2/3 py-8 md:py-8">
             Over the past years,
@@ -129,12 +129,12 @@ const About = () => {
         </div>
       </div>
       <div
-        className="flex flex-col md:flex-row items-center justify-center md:h-screen"
+        className="flex flex-col lg:flex-row items-center justify-center xl:h-screen pt-12"
         style={{ backgroundColor: "#f9f9f9" }}
       >
-        <div className="bg-white px-10 md:px-20 pt-12 pb-20 md:pt-20 md:pb-32 w-10/12 md:w-1/3">
-          <h1 className="text-4xl md:text-5xl font-roboto font-bold text-bensonpink w-11/12">
-            I build and design stuff
+        <div className="bg-white px-10 lg:px-10 pt-12 pb-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
+          <h1 className="text-4xl md:text-5xl font-roboto font-bold text-bensonpink w-full">
+            I design and build stuff
           </h1>
           <p className="md:text-2xl my-10 text-bensongrey w-11/12">
             Web Apps, freelance projects, personal projects and experiments
@@ -144,13 +144,12 @@ const About = () => {
             <MdArrowForward />
           </Button>
         </div>
-        <div className="flex  flex-col bg-white px-10 md:px-20 pt-12 pb-20 my-20 mt-10 md:mt-20 md:pt-20 md:pb-32 w-10/12 md:w-1/3">
+        <div className="flex  flex-col bg-white px-10 lg:px-10 pt-12 pb-20 my-20 mt-10 md:mt-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
           <h1 className="text-4xl md:text-5xl font-roboto font-bold text-bensonpink w-11/12">
             I write too, sometimes
           </h1>
           <p className="md:text-2xl my-8 md:my-10 text-bensongrey w-11/12">
-            About OSS, technology, design, engineering, productivity and
-            business
+            About OSS, technology, design, engineering and productivity.
           </p>
           <Button type="internal" to="/blog">
             Read my Blog &nbsp;
