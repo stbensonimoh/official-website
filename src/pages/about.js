@@ -9,7 +9,7 @@ const About = () => {
     <div className="flex flex-col">
       <div className="w-full xl:h-screen">
         <Header />
-        <div className="flex flex-col pt-20 md:pt-0 pb-12 lg:pb-0 lg:flex-row items-center justify-center">
+        <div className="flex flex-col pt-20 md:pt-0 xl:pt-32 pb-12 lg:pb-0 lg:flex-row items-center justify-center">
           <img
             src="/images/about-page-picture.png"
             className="px-10 md:ml-16 mt-20 mb-9 md:mt-0"
