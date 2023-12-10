@@ -50,18 +50,18 @@ const About = () => {
             between people and brands, and the ideas, emotions, and memories
             that these moments create. In the process, I create culturally
             relevant solutions, with a focus on the quality of user experience
-            and I automates the boring stuff.
+            and automate the boring stuff.
           </p>
 
           <p className="my-4">
             I am currently the Lead Developer of 350.org - an international
             environmental organization that focuses on addressing climate change
-            and promoting sustainable solutions by engaging and empowering
-            individuals, communities, and decision-makers to take meaningful
-            action on climate change. I am responsible for leading a team of
-            developers in the development and maintenance of the organization's
-            engineering infrastructure to achieve its mission of building a
-            global movement to solve the climate crisis.
+            issues and promoting sustainable solutions by engaging and
+            empowering individuals, communities, and decision-makers to take
+            meaningful action on climate change. I am responsible for leading a
+            team of software engineers in the development and maintenance of the
+            organization's engineering infrastructure to achieve its mission of
+            building a global movement to solve the climate crisis.
           </p>
 
           <p>
