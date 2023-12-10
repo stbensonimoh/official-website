@@ -9,8 +9,8 @@ const App = () => {
   return (
     <div>
       <Header />
-      <div className="hidden md:flex items-center justify-center mt-12">
-        <div className="flex flex-col mx-10 w-1/3">
+      <div className="hidden md:flex items-center justify-center mt-12 md:mx-4 xl:mx-0">
+        <div className="flex flex-col mx-10 w-1/2 lg:w-1/3">
           <h3 className="text-4xl font-roboto">Hello!</h3>
           <h4 className="text-2xl font-badscript">I am Benson...</h4>
           <h1 className="font-bebas my-4 lg:text-3xl xl:text-5xl">
