@@ -2,13 +2,15 @@ import React from "react"
 import Header from "../components/Header"
 import Copyright from "../components/Copyright"
 import SocialIcons from "../components/SocialIcons"
+import { HeadSeo } from "gatsby-plugin-head-seo/src"
+import Logo from "../components/Logo"
 
 const App = () => {
   return (
     <div>
       <Header />
-      <div className="flex items-center justify-center mt-12">
-        <div className="flex flex-col mx-10 w-1/3">
+      <div className="hidden md:flex items-center justify-center mt-12 md:mx-4 xl:mx-0">
+        <div className="flex flex-col mx-10 w-1/2 lg:w-1/3">
           <h3 className="text-4xl font-roboto">Hello!</h3>
           <h4 className="text-2xl font-badscript">I am Benson...</h4>
           <h1 className="font-bebas my-4 lg:text-3xl xl:text-5xl">
@@ -30,8 +32,21 @@ const App = () => {
           <img src="images/front-image.png" />
         </div>
       </div>
-      <SocialIcons className="absolute bottom-10 social-icons flex flex-col w-8 ml-4 text-center text-bensongrey" />
-      <div className="copyright-container absolute right-8 bottom-8 font-roboto text-sm text-bensongrey">
+      <div className="mobile-header flex flex-col items-center pt-20 w-full md:hidden">
+        {/* <Logo className="w-24" /> */}
+        <img src="images/front-image.png" className="my-12" />
+        <div className="bg-black text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2">
+          EXPERIENCE DESIGNER
+        </div>
+        <div className="bg-black text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2">
+          SOFTWARE ENGINEER
+        </div>
+        <div className="bg-black text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4">
+          OSS ADVOCATE
+        </div>
+      </div>
+      <SocialIcons className="absolute bottom-10 social-icons hidden md:flex flex-col w-8 ml-4 text-center text-bensongrey" />
+      <div className="hidden md:flex copyright-container absolute right-8 bottom-8 font-roboto text-sm text-bensongrey">
         <Copyright />
       </div>
     </div>
@@ -39,3 +54,7 @@ const App = () => {
 }
 
 export default App
+
+export const Head = ({ location }) => {
+  return <HeadSeo location={location} />
+}

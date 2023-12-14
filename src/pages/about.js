@@ -2,39 +2,43 @@ import React from "react"
 import Header from "../components/Header"
 import Button from "../components/Button"
 import { MdArrowForward } from "react-icons/md"
+import { HeadSeo } from "gatsby-plugin-head-seo/src"
 
 const About = () => {
   return (
     <div className="flex flex-col">
-      <div className="lg:h-screen">
+      <div className="w-full xl:h-screen">
         <Header />
-        <div className="flex items-center justify-center">
-          <img src="/images/about-page-picture.png" className="ml-16 my-20" />
-          <div className="mx-16 w-2/5">
-            <h1 className="lg:text-4xl xl:text-5xl font-roboto font-bold leading-tight">
+        <div className="flex flex-col pt-20 md:pt-0 xl:pt-32 pb-12 lg:pb-0 lg:flex-row items-center justify-center">
+          <img
+            src="/images/about-page-picture.png"
+            className="px-10 md:ml-16 mt-20 mb-9 md:mt-0"
+          />
+          <div className="mx-10 lg:mx-16 lg:w-2/5 text-center lg:text-left">
+            <h1 className="text-3xl lg:text-4xl xl:text-5xl font-roboto font-bold leading-tight">
               Experience Designer<span className="text-bensonpink">.</span>
               <br />
               Software Engineer<span className="text-bensonpink">.</span>
               <br />
               OSS Advocate<span className="text-bensonpink">.</span>
             </h1>
-            <p className="my-4">
+            <p className="hidden md:flex my-4">
               I always come up with interesting ways to blend engineering and
               design in efficiently solving everyday problems for individuals
               and businesses that I work with; seeking smarter and newer ways to
               do old things while saving time and resources at the same time.
               I'm enthusiastic about OSS.
             </p>
-            <p className="text-bensongrey">
+            <p className="hidden lg:flex text-bensongrey">
               Highly skilled in Experience Design(xD), Customer Experience(Cx),
               automation, and Developer Experience(Dx) Engineering.
             </p>
           </div>
         </div>
       </div>
-      <div className="flex px-12 py-20 items-center bg-bensonpink h-screen text-white font-roboto">
-        <div className="mx-10">
-          <h1 className="text-6xl font-bold w-2/3 py-8">
+      <div className="flex flex-col w-full lg:flex-row px-12 py-20 items-center bg-bensonpink xl:h-screen text-white font-roboto">
+        <div className="md:mx-10">
+          <h1 className="text-6xl font-bold md:w-2/3 py-8 md:py-8">
             Over the past years,
           </h1>
           <p className="my-4">
@@ -46,18 +50,18 @@ const About = () => {
             between people and brands, and the ideas, emotions, and memories
             that these moments create. In the process, I create culturally
             relevant solutions, with a focus on the quality of user experience
-            and I automates the boring stuff.
+            and automate the boring stuff.
           </p>
 
           <p className="my-4">
             I am currently the Lead Developer of 350.org - an international
             environmental organization that focuses on addressing climate change
-            and promoting sustainable solutions by engaging and empowering
-            individuals, communities, and decision-makers to take meaningful
-            action on climate change. I am responsible for leading a team of
-            developers in the development and maintenance of the organization's
-            engineering infrastructure to achieve its mission of building a
-            global movement to solve the climate crisis.
+            issues and promoting sustainable solutions by engaging and
+            empowering individuals, communities, and decision-makers to take
+            meaningful action on climate change. I am responsible for leading a
+            team of software engineers in the development and maintenance of the
+            organization's engineering infrastructure to achieve its mission of
+            building a global movement to solve the climate crisis.
           </p>
 
           <p>
@@ -73,7 +77,7 @@ const About = () => {
             communities in Zambia.
           </p>
         </div>
-        <div className="mx-10">
+        <div className="md:mx-10 mt-8 md:mt-0">
           <p>At AWLO I:</p>
           <ul className="list-disc ml-8">
             <li>
@@ -125,14 +129,14 @@ const About = () => {
         </div>
       </div>
       <div
-        className="h-screen flex items-center justify-center"
+        className="flex flex-col lg:flex-row items-center justify-center xl:h-screen pt-12"
         style={{ backgroundColor: "#f9f9f9" }}
       >
-        <div className="bg-white px-20 pt-20 pb-32 w-1/3">
-          <h1 className="text-5xl font-roboto font-bold text-bensonpink w-11/12">
-            I build and design stuff
+        <div className="bg-white px-10 lg:px-10 pt-12 pb-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
+          <h1 className="text-4xl md:text-5xl font-roboto font-bold text-bensonpink w-full">
+            I design and build stuff
           </h1>
-          <p className="text-2xl my-10 text-bensongrey w-11/12">
+          <p className="md:text-2xl my-10 text-bensongrey w-11/12">
             Web Apps, freelance projects, personal projects and experiments
           </p>
           <Button type="internal" to="/projects">
@@ -140,13 +144,12 @@ const About = () => {
             <MdArrowForward />
           </Button>
         </div>
-        <div className="bg-white px-20 pt-20 pb-32 w-1/3">
-          <h1 className="text-5xl font-roboto font-bold text-bensonpink w-11/12">
+        <div className="flex  flex-col bg-white px-10 lg:px-10 pt-12 pb-20 my-20 mt-10 md:mt-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
+          <h1 className="text-4xl md:text-5xl font-roboto font-bold text-bensonpink w-11/12">
             I write too, sometimes
           </h1>
-          <p className="text-2xl my-10 text-bensongrey w-11/12">
-            About OSS, technology, design, engineering, productivity and
-            business
+          <p className="md:text-2xl my-8 md:my-10 text-bensongrey w-11/12">
+            About OSS, technology, design, engineering and productivity.
           </p>
           <Button type="internal" to="/blog">
             Read my Blog &nbsp;
@@ -159,3 +162,7 @@ const About = () => {
 }
 
 export default About
+
+export const Head = ({ location }) => {
+  return <HeadSeo location={location} />
+}

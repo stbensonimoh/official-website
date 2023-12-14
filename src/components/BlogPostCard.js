@@ -27,9 +27,9 @@ const BlogPostCard = ({ post }) => {
       />
       <p>{post.excerpt}</p>
 
-      <span className="text-bensonpink">
+      <small className="text-bensonpink">
         <Link to={post.fields.slug}>Read More...</Link>
-      </span>
+      </small>
     </div>
   )
 }

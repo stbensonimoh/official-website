@@ -26,6 +26,13 @@ const config = {
   },
   trailingSlash: `never`,
   plugins: [
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        icon: `static/logo.svg`,
+      },
+    },
+    `gatsby-plugin-head-seo`,
     `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-plugin-google-fonts`,
