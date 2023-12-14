@@ -1,7 +1,12 @@
-const colors = require("tailwindcss/colors")
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+import colors from "tailwindcss/colors"
+export default {
   purge: false,
-  content: ["./src/pages/**/*.{html,js}", "./src/components/**/*.{html,js}"],
+  content: [
+    "./src/pages/**/*.{html,js}",
+    "./src/components/**/*.{html,js}",
+    "./src/templates/**/*.{html,js,jsx}",
+  ],
   darkMode: "media", // or 'media' or 'class'
   theme: {
     extend: {
@@ -24,9 +29,6 @@ module.exports = {
         slab: ["Roboto Slab"],
       },
     },
-    variants: {
-      extend: {},
-    },
-    plugins: [],
   },
+  plugins: [require("@tailwindcss/typography")],
 }

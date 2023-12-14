@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   transform: {
     "^.+\\.jsx?$": `<rootDir>/jest-preprocess.js`,
   },
@@ -11,6 +11,9 @@ module.exports = {
   globals: {
     __PATH_PREFIX__: ``,
   },
-  testURL: `http://localhost`,
+  testEnvironment: "jsdom",
+  testEnvironmentOptions: {
+    url: `http://localhost`,
+  },
   setupFilesAfterEnv: ["<rootDir>/setup-test-env.js"],
 }
