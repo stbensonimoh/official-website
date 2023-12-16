@@ -47,7 +47,7 @@ export default function PageTemplate({ data, children }) {
             }
             timeToRead={data.mdx.fields.timeToRead.text}
           />
-          <article className="prose max-w-none">
+          <article className="prose max-w-none font-roboto text-lg">
             <MDXProvider components={shortcodes} className="prose">
               {children}
             </MDXProvider>
