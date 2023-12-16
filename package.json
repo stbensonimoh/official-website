@@ -16,6 +16,7 @@
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-google-gtag": "^5.12.3",
     "gatsby-plugin-head-seo": "^1.0.2",
+    "gatsby-plugin-hotjar": "^1.1.1",
     "gatsby-plugin-manifest": "^5.12.0",
     "gatsby-plugin-mdx": "^5.11.0",
     "gatsby-source-filesystem": "^5.11.0",
