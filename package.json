@@ -57,7 +57,7 @@
   "main": "n/a",
   "scripts": {
     "build": "npx gatsby build",
-    "develop": "npx gatsby develop -H 0.0.0.0",
+    "develop": "npx gatsby develop -o -H 0.0.0.0",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md,css,eslintrc}\"",
     "lint": "prettier --check .",
     "start": "npm run develop",
