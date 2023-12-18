@@ -139,7 +139,11 @@ const About = () => {
           <p className="md:text-2xl my-10 text-bensongrey w-11/12">
             Web Apps, freelance projects, personal projects and experiments
           </p>
-          <Button type="internal" to="/projects">
+          <Button
+            type="external"
+            href="https://github.com/stbensonimoh"
+            target="_blank"
+          >
             See my work &nbsp;
             <MdArrowForward />
           </Button>
