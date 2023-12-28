@@ -49,8 +49,7 @@ export const BLOG_POST_CARD_QUERY = graphql`
     }
   }
 `
-
-export const Head = ({ post }) => {
+export const Head = ({ location, post }) => {
   const { siteUrl } = useStaticQuery(BLOG_POST_CARD_QUERY).site.siteMetadata
 
   return (
@@ -65,6 +64,11 @@ export const Head = ({ post }) => {
       <meta name="twitter:description" content={post.excerpt} />
       <meta name="twitter:image" content={post.frontmatter.featured_image} />
       <meta name="twitter:creator" content={`@stbensonimoh`} />
+      <HeadSeo
+        location={location}
+        title={post.frontmatter.title}
+        description={post.excerpt}
+      />
     </>
   )
 }
