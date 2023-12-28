@@ -3,9 +3,8 @@ import { useStaticQuery, graphql, Link } from "gatsby"
 import AuthorBlob from "../components/AuthorBlob"
 import { HeadSeo } from "gatsby-plugin-head-seo/src"
 
-const BlogPostCard = ({ post }) => {
+const BlogPostCard = ({ post, location }) => {
   const { author } = useStaticQuery(BLOG_POST_CARD_QUERY).site.siteMetadata
-
   return (
     <div className="bg-white w-full p-8 rounded-md shadow-sm">
       <Link to={post.fields.slug}>
@@ -41,6 +40,7 @@ export const BLOG_POST_CARD_QUERY = graphql`
   query BlogPostCardQuery {
     site {
       siteMetadata {
+        siteUrl
         author {
           name
           image
@@ -50,33 +50,30 @@ export const BLOG_POST_CARD_QUERY = graphql`
   }
 `
 
-export const Head = ({ location, post }) => {
+export const Head = ({ post }) => {
+  const { siteUrl } = useStaticQuery(BLOG_POST_CARD_QUERY).site.siteMetadata
+
   return (
     <HeadSeo
       location={location}
       title={post.frontmatter.title}
       description={post.excerpt}
     >
-      {(url, post) => (
+      {post => (
         <>
-          <OpenGraph
-            locale="en"
-            og={{
-              type: "website",
-              url,
-              title: post.frontmatter.title,
-              description: post.excerpt,
-              images: post.frontmatter.featured_image,
-            }}
+          <meta property="og:title" content={post.frontmatter.title} />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content={`${siteUrl}${post.fields.slug}`} />
+          <meta property="og:image" content={post.frontmatter.featured_image} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={post.frontmatter.title} />
+          <meta name="twitter:url" content={`${siteUrl}${post.fields.slug}`} />
+          <meta name="twitter:description" content={post.excerpt} />
+          <meta
+            name="twitter:image"
+            content={post.frontmatter.featured_image}
           />
-          <TwitterCard
-            card={{
-              type: "summary_large_image",
-              site: "@stbensonimoh",
-              title: post.frontmatter.title,
-              description: post.excerpt,
-            }}
-          />
+          <meta name="twitter:creator" content={`@stbensonimoh`} />
         </>
       )}
     </HeadSeo>
