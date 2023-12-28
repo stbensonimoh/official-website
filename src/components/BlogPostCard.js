@@ -55,11 +55,6 @@ export const Head = ({ post }) => {
 
   return (
     <>
-      <HeadSeo
-        location={location}
-        title={post.frontmatter.title}
-        description={post.excerpt}
-      />
       <meta property="og:title" content={post.frontmatter.title} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${siteUrl}${post.fields.slug}`} />
