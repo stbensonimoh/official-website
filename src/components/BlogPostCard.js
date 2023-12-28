@@ -1,6 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql, Link } from "gatsby"
 import AuthorBlob from "../components/AuthorBlob"
+import { HeadSeo } from "gatsby-plugin-head-seo/src"
 
 const BlogPostCard = ({ post }) => {
   const { author } = useStaticQuery(BLOG_POST_CARD_QUERY).site.siteMetadata
@@ -48,3 +49,36 @@ export const BLOG_POST_CARD_QUERY = graphql`
     }
   }
 `
+
+export const Head = ({ location, post }) => {
+  return (
+    <HeadSeo
+      location={location}
+      title={post.frontmatter.title}
+      description={post.excerpt}
+    >
+      {(url, post) => (
+        <>
+          <OpenGraph
+            locale="en"
+            og={{
+              type: "website",
+              url,
+              title: post.frontmatter.title,
+              description: post.excerpt,
+              images: post.frontmatter.featured_image,
+            }}
+          />
+          <TwitterCard
+            card={{
+              type: "summary_large_image",
+              site: "@stbensonimoh",
+              title: post.frontmatter.title,
+              description: post.excerpt,
+            }}
+          />
+        </>
+      )}
+    </HeadSeo>
+  )
+}
