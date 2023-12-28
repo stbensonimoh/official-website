@@ -54,28 +54,22 @@ export const Head = ({ post }) => {
   const { siteUrl } = useStaticQuery(BLOG_POST_CARD_QUERY).site.siteMetadata
 
   return (
-    <HeadSeo
-      location={location}
-      title={post.frontmatter.title}
-      description={post.excerpt}
-    >
-      {post => (
-        <>
-          <meta property="og:title" content={post.frontmatter.title} />
-          <meta property="og:type" content="website" />
-          <meta property="og:url" content={`${siteUrl}${post.fields.slug}`} />
-          <meta property="og:image" content={post.frontmatter.featured_image} />
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={post.frontmatter.title} />
-          <meta name="twitter:url" content={`${siteUrl}${post.fields.slug}`} />
-          <meta name="twitter:description" content={post.excerpt} />
-          <meta
-            name="twitter:image"
-            content={post.frontmatter.featured_image}
-          />
-          <meta name="twitter:creator" content={`@stbensonimoh`} />
-        </>
-      )}
-    </HeadSeo>
+    <>
+      <HeadSeo
+        location={location}
+        title={post.frontmatter.title}
+        description={post.excerpt}
+      />
+      <meta property="og:title" content={post.frontmatter.title} />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={`${siteUrl}${post.fields.slug}`} />
+      <meta property="og:image" content={post.frontmatter.featured_image} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={post.frontmatter.title} />
+      <meta name="twitter:url" content={`${siteUrl}${post.fields.slug}`} />
+      <meta name="twitter:description" content={post.excerpt} />
+      <meta name="twitter:image" content={post.frontmatter.featured_image} />
+      <meta name="twitter:creator" content={`@stbensonimoh`} />
+    </>
   )
 }
