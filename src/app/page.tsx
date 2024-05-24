@@ -1,4 +1,4 @@
 
 export default function Home() {
-  return <div>Hello World</div>;
+  return <div className="font-roboto">Hello World</div>;
 }

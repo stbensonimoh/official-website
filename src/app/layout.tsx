@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { bebas, roboto, dosis, badscript, slab } from "./fonts";
 
 export default function RootLayout({
   children,
@@ -8,7 +9,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body
+        className={`${bebas.variable} ${roboto.variable} ${badscript.variable} ${dosis.variable} ${slab.variable}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
