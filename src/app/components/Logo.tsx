@@ -1,16 +1,15 @@
-import { JSX, ClassAttributes, ImgHTMLAttributes } from "react";
+import Image, { ImageProps } from "next/image";
+type LogoProps = Omit<ImageProps, "src" | "alt"> & {
+  src?: string;
+  alt?: string;
+};
 
-const Logo = (props: JSX.IntrinsicAttributes & ClassAttributes<HTMLImageElement> & ImgHTMLAttributes<HTMLImageElement>) => {
-    return (
-        <>
-            <img
-                src="/logo.svg"
-                data-testid="logo"
-                alt="Benson's Logo"
-                {...props}
-            />
-        </>
-    );
+const Logo = ({
+  src = "/logo.svg",
+  alt = "Benson's Logo",
+  ...props
+}: LogoProps) => {
+  return <Image src={src} data-testid="logo" alt={alt} {...props} />;
 };
 
 export default Logo;
