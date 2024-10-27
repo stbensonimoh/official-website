@@ -8,8 +8,8 @@ export default function Home() {
           <h3 className="text-4xl font-roboto">Hello!</h3>
           <h4 className="text-2xl font-badscript">I am Benson...</h4>
           <h1 className="font-bebas my-4 lg:text-3xl xl:text-5xl">
-            Experience Designer (xD) <br />
             Software Engineer <br />
+            Experience Designer (xD) <br />
             OSS Advocate
           </h1>
           <p className="xl:w-4/5">
@@ -30,10 +30,10 @@ export default function Home() {
         {/* <Logo className="w-24" /> */}
         <img src="images/front-image.png" className="my-12" />
         <div className="bg-black text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2">
-          EXPERIENCE DESIGNER
+          SOFTWARE ENGINEER
         </div>
         <div className="bg-black text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2">
-          SOFTWARE ENGINEER
+          EXPERIENCE DESIGNER
         </div>
         <div className="bg-black text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4">
           OSS ADVOCATE
