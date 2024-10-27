@@ -1,6 +1,6 @@
 import Button from "@/app/components/Button";
 import { MdArrowForward } from "react-icons/md";
-import {roboto, bebas, dosis} from "@/app/fonts";
+import { roboto } from "@/app/fonts";
 
 export default function About() {
   return (
