@@ -21,14 +21,14 @@ export default function About() {
               <br />
               OSS Advocate<span className="text-bensonpink">.</span>
             </h1>
-            <p className="hidden md:flex my-4">
+            <p className="hidden md:flex my-4 font-roboto">
               I always come up with interesting ways to blend engineering and
               design in efficiently solving everyday problems for individuals
               and businesses that I work with; seeking smarter and newer ways to
               do old things while saving time and resources at the same time.
               I'm enthusiastic about OSS.
             </p>
-            <p className="hidden lg:flex text-bensongrey">
+            <p className="hidden lg:flex text-bensongrey font-roboto">
               Highly skilled in Experience Design(xD), Customer Experience(Cx),
               automation, and Developer Experience(Dx) Engineering.
             </p>
@@ -36,7 +36,7 @@ export default function About() {
         </div>
       </div>
       <div className="flex flex-col w-full lg:flex-row px-12 py-20 items-center bg-bensonpink xl:h-screen text-white font-roboto">
-        <div className="md:mx-10">
+        <div className="md:mx-10 font-roboto">
           <h1
             className={`${roboto.className} text-6xl font-medium md:w-2/3 py-8 md:py-8`}
           >
