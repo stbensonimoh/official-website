@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import SocialIcons from "@/app/components/SocialIcons";
 import Copyright from "@/app/components/Copyright";
 import Button from "@/app/components/Button";
@@ -12,11 +12,11 @@ export default function Contact() {
   const [contactEmail, setContactEmail] = useState("");
   const [contactMessage, setContactMessage] = useState("");
 
-  const handleContactName = (e) => setContactName(e.target.value);
-  const handleContactEmail = (e) => setContactEmail(e.target.value);
-  const handleContactMessage = (e) => setContactMessage(e.target.value);
+  const handleContactName = (e: { target: { value: SetStateAction<string>; }; }) => setContactName(e.target.value);
+  const handleContactEmail = (e: { target: { value: SetStateAction<string>; }; }) => setContactEmail(e.target.value);
+  const handleContactMessage = (e: { target: { value: SetStateAction<string>; }; }) => setContactMessage(e.target.value);
 
-  const handleSendEmail = async (e) => {
+  const handleSendEmail = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (!contactName || !contactEmail || !contactMessage) {
       Swal.fire({
@@ -117,7 +117,7 @@ export default function Contact() {
               <div className="column w-full px-12">
                 <label htmlFor="message">Your message</label>
                 <textarea
-                  rows="2"
+                  rows={2}
                   onChange={handleContactMessage}
                   placeholder="Hi, I think we need a design system for our products at Company X. How soon can you hop on to discuss this?"
                   id="message"
