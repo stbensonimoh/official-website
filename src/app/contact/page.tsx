@@ -83,7 +83,7 @@ export default function Contact() {
           Send me a mail
         </Button>
       </div>
-          <div className={`${roboto.className} hidden md:flex flex-col h-screen`}>
+      <div className={`${roboto.className} hidden md:flex flex-col h-screen`}>
         <div className="main flex flex-col items-center justify-center mt-12">
           <h1 className="font-medium text-6xl text-bensonpink">
             Send me a message
