@@ -9,7 +9,7 @@ import {
 export const roboto = Roboto({
   display: "swap",
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["100", "300", "400", "500", "700"],
   variable: "--font-roboto",
 });
 
