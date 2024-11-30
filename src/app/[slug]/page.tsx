@@ -29,14 +29,8 @@ export async function generateStaticParams() {
   }));
 }
 
-type BlogPostProps = {
-  params: {
-    slug: string;
-  };
-};
-
 // The main component function for the blog post page
-export default async function BlogPost({ params }: BlogPostProps) {
+export default async function BlogPost({ params }: any) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
 
