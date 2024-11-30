@@ -55,14 +55,15 @@ export default function About() {
           </p>
 
           <p className="my-4">
-            I am currently the Lead Developer of 350.org - an international
-            environmental organization that focuses on addressing climate change
-            issues and promoting sustainable solutions by engaging and
-            empowering individuals, communities, and decision-makers to take
-            meaningful action on climate change. I am responsible for leading a
-            team of software engineers in the development and maintenance of the
-            organization's engineering infrastructure to achieve its mission of
-            building a global movement to solve the climate crisis.
+            I am currently the Associate Director of Engineering at 350.org - an
+            international environmental organization that focuses on addressing
+            climate change issues and promoting sustainable solutions by
+            engaging and empowering individuals, communities, and
+            decision-makers to take meaningful action on climate change. I am
+            responsible for leading a team of software engineers in the
+            development and maintenance of the organization's engineering
+            infrastructure to achieve its mission of building a global movement
+            to solve the climate crisis.
           </p>
 
           <p>
