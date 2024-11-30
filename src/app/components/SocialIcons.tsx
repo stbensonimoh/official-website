@@ -2,14 +2,23 @@ import { FaGithub, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa";
 import siteMetadata from "../../../siteMetadata";
 import { JSX, ClassAttributes, HTMLAttributes } from "react";
 
-const SocialIcons = (props: JSX.IntrinsicAttributes & ClassAttributes<HTMLDivElement> & HTMLAttributes<HTMLDivElement>) => {
-  const { twitter, linkedin, facebook, youtube, instagram, github } = siteMetadata.social;
+const SocialIcons = (
+  props: JSX.IntrinsicAttributes &
+    ClassAttributes<HTMLDivElement> &
+    HTMLAttributes<HTMLDivElement>
+) => {
+  const { twitter, linkedin, facebook, youtube, instagram, github } =
+    siteMetadata.social;
   return (
     <div {...props}>
       <a href={`https://github.com/${github}`} target="_blank" rel="noreferrer">
         <FaGithub />
       </a>
-          <a href={`https://linkedin.com/in/${linkedin}`} target="_blank" rel="noreferrer">
+      <a
+        href={`https://linkedin.com/in/${linkedin}`}
+        target="_blank"
+        rel="noreferrer"
+      >
         <FaLinkedinIn />
       </a>
       <a
