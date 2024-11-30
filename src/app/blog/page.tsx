@@ -1,11 +1,6 @@
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
-import BlogPostCard from "@/app/components/BlogPostCard";
+import BlogPostCard from "@/app/components/BlogPostCard"
 
-interface BlogPostProps {
-  params: {
-    slug: string;
-  }; // Adjust the type as needed
-}
 
   type Post = {
     slug: string;
@@ -26,7 +21,7 @@ interface BlogPostProps {
 
   type Posts = Post[];
 
-export default async function Blog({ params }: BlogPostProps) {
+export default async function Blog({ params }: any) {
   // Extracting posts from params
   const { slug } = await params;
   const posts: Posts = getAllPosts().map(post => ({
