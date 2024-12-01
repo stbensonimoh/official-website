@@ -63,6 +63,7 @@ const Header = () => {
               <Link
                 key={index}
                 href={item.link}
+                onClick={() => setMenuOpen(false)}
                 className={`nav-item ${
                   pathname === item.link ? "active-menu-item" : ""
                 }`}
@@ -70,7 +71,12 @@ const Header = () => {
                 {item.name}
               </Link>
             ) : (
-              <a key={index} href={item.link} className="nav-item">
+              <a
+                key={index}
+                href={item.link}
+                className="nav-item"
+                onClick={() => setMenuOpen(false)}
+              >
                 {item.name}
               </a>
             )
