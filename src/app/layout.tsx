@@ -1,8 +1,15 @@
-import { DefaultSeo } from "next-seo";
+import { Metadata } from "next";
 import defaultSEOConfig from "../../next-seo.config";
 import "./globals.css";
 import { bebas, roboto, dosis, badscript, slab } from "./fonts";
 import Header from "@/app/components/Header";
+
+export const metadata: Metadata = {
+  title: defaultSEOConfig.title,
+  description: defaultSEOConfig.description,
+  openGraph: defaultSEOConfig.openGraph,
+  twitter: defaultSEOConfig.twitter,
+};
 
 export default function RootLayout({
   children,
@@ -11,7 +18,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <DefaultSeo {...defaultSEOConfig} />
       <body
         className={`${bebas.variable} ${roboto.variable} ${badscript.variable} ${dosis.variable} ${slab.variable}`}
       >
