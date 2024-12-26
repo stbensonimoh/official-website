@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { getPostBySlug, getAllPosts } from "@/lib/posts";
 import AuthorBlob from "@/app/components/AuthorBlob";
 import siteMetadata from "../../../siteMetadata";
@@ -38,6 +39,35 @@ export default async function BlogPost({ params }: any) {
     // Handle 404 not found
     notFound();
   }
+
+  const metadata: Metadata = {
+    title: `${post.frontmatter.title} - Benson Imoh,ST`,
+    description: post.frontmatter.excerpt,
+    openGraph: {
+      url: `https://stbensonimoh.com/${post.slug}`,
+      title: post.frontmatter.title,
+      description: post.frontmatter.excerpt,
+      images: [
+        {
+          url: post.frontmatter.featured_image,
+          width: 800,
+          height: 600,
+          alt: post.frontmatter.title,
+        },
+      ],
+      siteName: "Benson Imoh,ST",
+    },
+    twitter: {
+      creator: "@stbensonimoh",
+      card: "summary_large_image",
+      title: `${post.frontmatter.title} - Benson Imoh,ST`,
+      description: post.frontmatter.excerpt,
+      images: {
+        url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1735245161/jqjrdlir8pks9rhpc3nj.svg",
+        alt: "Benson Imoh, ST's Logo",
+      },
+    },
+  };
 
   return (
     <div className="">

@@ -1,6 +1,36 @@
+import { Metadata } from "next";
 import Button from "@/app/components/Button";
 import { MdArrowForward } from "react-icons/md";
 import { roboto } from "@/app/fonts";
+
+export const metadata: Metadata = {
+  title: "About - Benson Imoh,ST",
+  description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
+  openGraph: {
+    url: "https://stbensonimoh.com/about",
+    title: "About - Benson Imoh,ST",
+    description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
+    images: [
+      {
+        url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1692398633/sq_xmnmhb.jpg",
+        width: 800,
+        height: 600,
+        alt: "Benson Imoh,ST",
+      },
+    ],
+    siteName: "Benson Imoh,ST",
+  },
+  twitter: {
+    creator: "@stbensonimoh",
+    card: "summary_large_image",
+    title: "Benson Imoh,ST",
+    description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
+    images: {
+      url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1735245161/jqjrdlir8pks9rhpc3nj.svg",
+      alt: "Benson Imoh, ST's Logo",
+    },
+  },
+};
 
 export default function About() {
   return (

@@ -1,53 +1,81 @@
+import { Metadata } from "next";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
-import BlogPostCard from "@/app/components/BlogPostCard"
+import BlogPostCard from "@/app/components/BlogPostCard";
 
-
-  type Post = {
-    slug: string;
-    frontmatter: {
-      title: string;
-      featured_image: string;
-      date: string;
-      tags: string[];
-      author?: string;
-      author_image?: string;
-      excerpt: string;
-    };
-    content: string;
-    readingTime: {
-      text: string;
-    }
+type Post = {
+  slug: string;
+  frontmatter: {
+    title: string;
+    featured_image: string;
+    date: string;
+    tags: string[];
+    author?: string;
+    author_image?: string;
+    excerpt: string;
   };
+  content: string;
+  readingTime: {
+    text: string;
+  };
+};
 
-  type Posts = Post[];
+type Posts = Post[];
+
+export const metadata: Metadata = {
+  title: "Blog - Benson Imoh,ST",
+  description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
+  openGraph: {
+    url: "https://stbensonimoh.com/about",
+    title: "Blog - Benson Imoh,ST",
+    description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
+    images: [
+      {
+        url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1692398633/sq_xmnmhb.jpg",
+        width: 800,
+        height: 600,
+        alt: "Benson Imoh,ST",
+      },
+    ],
+    siteName: "Benson Imoh,ST",
+  },
+  twitter: {
+    creator: "@stbensonimoh",
+    card: "summary_large_image",
+    title: "Benson Imoh,ST",
+    description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
+    images: {
+      url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1735245161/jqjrdlir8pks9rhpc3nj.svg",
+      alt: "Benson Imoh, ST's Logo",
+    },
+  },
+};
 
 export default async function Blog({ params }: any) {
   // Extracting posts from params
   const { slug } = await params;
-  const posts: Posts = getAllPosts().map(post => ({
+  const posts: Posts = getAllPosts().map((post) => ({
     ...post,
     frontmatter: {
-      title: post.frontmatter.title || '',
-      featured_image: post.frontmatter.featured_image || '',
-      date: post.frontmatter.date || '',
+      title: post.frontmatter.title || "",
+      featured_image: post.frontmatter.featured_image || "",
+      date: post.frontmatter.date || "",
       tags: post.frontmatter.tags || [],
-      author: post.frontmatter.author || '',
-      author_image: post.frontmatter.author_image || '',
-      excerpt: post.frontmatter.excerpt || ''
-    }
+      author: post.frontmatter.author || "",
+      author_image: post.frontmatter.author_image || "",
+      excerpt: post.frontmatter.excerpt || "",
+    },
   }));
 
   // Extracting featured posts
   const getFeaturedPosts = (posts: Posts) => {
     const featuredPosts = posts.filter(
       (post: Post) =>
-        post.frontmatter.tags && Array.isArray(post.frontmatter.tags) && post.frontmatter.tags.includes("featured")
+        post.frontmatter.tags &&
+        Array.isArray(post.frontmatter.tags) &&
+        post.frontmatter.tags.includes("featured")
     );
     featuredPosts.sort(
-      (
-        a: Post,
-        b: Post
-      ) =>
+      (a: Post, b: Post) =>
         new Date(b.frontmatter.date || 0).getTime() -
         new Date(a.frontmatter.date || 0).getTime()
     );
