@@ -62,8 +62,8 @@ export async function generateMetadata({params}: any): Promise<Metadata> {
       title: `${post.frontmatter.title} - Benson Imoh,ST`,
       description: post.frontmatter.excerpt,
       images: {
-        url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1735245161/jqjrdlir8pks9rhpc3nj.svg",
-        alt: "Benson Imoh, ST's Logo",
+        url: post.frontmatter.featured_image,
+        alt: post.frontmatter.title,
       },
     },
   };

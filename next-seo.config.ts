@@ -8,6 +8,14 @@ const defaultSEOConfig = {
     locale: "en_US",
     url: "https://stbensonimoh.com/",
     siteName: "Benson Imoh,ST",
+    images: [
+      {
+        url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1735318948/stbensonimoh_logo.png",
+        width: 1500,
+        height: 1500,
+        alt: "Benson Imoh,ST's logo",
+      },
+    ],
   },
   twitter: {
     creator: "@stbensonimoh",
@@ -15,7 +23,7 @@ const defaultSEOConfig = {
     title: "Benson Imoh,ST",
     description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
     images: {
-      url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1735245161/jqjrdlir8pks9rhpc3nj.svg",
+      url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1735318948/stbensonimoh_logo.png",
       alt: "Benson Imoh, ST's Logo",
     },
   },
