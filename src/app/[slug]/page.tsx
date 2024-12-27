@@ -30,17 +30,16 @@ export async function generateStaticParams() {
   }));
 }
 
-// The main component function for the blog post page
-export default async function BlogPost({ params }: any) {
-  const { slug } = await params;
+// Generate metadata for the blog post page
+export async function generateMetadata({params}: any): Promise<Metadata> {
+  const { slug } = params;
   const post = getPostBySlug(slug);
 
   if (!post) {
-    // Handle 404 not found
     notFound();
   }
 
-  const metadata: Metadata = {
+  return {
     title: `${post.frontmatter.title} - Benson Imoh,ST`,
     description: post.frontmatter.excerpt,
     openGraph: {
@@ -68,6 +67,17 @@ export default async function BlogPost({ params }: any) {
       },
     },
   };
+}
+
+// The main component function for the blog post page
+export default async function BlogPost({ params }: any) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+
+  if (!post) {
+    // Handle 404 not found
+    notFound();
+  }
 
   return (
     <div className="">
