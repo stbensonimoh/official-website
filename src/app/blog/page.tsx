@@ -79,18 +79,17 @@ export default async function Blog({ params }: any) {
         new Date(b.frontmatter.date || 0).getTime() -
         new Date(a.frontmatter.date || 0).getTime()
     );
-    return featuredPosts.slice(0, 3);
+    return featuredPosts.slice(0, 1);
   };
 
   // Extracting latest posts
-
   const getLatestPosts = (posts: Post[]): Post[] => {
     const sortedPosts = [...posts].sort(
       (a, b) =>
         new Date(b.frontmatter.date || 0).getTime() -
         new Date(a.frontmatter.date || 0).getTime()
     );
-    return sortedPosts.slice(0, 3);
+    return sortedPosts.slice(0, 2);
   };
 
   return (
@@ -123,7 +122,7 @@ export default async function Blog({ params }: any) {
           <h2 className="text-3xl font-roboto font-medium text-bensonblack my-8">
             Latest Posts
           </h2>
-          <div className="posts w-full grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          <div className="posts w-full grid gap-8 md:grid-cols-2 xl:grid-cols-3" data-testid="latest-posts">
             {getLatestPosts(posts).map((post, index) => (
               <BlogPostCard key={index} post={post} />
             ))}
@@ -133,7 +132,7 @@ export default async function Blog({ params }: any) {
           <h2 className="text-3xl font-roboto fomedium text-bensonblack my-8">
             Featured Posts
           </h2>
-          <div className="posts w-full grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          <div className="posts w-full grid gap-8 md:grid-cols-2 xl:grid-cols-3" data-testid="featured-posts">
             {getFeaturedPosts(posts).map((post, index) => (
               <BlogPostCard key={index} post={post} />
             ))}
