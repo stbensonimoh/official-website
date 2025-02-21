@@ -10,7 +10,7 @@ const SocialIcons = (
   const { twitter, linkedin, facebook, youtube, instagram, github } =
     siteMetadata.social;
   return (
-    <div {...props}>
+    <div {...props} data-testid="social-icons">
       <a href={`https://github.com/${github}`} target="_blank" rel="noreferrer">
         <FaGithub />
       </a>
