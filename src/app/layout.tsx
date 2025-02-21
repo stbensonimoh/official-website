@@ -1,15 +1,17 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import defaultSEOConfig from "../../next-seo.config";
 import "./globals.css";
 import { bebas, roboto, dosis, badscript, slab } from "./fonts";
 import Header from "@/app/components/Header";
 
-export const metadata: Metadata = {
-  title: defaultSEOConfig.title,
-  description: defaultSEOConfig.description,
-  openGraph: defaultSEOConfig.openGraph,
-  twitter: defaultSEOConfig.twitter,
-};
+export function generateMetadata(): Metadata {
+  return {
+    title: defaultSEOConfig.title,
+    description: defaultSEOConfig.description,
+    openGraph: defaultSEOConfig.openGraph,
+    twitter: defaultSEOConfig.twitter,
+  };
+}
 
 export default function RootLayout({
   children,
