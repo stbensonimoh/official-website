@@ -13,7 +13,7 @@ interface BaseProps {
   children: React.ReactNode;
 }
 
-type InternalLinkProps = BaseProps & LinkProps;
+type InternalLinkProps = BaseProps & LinkProps<string>;
 type ExternalLinkProps = BaseProps &
   DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>;
 type ButtonElementProps = BaseProps &
@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 
   if (type === "internal") {
     return (
-      <Link {...(rest as LinkProps)} className={`button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white`}>
+      <Link {...(rest as LinkProps<string>)} className={`button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white`}>
           {children}
       </Link>
     );
