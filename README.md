@@ -65,6 +65,12 @@ A modern, responsive personal website and blog built with Next.js, React, and Ta
 ## 📁 Project Structure
 
 ```
+├── .github/               # GitHub-specific files
+│   ├── ISSUE_TEMPLATE/    # Issue templates
+│   ├── CONTRIBUTING.md    # Contribution guidelines
+│   ├── SECURITY.md        # Security policy
+│   ├── commit-template.txt # Git commit message template
+│   └── pull_request_template.md # PR template
 ├── blog/                  # Blog posts in MDX format
 ├── public/                # Static assets
 │   ├── images/            # Image files
@@ -99,6 +105,23 @@ For test coverage:
 ```bash
 npm run test:coverage
 ```
+
+## 👥 Contributing
+
+Contributions are welcome! Please check out my [contribution guidelines](.github/CONTRIBUTING.md) before getting started. This project includes:
+
+- Issue templates for:
+  - Bug reports
+  - Feature requests
+  - Documentation updates
+  - Performance issues
+  - Security vulnerabilities
+- Pull request template
+- Git commit message template (enable with `git config --local commit.template .github/commit-template.txt`)
+
+## 🔒 Security
+
+If you discover any security-related issues, please read my [security policy](.github/SECURITY.md) for information on how to report them.
 
 ## 🌐 Deployment
 

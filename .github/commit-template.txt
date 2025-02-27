@@ -1,0 +1,26 @@
+# <type>: <subject>
+# |<---- Using a maximum of 50 characters ---->|
+
+
+# <body>
+# |<---- Using a maximum of 72 characters ---->|
+
+# Types:
+# feat:     A new feature
+# fix:      A bug fix
+# docs:     Documentation only changes
+# style:    Changes that do not affect the meaning of the code
+#           (white-space, formatting, missing semi-colons, etc)
+# refactor: A code change that neither fixes a bug nor adds a feature
+# perf:     A code change that improves performance
+# test:     Adding missing tests or correcting existing tests
+# chore:    Changes to the build process or auxiliary tools and libraries
+#           such as documentation generation
+
+# Remember to:
+# - Capitalize the subject line
+# - Use the imperative mood in the subject line
+# - Do not end the subject line with a period
+# - Separate subject from body with a blank line
+# - Use the body to explain what and why vs. how
+# - Can use multiple lines with "-" for bullet points in body

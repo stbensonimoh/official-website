@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Question or Discussion
+    url: https://github.com/stbensonimoh/official-website/discussions
+    about: Please ask questions or start discussions here
+  - name: Website Issues
+    url: https://stbensonimoh.com/contact
+    about: For issues with the live website itself, please use the contact form
