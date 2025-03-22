@@ -40,7 +40,7 @@ export default function Home() {
         </div>
       </div>
       <SocialIcons className="absolute bottom-10 social-icons hidden md:flex flex-col w-8 ml-4 text-center text-bensongrey" />
-      <div className="hidden md:flex copyright-container absolute right-8 bottom-8 font-roboto text-sm text-bensongrey">
+      <div className="hidden md:flex copyright-container absolute right-24 bottom-8 font-roboto text-sm text-bensongrey">
         <Copyright />
       </div>
     </div>

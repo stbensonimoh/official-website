@@ -37,7 +37,7 @@ export default function Contact() {
         </div>
         <SocialIcons className="absolute bottom-10 social-icons flex flex-col w-8 ml-4 text-center text-bensongrey" />
         <div className="flex justify-center pt-20 pb-8">
-          <div className="copyright-container absolute bottom-8 right-8 text-sm text-bensongrey">
+          <div className="copyright-container absolute bottom-8 right-24 text-sm text-bensongrey">
             <Copyright />
           </div>
         </div>

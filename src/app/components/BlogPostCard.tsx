@@ -25,13 +25,13 @@ export default function BlogPostCard({ post }: { post: Post }) {
     post.frontmatter;
 
   return (
-    <div role="article" className="bg-white w-full p-8 rounded-md shadow-sm">
+    <div role="article" className="bg-surface w-full p-8 rounded-md shadow-sm">
       <Link href={`/${post.slug}`}>
         <div className="image-container max-h-52 overflow-hidden">
           <img src={featured_image} alt="Featured Image" />
         </div>
       </Link>
-      <h2 className="text-lg font-roboto font-medium text-bensonblack my-2">
+      <h2 className="text-lg font-roboto font-medium text-foreground my-2">
         <Link href={`/${post.slug}`}>{title}</Link>
       </h2>
       <AuthorBlob
@@ -46,7 +46,7 @@ export default function BlogPostCard({ post }: { post: Post }) {
       />
       <p>{post.frontmatter.excerpt}</p>
 
-      <small className="text-bensonpink">
+      <small className="text-primary">
         <Link href={`/${post.slug}`}>Read More...</Link>
       </small>
     </div>

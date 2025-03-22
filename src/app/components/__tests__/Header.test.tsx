@@ -1,14 +1,29 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import Header from '../Header'
+import { ThemeProvider } from '@/app/context/__mocks__/ThemeContext'
 
 // Mock usePathname hook
 jest.mock('next/navigation', () => ({
   usePathname: () => '/'
 }))
 
+// Mock the ThemeContext
+jest.mock('@/app/context/ThemeContext', () => ({
+  __esModule: true,
+  ...jest.requireActual('@/app/context/__mocks__/ThemeContext')
+}))
+
+const renderWithTheme = (component: React.ReactNode) => {
+  return render(
+    <ThemeProvider>
+      {component}
+    </ThemeProvider>
+  )
+}
+
 describe('Header', () => {
   it('renders navigation items', () => {
-    render(<Header />)
+    renderWithTheme(<Header />)
     const menuItems = ['Home', 'About', 'Blog', 'Contact']
     
     const desktopNav = screen.getByTestId('desktop-nav')
@@ -18,13 +33,13 @@ describe('Header', () => {
   })
 
   it('renders Logo component', () => {
-    render(<Header />)
+    renderWithTheme(<Header />)
     const desktopLogo = screen.getByTestId('desktop-logo')
     expect(desktopLogo.closest('a')).toHaveClass('logo', 'ml-4')
   })
 
   it('toggles mobile menu when menu button is clicked', () => {
-    render(<Header />)
+    renderWithTheme(<Header />)
     const menuButton = screen.getByRole('button')
     
     // Initial state - menu is closed
@@ -40,7 +55,7 @@ describe('Header', () => {
   })
 
   it('applies active class to current route', () => {
-    render(<Header />)
+    renderWithTheme(<Header />)
     const desktopNav = screen.getByTestId('desktop-nav')
     const homeLink = desktopNav.querySelector('a[href="/"]')
     expect(homeLink).toHaveClass('active-menu-item')

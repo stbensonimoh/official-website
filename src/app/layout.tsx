@@ -3,6 +3,8 @@ import defaultSEOConfig from "../../next-seo.config";
 import "./globals.css";
 import { bebas, roboto, dosis, badscript, slab } from "./fonts";
 import Header from "@/app/components/Header";
+import { ThemeProvider } from "@/app/context/ThemeContext";
+import ThemeToggle from "@/app/components/ThemeToggle";
 
 export function generateMetadata(): Metadata {
   return {
@@ -23,8 +25,11 @@ export default function RootLayout({
       <body
         className={`${bebas.variable} ${roboto.variable} ${badscript.variable} ${dosis.variable} ${slab.variable}`}
       >
-        <Header />
-        {children}
+        <ThemeProvider>
+          <Header />
+          {children}
+          <ThemeToggle />
+        </ThemeProvider>
       </body>
     </html>
   );

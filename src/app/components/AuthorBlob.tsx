@@ -10,8 +10,8 @@ export default function AuthorBlob(props: AuthorBlobProps) {
       <div className="flex items-center mb-4">
         <img src={props.image} className="w-12 rounded-full" />
         <div className="ml-4 my-4">
-          <p className="text-sm font-roboto text-bensonblack">{props.author}</p>
-          <p className="text-xs font-roboto text-bensongrey">
+          <p className="text-sm font-roboto text-foreground">{props.author}</p>
+          <p className="text-xs font-roboto text-secondary">
             {props.date} &nbsp; | &nbsp; {props.timeToRead}
           </p>
         </div>
