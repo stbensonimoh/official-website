@@ -92,11 +92,11 @@ export default async function BlogPost({ params }: any) {
           }}
         ></div>
         <div
-          className="w-11/12 lg:w-4/5 xl:w-3/4 bg-white self-center h-60 relative bottom-36"
+          className="w-11/12 lg:w-4/5 xl:w-3/4 bg-background self-center h-60 relative bottom-36"
           style={{ boxShadow: `0px -20px 20px rgba(0, 0, 0, 0.2)` }}
         ></div>
         <div className="w-11/12 lg:w-4/5 xl:w-3/4 px-10 md:px-20 lg:px-20 xl:px-20 self-center relative bottom-72">
-          <h1 className="my-4 text-3xl md:text-5xl font-roboto font-medium text-bensonpink">
+          <h1 className="my-4 text-3xl md:text-5xl font-roboto font-medium text-primary">
             {post.frontmatter.title}
           </h1>
           <AuthorBlob
@@ -109,10 +109,10 @@ export default async function BlogPost({ params }: any) {
             author={post.frontmatter?.author || siteMetadata.author.name}
             timeToRead={post.readingTime.text}
           />
-          <article className="prose max-w-none font-roboto text-lg font text-bensonblack">
+          <article className="prose max-w-none font-roboto text-lg font text-foreground">
             <Markdown rehypePlugins={[rehypeRaw]}>{post.content}</Markdown>
           </article>
-          <p className="text-bensonpink text-lg mt-8">
+          <p className="text-primary text-lg mt-8">
             Tags:{" "}
             {post.frontmatter.tags &&
               post.frontmatter.tags.map((tag: string) => `#${tag} `)}

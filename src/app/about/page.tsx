@@ -45,11 +45,11 @@ export default function About() {
             <h1
               className={`${roboto.className} text-3xl lg:text-4xl xl:text-5xl font-medium leading-tight`}
             >
-              Software Engineer<span className="text-bensonpink">.</span>
+              Software Engineer<span className="text-primary">.</span>
               <br />
-              Experience Designer<span className="text-bensonpink">.</span>
+              Experience Designer<span className="text-primary">.</span>
               <br />
-              OSS Advocate<span className="text-bensonpink">.</span>
+              OSS Advocate<span className="text-primary">.</span>
             </h1>
             <p className="hidden md:flex my-4 font-roboto">
               I always come up with interesting ways to blend engineering and
@@ -58,7 +58,7 @@ export default function About() {
               do old things while saving time and resources at the same time.
               I'm enthusiastic about OSS.
             </p>
-            <p className="hidden lg:flex text-bensongrey font-roboto">
+            <p className="hidden lg:flex text-secondary font-roboto">
               Highly skilled in Experience Design(xD), Customer Experience(Cx),
               automation, and Developer Experience(Dx) Engineering.
             </p>
@@ -161,16 +161,15 @@ export default function About() {
         </div>
       </div>
       <div
-        className="flex flex-col lg:flex-row items-center justify-center xl:h-screen pt-12"
-        style={{ backgroundColor: "#f9f9f9" }}
+        className="flex flex-col lg:flex-row items-center justify-center xl:h-screen pt-12 bg-surface"
       >
-        <div className="bg-white px-10 lg:px-10 pt-12 pb-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
+        <div className="bg-background px-10 lg:px-10 pt-12 pb-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
           <h1
-            className={`${roboto.className} text-4xl md:text-5xl font-medium text-bensonpink w-full`}
+            className={`${roboto.className} text-4xl md:text-5xl font-medium text-primary w-full`}
           >
             I design and build stuff
           </h1>
-          <p className="md:text-2xl my-10 text-bensongrey w-12/12">
+          <p className="md:text-2xl my-10 text-secondary w-12/12">
             Web Apps, freelance projects, personal projects and experiments
           </p>
           <Button
@@ -182,13 +181,13 @@ export default function About() {
             <MdArrowForward />
           </Button>
         </div>
-        <div className="flex  flex-col bg-white px-10 lg:px-10 pt-12 pb-20 my-20 mt-10 md:mt-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
+        <div className="flex  flex-col bg-background px-10 lg:px-10 pt-12 pb-20 my-20 mt-10 md:mt-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
           <h1
-            className={`${roboto.className} text-4xl md:text-5xl font-medium text-bensonpink w-12/12`}
+            className={`${roboto.className} text-4xl md:text-5xl font-medium text-primary w-12/12`}
           >
             I write too, sometimes
           </h1>
-          <p className="md:text-2xl my-8 md:my-10 text-bensongrey w-11/12">
+          <p className="md:text-2xl my-8 md:my-10 text-secondary w-11/12">
             About OSS, design, engineering and productivity.
           </p>
           <Button type="internal" href="/blog">

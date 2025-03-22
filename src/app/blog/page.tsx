@@ -96,11 +96,10 @@ export default async function Blog({ params }: any) {
     <div className="flex flex-col">
       <div className="first-section flex flex-col md:h-screen">
         <section
-          className="flex flex-col md:flex-row justify-center items-center flex-grow lg:space-x-12 pt-40 md:pt-0 w-full pb-20"
-          style={{ backgroundColor: "#f9f9f9" }}
+          className="flex flex-col md:flex-row justify-center items-center flex-grow lg:space-x-12 pt-40 md:pt-0 w-full pb-20 bg-surface"
         >
           <div className="text-center md:text-left flex flex-col items-center lg:items-start lg:ml-12">
-            <h2 className="text-lg font-dosis uppercase text-bensonpink">
+            <h2 className="text-lg font-dosis uppercase text-primary">
               Welcome to my blog
             </h2>
             <h1 className="text-5xl font-roboto font-medium xl:w-2/4 my-6 mx-10 md:mx-0">
@@ -117,9 +116,9 @@ export default async function Blog({ params }: any) {
           />
         </section>
       </div>
-      <div className="second-section bg-slate-100 py-12 flex flex-col items-center">
+      <div className="second-section bg-background py-12 flex flex-col items-center">
         <div className="flex flex-col items-start w-10/12 md:w-11/12 lg:w-4/5">
-          <h2 className="text-3xl font-roboto font-medium text-bensonblack my-8">
+          <h2 className="text-3xl font-roboto font-medium text-foreground my-8">
             Latest Posts
           </h2>
           <div className="posts w-full grid gap-8 md:grid-cols-2 xl:grid-cols-3" data-testid="latest-posts">
@@ -129,7 +128,7 @@ export default async function Blog({ params }: any) {
           </div>
         </div>
         <div className="flex flex-col items-start w-10/12 md:w-11/12 lg:w-4/5">
-          <h2 className="text-3xl font-roboto fomedium text-bensonblack my-8">
+          <h2 className="text-3xl font-roboto fomedium text-foreground my-8">
             Featured Posts
           </h2>
           <div className="posts w-full grid gap-8 md:grid-cols-2 xl:grid-cols-3" data-testid="featured-posts">
