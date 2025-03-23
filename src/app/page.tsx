@@ -1,6 +1,12 @@
+"use client";
+
 import Copyright from "@/app/components/Copyright";
 import SocialIcons from "@/app/components/SocialIcons";
+import { useTheme } from "@/app/context/ThemeContext";
+
 export default function Home() {
+  const { actualTheme } = useTheme();
+  const boxBgClass = actualTheme === "dark" ? "bg-surface" : "bg-bensonblack";
   return (
     <div className="font-roboto">
       <div className="hidden md:flex items-center justify-center mt-12 md:mx-4 xl:mx-0">
@@ -29,13 +35,13 @@ export default function Home() {
       <div className="mobile-header flex flex-col items-center pt-20 w-full md:hidden">
         {/* <Logo className="w-24" /> */}
         <img src="images/front-image.png" className="my-12" />
-        <div className="bg-black text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2">
+        <div className={`${boxBgClass} text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2`}>
           SOFTWARE ENGINEER
         </div>
-        <div className="bg-black text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2">
+        <div className={`${boxBgClass} text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2`}>
           EXPERIENCE DESIGNER
         </div>
-        <div className="bg-black text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4">
+        <div className={`${boxBgClass} text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4`}>
           OSS ADVOCATE
         </div>
       </div>

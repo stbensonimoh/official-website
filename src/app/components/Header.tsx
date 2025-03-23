@@ -57,7 +57,7 @@ const Header = () => {
         role="banner"
         className={`${
           menuOpen ? "-translate-y-0 fixed" : "-translate-y-full absolute"
-        } w-full flex flex-col items-center h-screen bg-white z-[20] py-8 md:hidden transition transform ease-in-out duration-700`}
+        } w-full flex flex-col items-center h-screen bg-background z-[20] py-8 md:hidden transition transform ease-in-out duration-700`}
       >
         <Link href="/" className="logo">
           <Logo width={96} height={96} className="w-24" data-testid="menu-logo" />
