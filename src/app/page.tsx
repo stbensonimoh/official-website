@@ -15,17 +15,16 @@ export default function Home() {
           <h4 className="text-2xl font-badscript">I am Benson...</h4>
           <h1 className="font-bebas my-4 lg:text-3xl xl:text-5xl">
             Software Engineer <br />
-            Experience Designer (xD) <br />
+            DevOps Enthusiast <br />
             OSS Advocate
           </h1>
           <p className="xl:w-4/5">
-            I'm passionate about blending technology and arts, to creatively and
-            efficiently solve problems, using new and experimental ideas and
-            methods. I'm enthusiastic about OSS.
+            I build software and infrastructure with the precision of an engineer and the curiosity of an artist, creatively and
+            efficiently solving problems using bold ideas and experimental 
+            methods. I'm passionate about OSS and automating workflows.
           </p>
           <p className="pt-4 text-bensongrey xl:w-3/5">
-            Highly skilled in Experience Design(xD), Customer Experience(Cx),
-            automation, and Developer Experience(Dx) Engineering.
+            Deeply invested in improving DevX, Cx, and xD because how things feel is just as important as how they work.
           </p>
         </div>
         <div className="image-section mx-10">
