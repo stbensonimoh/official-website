@@ -47,20 +47,17 @@ export default function About() {
             >
               Software Engineer<span className="text-primary">.</span>
               <br />
-              Experience Designer<span className="text-primary">.</span>
+              DevOps Ethusiast<span className="text-primary">.</span>
               <br />
               OSS Advocate<span className="text-primary">.</span>
             </h1>
             <p className="hidden md:flex my-4 font-roboto">
-              I always come up with interesting ways to blend engineering and
-              design in efficiently solving everyday problems for individuals
-              and businesses that I work with; seeking smarter and newer ways to
-              do old things while saving time and resources at the same time.
-              I'm enthusiastic about OSS.
+            I like finding smart ways to blend engineering and design to solve real problems—whether it’s helping individuals work faster or helping teams build better systems. I’m always looking for newer, simpler ways to do old things, especially when it means saving time, cutting friction, or unlocking something better.
+
+I care a lot about open source and automation.
             </p>
             <p className="hidden lg:flex text-secondary font-roboto">
-              Highly skilled in Experience Design(xD), Customer Experience(Cx),
-              automation, and Developer Experience(Dx) Engineering.
+            Deeply invested in improving DevX, Cx, and xD because how things feel is just as important as how they work.
             </p>
           </div>
         </div>
