@@ -47,116 +47,66 @@ export default function About() {
             >
               Software Engineer<span className="text-primary">.</span>
               <br />
-              Experience Designer<span className="text-primary">.</span>
+              DevOps Enthusiast<span className="text-primary">.</span>
               <br />
               OSS Advocate<span className="text-primary">.</span>
             </h1>
             <p className="hidden md:flex my-4 font-roboto">
-              I always come up with interesting ways to blend engineering and
-              design in efficiently solving everyday problems for individuals
-              and businesses that I work with; seeking smarter and newer ways to
-              do old things while saving time and resources at the same time.
-              I'm enthusiastic about OSS.
+            I like finding smart ways to blend engineering and design to solve real problems—whether it is helping individuals work faster or helping teams build better systems. I am always looking for newer, simpler ways to do old things, especially when it means saving time, cutting friction, or unlocking something better.
+
+I care a lot about open source and automation.
             </p>
             <p className="hidden lg:flex text-secondary font-roboto">
-              Highly skilled in Experience Design(xD), Customer Experience(Cx),
-              automation, and Developer Experience(Dx) Engineering.
+            Deeply invested in improving DevX, Cx, and xD because how things feel is just as important as how they work.
             </p>
           </div>
         </div>
       </div>
       <div className="flex flex-col w-full lg:flex-row px-12 py-20 items-center bg-bensonpink xl:h-screen text-white font-roboto">
-        <div className="md:mx-10 font-roboto">
+        <div className="md:mx-10 font-roboto lg:w-1/2">
           <h1
             className={`${roboto.className} text-6xl font-medium md:w-2/3 py-8 md:py-8`}
           >
             Over the past years,
           </h1>
           <p className="my-4">
-            I have helped to design and build great products, processes,
-            services, and teams for companies and individuals. I helped them to
-            win customers by solving complex user experience problems, from
-            improving sales communications to designing customer onboarding. I
-            do all these by considering moments of engagement, or touch-points
-            between people and brands, and the ideas, emotions, and memories
-            that these moments create. In the process, I create culturally
-            relevant solutions, with a focus on the quality of user experience
-            and automate the boring stuff.
+          I have designed and built products, systems, teams, and processes that help people solve real problems efficiently, creatively, and at scale. From simplifying onboarding to refining sales flows, I focus on user experience at every touchpoint: what people see, feel, and remember. Then I find ways to automate the boring stuff so teams can focus on what really matters.
           </p>
 
           <p className="my-4">
-            I am currently the Associate Director of Engineering at 350.org - an
-            international environmental organization that focuses on addressing
-            climate change issues and promoting sustainable solutions by
-            engaging and empowering individuals, communities, and
-            decision-makers to take meaningful action on climate change. I am
-            responsible for leading a team of software engineers in the
-            development and maintenance of the organization's engineering
-            infrastructure to achieve its mission of building a global movement
-            to solve the climate crisis.
+          Currently, I serve as the <strong>Associate Director of Engineering</strong> at <a href="https://350.org" target="_blank">350.org</a> - a global climate movement leveraging technology to drive meaningful action. I lead a distributed team of engineers, building infrastructure and platforms that scale our mission: solving the climate crisis by empowering people worldwide.
+          </p>
+
+          <p className="my-4">
+          Beyond my professional role, I am deeply involved in the open-source community. As a volunteer with <a href="https://oscafrica.org/" target="_blank">Open Source Community Africa (OSCA) </a>, I contribute to fostering a vibrant ecosystem of open-source contributors across the continent. I am part of the organizing team for the annual <a href="https://festival.oscafrica.org/" target="_blank">Open Source Festival - <strong>OSCAFEST</strong></a> - a high-profile event that brings together developers, designers, and tech enthusiasts to share knowledge, collaborate, and promote open-source tools and practices. I also contribute to <a href="https://developer.mozilla.org" target="_blank">MDN Web Docs</a> because great documentation helps great developers become even better, and because sharing knowledge is just as important as writing code.
           </p>
 
           <p>
-            Before that, in 2017, I worked full-time with the African Women in
-            Leadership Organisation - an international not-for-profit committed
-            to changing the narrative of leadership in Africa, where I spent my
-            time developing innovative products, managing the technical
-            strategy, maximizing efficiency, and coordinating the various teams,
-            operations, and individuals - in a stint that lasted until November
-            2020. Thereafter I worked as the Consultant Chief Technology Officer
-            of the Nyuma Harrison Foundation (NHF) - a Zambian Not-for-profit
-            focused on making healthcare accessible to children in underserved
-            communities in Zambia.
+          On the side, I also try to find time to build interesting tools that I release as open source software. 
           </p>
         </div>
-        <div className="md:mx-10 mt-8 md:mt-0">
-          <p>At AWLO I:</p>
+        <div className="md:mx-10 mt-8 md:mt-0 lg:w-1/2">
+          <p>Previously, I have worked in various organizations, sometimes in leadership positions:</p>
           <ul className="list-disc ml-8">
             <li>
-              designed and implemented a robust technology infrastructure that
-              overhauled the organization's image and earned it strategic UN
-              Partnerships.
+            <strong>Consultant CTO at Nyuma Harrison Foundation (Zambia):</strong> I helped to bring healthcare access in underserved communities in Zambia through technology solutions.
             </li>
             <li>
-              designed and implemented a DevOps culture throughout the
-              organization.
+            <strong>Chief Technology Officer at African Women in Leadership Organisation:</strong> I designed, built and deployed the organisation's cloud infrastructure, led DevOps adoption, powered digital campaigns across 12 countries, initiated a tech internship program, and secured strategic UN partnerships.
             </li>
             <li>
-              created value across the organization's strategic business units
-              across 12 countries through the facilitation of innovative
-              technology solutions to power processes and drive digital
-              campaigns.
-            </li>
-            <li>
-              initiated a technology internship program with resulting internal
-              and external career placements for the candidates.
-            </li>
-            <li>
-              designed and created a fully automated Volunteers Management and
-              onboarding system for the AWLC held in 10 countries.
+            <strong>Volunteer at Hope Behind Bars Africa:</strong> Developed the “Connect Lawyer” app to connect prison inmates with pro bono legal assistance.
             </li>
           </ul>
 
           <p className="my-4">
-            I have stayed true to my creative inclinations by actively
-            contributing to Open Source projects - something I'm passionate
-            about - and working on personal projects. I also supports causes
-            that bring access to justice and social good for communities by
-            volunteering my time and skills at fledgling and established
-            not-for-profits like Hope Behind Bars Africa - where I built the
-            "Connect Lawyer" app to help indigent prison inmates find legal
-            representation by connecting them with experienced and qualified pro
-            bono lawyers.
+          I am passionate about technology, automation, and building tools that help people do more with less. Lately, I have been experimenting with creatively adding AI to the mix.
           </p>
           <p>
             I am a realist with a leaning towards optimism. I am a big believer
             in Midwestern work ethic. I choose books over movies 9 times out of
             10 and try to find time to write and blog about productivity hacks,
             automation, and business.
-          </p>
-          <p>
-            I am passionate about technology, engineering, design, and
-            education.
           </p>
         </div>
       </div>

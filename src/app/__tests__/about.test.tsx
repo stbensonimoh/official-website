@@ -6,10 +6,7 @@ describe('About', () => {
     render(<About />)
     
     // Check main headings
-    const heading = screen.getByRole('heading', { 
-      level: 1,
-      name: (content) => content.includes('Software Engineer') && content.includes('Experience Designer') && content.includes('OSS Advocate')
-    });
+    const heading = screen.getByText(/Software Engineer.*DevOps Enthusiast.*OSS Advocate/);
     expect(heading).toBeInTheDocument();
 
     // Check sections content
