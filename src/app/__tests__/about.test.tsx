@@ -6,7 +6,7 @@ describe('About', () => {
     render(<About />)
     
     // Check main headings
-    const heading = screen.getByText(/Software Engineer.*DevOps Ethusiast.*OSS Advocate/);
+    const heading = screen.getByText(/Software Engineer.*DevOps Enthusiast.*OSS Advocate/);
     expect(heading).toBeInTheDocument();
 
     // Check sections content
