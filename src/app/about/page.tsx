@@ -47,7 +47,7 @@ export default function About() {
             >
               Software Engineer<span className="text-primary">.</span>
               <br />
-              DevOps Ethusiast<span className="text-primary">.</span>
+              DevOps Enthusiast<span className="text-primary">.</span>
               <br />
               OSS Advocate<span className="text-primary">.</span>
             </h1>
