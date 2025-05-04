@@ -92,7 +92,7 @@ I care a lot about open source and automation.
             <strong>Consultant CTO at Nyuma Harrison Foundation (Zambia):</strong> I helped to bring healthcare access in underserved communities in Zambia through technology solutions.
             </li>
             <li>
-            <strong>Chief Technolgy Officer at African Women in Leadership Organisation:</strong> I designed, built and deployed the organisation's cloud infrastructure, led DevOps adoption, powered digital campaigns across 12 countries, initiated a tech internship program, and secured strategic UN partnerships.
+            <strong>Chief Technology Officer at African Women in Leadership Organisation:</strong> I designed, built and deployed the organisation's cloud infrastructure, led DevOps adoption, powered digital campaigns across 12 countries, initiated a tech internship program, and secured strategic UN partnerships.
             </li>
             <li>
             <strong>Volunteer at Hope Behind Bars Africa:</strong> Developed the “Connect Lawyer” app to connect prison inmates with pro bono legal assistance.
