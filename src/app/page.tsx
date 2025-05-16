@@ -38,7 +38,7 @@ export default function Home() {
           SOFTWARE ENGINEER
         </div>
         <div className={`${boxBgClass} text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2`}>
-          EXPERIENCE DESIGNER
+          DEVOPS ENTHUSIAST
         </div>
         <div className={`${boxBgClass} text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4`}>
           OSS ADVOCATE
