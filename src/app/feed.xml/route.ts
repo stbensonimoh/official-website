@@ -49,8 +49,8 @@ export async function GET() {
       let htmlContent = md.render(post.content);
 
       // Prepend featured image if available
-      if (post.frontmatter.featuredImage) {
-        let featuredImageUrl = post.frontmatter.featuredImage;
+      if (post.frontmatter.featured_image) {
+        let featuredImageUrl = post.frontmatter.featured_image;
         // Ensure featured image URL is absolute
         if (featuredImageUrl.startsWith('/')) {
           featuredImageUrl = `${siteUrl}${featuredImageUrl.substring(1)}`;
