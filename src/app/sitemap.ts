@@ -43,7 +43,7 @@ const sitemap = (): MetadataRoute.Sitemap => {
       : new Date().toISOString();
 
     return {
-      url: `${siteUrl}blog/${post.slug}`,
+      url: `${siteUrl}${post.slug}`,
       lastModified,
       changeFrequency: "weekly" as const,
       priority: 0.7,
