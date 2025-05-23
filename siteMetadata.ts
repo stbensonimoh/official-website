@@ -5,7 +5,7 @@ const siteMetadata = {
     summary: `Software Engineer | DevOps Enthusiast | OSS Advocate. Passionate about blending engineering and design, to creatively and efficiently solve problems.`,
     image: `https://res.cloudinary.com/stbensonimoh/image/upload/v1692398633/sq_xmnmhb.jpg`,
   },
-  description: `Software Engineer | Experience Designer(xD) | OSS Enthusiast`,
+  description: `Software Engineer | DevOps Enthusiast | OSS Advocate`,
   siteUrl: `https://stbensonimoh.com/`,
   social: {
     twitter: `stbensonimoh`,
