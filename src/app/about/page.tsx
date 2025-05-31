@@ -43,7 +43,7 @@ export default function About() {
           />
           <div className="mx-10 lg:mx-16 lg:w-2/5 text-center lg:text-left">
             <h1
-              className={`${roboto.className} text-3xl lg:text-4xl xl:text-5xl font-medium leading-tight`}
+              className={`${roboto.className} text-3xl lg:text-4xl xl:text-5xl font-medium leading-none`}
             >
               Software Engineer<span className="text-primary">.</span>
               <br />
@@ -95,7 +95,7 @@ I care a lot about open source and automation.
             <strong>Chief Technology Officer at African Women in Leadership Organisation:</strong> I designed, built and deployed the organisation's cloud infrastructure, led DevOps adoption, powered digital campaigns across 12 countries, initiated a tech internship program, and secured strategic UN partnerships.
             </li>
             <li>
-            <strong>Volunteer at Hope Behind Bars Africa:</strong> Developed the “Connect Lawyer” app to connect prison inmates with pro bono legal assistance.
+            <strong>Volunteer at Hope Behind Bars Africa:</strong> Developed the "Connect Lawyer" app to connect prison inmates with pro bono legal assistance.
             </li>
           </ul>
 

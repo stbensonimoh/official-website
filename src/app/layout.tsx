@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import defaultSEOConfig from "../../next-seo.config";
-import "./globals.css";
+import "./tailwind.css";
 import { bebas, roboto, dosis, badscript, slab } from "./fonts";
 import Header from "@/app/components/Header";
 import { ThemeProvider } from "@/app/context/ThemeContext";
