@@ -1,0 +1,237 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bensonpink: #ec2c7c;
+  --color-bensonblack: #000000;
+  --color-bensongrey: #666666;
+  
+  /* Color utilities for TailwindCSS v4 */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-surface: var(--surface);
+  
+  --font-family-roboto: var(--font-roboto), sans-serif;
+  --font-family-bebas: var(--font-bebas), sans-serif;
+  --font-family-badscript: var(--font-badscript), cursive;
+  --font-family-dosis: var(--font-dosis), sans-serif;
+  --font-family-slab: var(--font-slab), serif;
+}
+
+/* Font utility classes for TailwindCSS v4 */
+.font-roboto {
+  font-family: var(--font-roboto), sans-serif !important;
+}
+
+.font-bebas {
+  font-family: var(--font-bebas), sans-serif !important;
+}
+
+.font-badscript {
+  font-family: var(--font-badscript), cursive !important;
+}
+
+.font-dosis {
+  font-family: var(--font-dosis), sans-serif !important;
+}
+
+.font-slab {
+  font-family: var(--font-slab), serif !important;
+}
+
+/* Color utility classes for TailwindCSS v4 */
+.bg-surface {
+  background-color: var(--surface) !important;
+}
+
+.bg-background {
+  background-color: var(--background) !important;
+}
+
+.text-foreground {
+  color: var(--foreground) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-secondary {
+  color: var(--secondary) !important;
+}
+
+:root {
+  /* Light mode (default) */
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #ec2c7c;
+  --secondary: #666666;
+  --surface: #f8f8f8;
+  
+  /* Additional semantic colors */
+  --text-primary: var(--foreground);
+  --text-secondary: var(--secondary);
+  --accent: var(--primary);
+}
+
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #ff4d94;
+  --secondary: #a3a3a3;
+  --surface: #1a1a1a;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+/* GLOBAL STYLES */
+/* Header */
+.main-navigation a {
+  @apply mx-4 p-2;
+}
+.active,
+.active-menu-item {
+  color: var(--primary);
+}
+
+/* Article and prose styling - Fixed for TailwindCSS v4 */
+.article-body p {
+  margin-top: 0.875rem;
+  margin-bottom: 0.875rem;
+}
+
+/* Enhanced prose styling for blog posts */
+.prose p {
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+  line-height: 1.75 !important;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+  line-height: 1.25 !important;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.prose li {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.prose blockquote {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  padding-left: 1rem !important;
+  border-left: 4px solid var(--primary) !important;
+}
+
+/* Social Icons */
+.social-icons a {
+  @apply m-0 text-3xl leading-none transition-transform duration-300 ease-in-out origin-center transform hover:scale-150;
+  padding: 5px;
+}
+
+/* SCROLL BAR Styling  */
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--secondary);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+.button {
+  background: linear-gradient(to right, var(--primary) 50%, var(--background) 50%) right;
+  background-size: 200% 100%;
+  background-position: right;
+  transition: all 0.7s ease-out;
+}
+
+.button:hover {
+  background-position: left;
+  color: var(--background);
+}
+
+/* CONTACT PAGE */
+.contact-form {
+  font-family: var(--font-roboto), sans-serif;
+}
+
+.contact-form label {
+  @apply text-xl mb-4;
+  color: var(--secondary);
+}
+
+.contact-form input,
+.contact-form input::placeholder,
+.contact-form textarea,
+.contact-form textarea::placeholder {
+  @apply text-2xl border-b;
+  color: var(--foreground);
+  border-color: var(--primary);
+}
+
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  outline: none;
+}
+
+.row {
+  @apply flex flex-wrap;
+}
+
+.column {
+  @apply flex flex-col;
+}
+
+article {
+  font-family: var(--font-slab), serif;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+/* Fix for text in prose elements in dark mode */
+.prose strong,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6,
+.prose code,
+.prose blockquote {
+  color: var(--foreground);
+}
+
+.prose a {
+  color: var(--primary);
+}
+
+.prose code {
+  background-color: var(--surface);
+}
