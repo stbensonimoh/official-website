@@ -1,60 +1,70 @@
 import React from 'react'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent, act, cleanup } from '@testing-library/react'
+import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import { ThemeProvider, useTheme } from '../ThemeContext'
 
 describe('ThemeContext', () => {
   // Mock localStorage
   const localStorageMock = (() => {
     let store: Record<string, string> = {}
+    let setItemCalls: Array<{ key: string; value: string }> = []
+    
     return {
-      getItem: jest.fn((key: string) => store[key] || null),
-      setItem: jest.fn((key: string, value: string) => {
+      getItem: (key: string) => store[key] || null,
+      setItem: (key: string, value: string) => {
         store[key] = value
-      }),
-      clear: jest.fn(() => {
+        setItemCalls.push({ key, value })
+      },
+      clear: () => {
         store = {}
-      }),
-      removeItem: jest.fn((key: string) => {
+        setItemCalls = []
+      },
+      removeItem: (key: string) => {
         delete store[key]
-      }),
+      },
+      getSetItemCalls: () => setItemCalls,
+      setMockValue: (key: string, value: string) => {
+        store[key] = value
+      }
     }
   })()
   
   // Mock matchMedia
-  let matchMediaMockFn: jest.Mock
   let mediaListeners: Record<string, ((e: MediaQueryListEvent) => void)[]> = {}
+  let currentMatches = false
+  let matchMediaMockFn: any
   
   // Setup mocks before each test
   beforeEach(() => {
     // Reset localStorage mock
-    Object.defineProperty(window, 'localStorage', { 
+    Object.defineProperty(global, 'localStorage', { 
       value: localStorageMock,
       writable: true
     })
     localStorageMock.clear()
-    jest.clearAllMocks()
     
     // Reset media listeners
     mediaListeners = {}
+    currentMatches = false
     
     // Create matchMedia mock
-    matchMediaMockFn = jest.fn().mockImplementation((query) => {
+    matchMediaMockFn = (query: string) => {
       return {
-        matches: false, // Default to light mode
+        matches: currentMatches,
         media: query,
-        addEventListener: jest.fn((event, listener) => {
+        addEventListener: (event: string, listener: (e: MediaQueryListEvent) => void) => {
           if (!mediaListeners[event]) {
             mediaListeners[event] = []
           }
           mediaListeners[event].push(listener)
-        }),
-        removeEventListener: jest.fn((event, listener) => {
+        },
+        removeEventListener: (event: string, listener: (e: MediaQueryListEvent) => void) => {
           if (mediaListeners[event]) {
             mediaListeners[event] = mediaListeners[event].filter(l => l !== listener)
           }
-        }),
+        },
       }
-    })
+    }
     
     // Apply matchMedia mock
     Object.defineProperty(window, 'matchMedia', {
@@ -63,20 +73,13 @@ describe('ThemeContext', () => {
     })
   })
   
+  afterEach(() => {
+    cleanup()
+  })
+  
   // Helper to simulate media query change
   const simulateMediaQueryChange = (matches: boolean) => {
-    // Update the mock to return the new value
-    matchMediaMockFn.mockImplementation(() => ({
-      matches,
-      media: '(prefers-color-scheme: dark)',
-      addEventListener: jest.fn((event, listener) => {
-        if (!mediaListeners[event]) {
-          mediaListeners[event] = []
-        }
-        mediaListeners[event].push(listener)
-      }),
-      removeEventListener: jest.fn(),
-    }))
+    currentMatches = matches
     
     // Trigger any registered listeners
     if (mediaListeners['change']) {
@@ -100,7 +103,7 @@ describe('ThemeContext', () => {
     )
   }
 
-  it('provides default theme as system', () => {
+  test('provides default theme as system', () => {
     render(
       <ThemeProvider>
         <TestComponent />
@@ -111,7 +114,7 @@ describe('ThemeContext', () => {
     expect(screen.getByTestId('actual-theme').textContent).toBe('light') // Default system theme is light
   })
 
-  it('toggles theme correctly from system -> light -> dark -> system', () => {
+  test('toggles theme correctly from system -> light -> dark -> system', () => {
     render(
       <ThemeProvider>
         <TestComponent />
@@ -138,7 +141,7 @@ describe('ThemeContext', () => {
     expect(screen.getByTestId('theme').textContent).toBe('system')
   })
 
-  it('persists theme preference in localStorage', () => {
+  test('persists theme preference in localStorage', () => {
     render(
       <ThemeProvider>
         <TestComponent />
@@ -149,16 +152,18 @@ describe('ThemeContext', () => {
     
     // Toggle to light theme
     fireEvent.click(toggleButton)
-    expect(localStorageMock.setItem).toHaveBeenCalledWith('theme', 'light')
+    const calls = localStorageMock.getSetItemCalls()
+    expect(calls.some(call => call.key === 'theme' && call.value === 'light')).toBe(true)
     
     // Toggle to dark theme
     fireEvent.click(toggleButton)
-    expect(localStorageMock.setItem).toHaveBeenCalledWith('theme', 'dark')
+    const updatedCalls = localStorageMock.getSetItemCalls()
+    expect(updatedCalls.some(call => call.key === 'theme' && call.value === 'dark')).toBe(true)
   })
 
-  it('loads theme from localStorage on mount', () => {
+  test('loads theme from localStorage on mount', () => {
     // Set theme in localStorage
-    localStorageMock.getItem.mockReturnValueOnce('dark')
+    localStorageMock.setMockValue('theme', 'dark')
     
     render(
       <ThemeProvider>
@@ -171,14 +176,9 @@ describe('ThemeContext', () => {
     expect(screen.getByTestId('actual-theme').textContent).toBe('dark')
   })
 
-  it('detects system theme correctly', () => {
+  test('detects system theme correctly', () => {
     // Set system theme to dark before rendering
-    matchMediaMockFn.mockImplementation(() => ({
-      matches: true, // Dark mode
-      media: '(prefers-color-scheme: dark)',
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-    }))
+    currentMatches = true
     
     render(
       <ThemeProvider>
@@ -191,7 +191,7 @@ describe('ThemeContext', () => {
     expect(screen.getByTestId('actual-theme').textContent).toBe('dark')
   })
 
-  it('updates theme when system preference changes', () => {
+  test('updates theme when system preference changes', () => {
     // Start with light system theme (default in beforeEach)
     render(
       <ThemeProvider>
@@ -213,10 +213,10 @@ describe('ThemeContext', () => {
     expect(screen.getByTestId('actual-theme').textContent).toBe('dark')
   })
 
-  it('throws error when useTheme is used outside ThemeProvider', () => {
+  test('throws error when useTheme is used outside ThemeProvider', () => {
     // Suppress console.error for this test
     const originalError = console.error
-    console.error = jest.fn()
+    console.error = () => {}
     
     // Expect error when rendering TestComponent without ThemeProvider
     expect(() => {

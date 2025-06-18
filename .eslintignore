@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+coverage/
+**/*.test.ts
+**/*.test.tsx
+**/test-utils.*
+test-setup.ts
+scripts/
+__mocks__/
+bun.lock
+*.config.*

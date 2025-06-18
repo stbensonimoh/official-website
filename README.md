@@ -18,15 +18,14 @@ A modern, responsive personal website and blog built with Next.js, React, and Ta
 - **Framework**: [Next.js 15](https://nextjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Testing**: [Jest](https://jestjs.io/) & [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+- **Testing**: [Bun Test](https://bun.sh/docs/cli/test) & [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 - **Content**: [MDX](https://mdxjs.com/) for blog posts
 - **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
 - **UI Components**: Custom React components
 
 ## 📋 Prerequisites
 
-- Node.js 18.x or higher
-- npm or yarn
+- [Bun](https://bun.sh/) 1.0.0 or higher
 
 ## 🔧 Installation
 
@@ -38,29 +37,25 @@ A modern, responsive personal website and blog built with Next.js, React, and Ta
 
 2. Install dependencies
    ```bash
-   npm install
-   # or
-   yarn install
+   bun install
    ```
 
 3. Start the development server
    ```bash
-   npm run dev
-   # or
-   yarn dev
+   bun run dev
    ```
 
 4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## 📝 Available Scripts
 
-- `npm run dev` - Start the development server
-- `npm run build` - Build the application for production
-- `npm run start` - Start the production server
-- `npm run lint` - Run ESLint to check for code issues
-- `npm run test` - Run Jest tests
-- `npm run test:watch` - Run Jest in watch mode
-- `npm run test:coverage` - Generate test coverage report
+- `bun run dev` - Start the development server
+- `bun run build` - Build the application for production
+- `bun run start` - Start the production server
+- `bun run lint` - Run ESLint to check for code issues
+- `bun run test` - Run Bun tests
+- `bun run test:watch` - Run tests in watch mode
+- `bun run test:coverage` - Generate test coverage report
 
 ## 📁 Project Structure
 
@@ -94,16 +89,16 @@ A modern, responsive personal website and blog built with Next.js, React, and Ta
 
 ## 🧪 Testing
 
-The project uses Jest and React Testing Library for testing. Run tests with:
+The project uses Bun's built-in test runner and React Testing Library for testing. Run tests with:
 
 ```bash
-npm run test
+bun run test
 ```
 
 For test coverage:
 
 ```bash
-npm run test:coverage
+bun run test:coverage
 ```
 
 ## 👥 Contributing

@@ -1,36 +1,31 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
+import { describe, test, expect, afterEach } from 'bun:test'
 import SocialIcons from '../SocialIcons'
 
-// Mock the siteMetadata import
-jest.mock('../../../../siteMetadata', () => ({
-  social: {
-    twitter: 'twitter-handle',
-    linkedin: 'linkedin-handle',
-    github: 'github-handle',
-    instagram: 'instagram-handle'
-  }
-}))
-
 describe('SocialIcons', () => {
-  it('renders all social media links', () => {
+  afterEach(() => {
+    cleanup()
+  })
+
+  test('renders all social media links', () => {
     render(<SocialIcons />)
     
     const links = screen.getAllByRole('link')
     expect(links).toHaveLength(4)
     
-    expect(links[0]).toHaveAttribute('href', 'https://github.com/github-handle')
-    expect(links[1]).toHaveAttribute('href', 'https://linkedin.com/in/linkedin-handle')
-    expect(links[2]).toHaveAttribute('href', 'https://twitter.com/twitter-handle')
-    expect(links[3]).toHaveAttribute('href', 'https://instagram.com/instagram-handle')
+    expect(links[0]).toHaveAttribute('href', 'https://github.com/stbensonimoh')
+    expect(links[1]).toHaveAttribute('href', 'https://linkedin.com/in/stbensonimoh')
+    expect(links[2]).toHaveAttribute('href', 'https://twitter.com/stbensonimoh')
+    expect(links[3]).toHaveAttribute('href', 'https://instagram.com/stbensonimoh')
   })
 
-  it('applies custom className', () => {
+  test('applies custom className', () => {
     render(<SocialIcons className="custom-class" />)
     const container = screen.getByTestId('social-icons')
     expect(container).toHaveClass('custom-class')
   })
 
-  it('has proper accessibility attributes', () => {
+  test('has proper accessibility attributes', () => {
     render(<SocialIcons />)
     const links = screen.getAllByRole('link')
     links.forEach(link => {

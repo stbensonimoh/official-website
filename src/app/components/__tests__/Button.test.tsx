@@ -1,8 +1,13 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
+import { describe, test, expect, afterEach } from 'bun:test'
 import Button from '../Button'
 
 describe('Button', () => {
-  it('renders as an internal link', () => {
+  afterEach(() => {
+    cleanup()
+  })
+
+  test('renders as an internal link', () => {
     render(
       <Button type="internal" href="/test">
         Test Link
@@ -14,7 +19,7 @@ describe('Button', () => {
     expect(link).toHaveClass('button')
   })
 
-  it('renders as an external link', () => {
+  test('renders as an external link', () => {
     render(
       <Button type="external" href="https://example.com">
         External Link
@@ -26,7 +31,7 @@ describe('Button', () => {
     expect(link).toHaveClass('button')
   })
 
-  it('renders as a button element', () => {
+  test('renders as a button element', () => {
     render(
       <Button onClick={() => {}}>
         Click Me

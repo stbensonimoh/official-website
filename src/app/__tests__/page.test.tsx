@@ -1,25 +1,28 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen, within, cleanup } from '@testing-library/react'
+import { describe, test, expect, afterEach, beforeEach } from 'bun:test'
 import Home from '../page'
 import { ThemeProvider } from "@/app/context/ThemeContext"
 
 describe('Home', () => {
-  beforeAll(() => {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: jest.fn().mockImplementation(query => ({
-        matches: false,
-        media: query,
-        onchange: null,
-        addListener: jest.fn(), // Deprecated
-        removeListener: jest.fn(), // Deprecated
-        addEventListener: jest.fn(),
-        removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      })),
-    });
-  });
+  beforeEach(() => {
+    // Ensure localStorage is available
+    if (typeof localStorage === 'undefined') {
+      global.localStorage = {
+        getItem: () => null,
+        setItem: () => {},
+        removeItem: () => {},
+        clear: () => {},
+        length: 0,
+        key: () => null,
+      }
+    }
+  })
+  
+  afterEach(() => {
+    cleanup()
+  })
 
-  it('renders main content sections', () => {
+  test('renders main content sections', () => {
     render(
       <ThemeProvider>
         <Home />
@@ -37,7 +40,7 @@ describe('Home', () => {
     expect(within(desktopHeading).getByText(/OSS Advocate/)).toBeInTheDocument()
   })
 
-  it('renders social icons and copyright', () => {
+  test('renders social icons and copyright', () => {
     render(
       <ThemeProvider>
         <Home />
@@ -58,7 +61,7 @@ describe('Home', () => {
     expect(copyrightContainer).toHaveTextContent('Copyright © 2025 Benson Imoh,ST');
   })
 
-  it('renders responsive layouts', () => {
+  test('renders responsive layouts', () => {
     render(
       <ThemeProvider>
         <Home />
