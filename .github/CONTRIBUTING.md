@@ -25,7 +25,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
 1. Fork the repository
 2. Create a new branch (`git checkout -b feature/your-feature-name`)
 3. Make your changes
-4. Run tests and ensure they pass: `npm run test`
+4. Run tests and ensure they pass: `bun run test`
 5. Commit your changes using the [conventional commit format](https://www.conventionalcommits.org/)
    - The repository uses a commit template you can enable with:
    - `git config --local commit.template .github/commit-template.txt`
@@ -37,11 +37,11 @@ By participating in this project, you agree to maintain a respectful and inclusi
 1. Clone your fork of the repository
 2. Install dependencies:
    ```bash
-   npm install
+   bun install
    ```
 3. Start the development server:
    ```bash
-   npm run dev
+   bun run dev
    ```
 
 ## Coding Standards
@@ -55,7 +55,7 @@ By participating in this project, you agree to maintain a respectful and inclusi
 
 - Run tests before submitting a PR:
   ```bash
-  npm run test
+  bun run test
   ```
 - Add tests for new features
 

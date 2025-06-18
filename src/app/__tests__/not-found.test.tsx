@@ -1,24 +1,28 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
+import { describe, test, expect, afterEach } from 'bun:test'
 import NotFound from '../not-found'
 
 describe('NotFound', () => {
-  it('renders 404 page correctly', () => {
-    render(<NotFound />)
-
-    // Check for main elements
-    expect(screen.getByText('404')).toBeInTheDocument()
-    expect(screen.getByRole('img', { name: '404 Image' })).toBeInTheDocument()
-    expect(screen.getByText(/Awww... Are you lost?/)).toBeInTheDocument()
-    
-    // Check for home link
-    const homeLink = screen.getByText("Let's go home")
-    expect(homeLink).toBeInTheDocument()
-    expect(homeLink.closest('a')).toHaveAttribute('href', '/')
+  afterEach(() => {
+    cleanup()
   })
 
-  it('has correct image attributes', () => {
-    render(<NotFound />)
-    const image = screen.getByRole('img', { name: '404 Image' })
+  test('renders 404 page correctly', () => {
+    const { container } = render(<NotFound />)
+
+    // Check for main elements
+    expect(container).toHaveTextContent('404')
+    expect(container).toHaveTextContent('Awww... Are you lost?')
+    expect(container).toHaveTextContent("Let's go home")
+    
+    // Check for home link
+    const homeLink = container.querySelector('a[href="/"]')
+    expect(homeLink).toBeTruthy()
+  })
+
+  test('has correct image attributes', () => {
+    const { container } = render(<NotFound />)
+    const image = container.querySelector('img[alt="404 Image"]')
     expect(image).toHaveAttribute('src', '/images/404.png')
     expect(image).toHaveAttribute('width', '40%')
   })

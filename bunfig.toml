@@ -1,0 +1,11 @@
+# Bun configuration file
+[test]
+preload = ["./test-setup.ts"]
+
+# Try using import map
+[test.imports]
+"next/font/google" = "./__mocks__/next/font/google.ts"
+"@/app/fonts" = "./src/app/__mocks__/fonts.ts"
+
+[test.env]
+NODE_ENV = "test"

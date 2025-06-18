@@ -1,13 +1,18 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
+import { describe, test, expect, afterEach } from 'bun:test'
 import About from '../about/page'
 
 describe('About', () => {
-  it('renders main sections', () => {
+  afterEach(() => {
+    cleanup()
+  })
+
+  test('renders main sections', () => {
     render(<About />)
     
-    // Check main headings
-    const heading = screen.getByText(/Software Engineer.*DevOps Enthusiast.*OSS Advocate/);
-    expect(heading).toBeInTheDocument();
+    // Check main heading with role descriptions - target the first h1 which contains the roles
+    const mainHeading = screen.getAllByRole('heading', { level: 1 })[0]
+    expect(mainHeading).toHaveTextContent(/Software Engineer.*DevOps Enthusiast.*OSS Advocate/)
 
     // Check sections content
     expect(screen.getByText('Over the past years,')).toBeInTheDocument()
@@ -15,13 +20,13 @@ describe('About', () => {
     expect(screen.getByText('I write too, sometimes')).toBeInTheDocument()
   })
 
-  it('renders profile image', () => {
+  test('renders profile image', () => {
     render(<About />)
     const image = screen.getByRole('img')
     expect(image).toHaveAttribute('src', '/images/about-page-picture.png')
   })
 
-  it('renders action buttons', () => {
+  test('renders action buttons', () => {
     render(<About />)
     const workLink = screen.getByText(/See my work/i)
     const blogLink = screen.getByText(/Read my Blog/i)

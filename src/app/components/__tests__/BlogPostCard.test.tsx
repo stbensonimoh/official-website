@@ -1,15 +1,12 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, cleanup } from '@testing-library/react'
+import { describe, test, expect, afterEach } from 'bun:test'
 import BlogPostCard from '../BlogPostCard'
 
-// Mock the siteMetadata import
-jest.mock('../../../../siteMetadata', () => ({
-  author: {
-    name: 'Default Author',
-    image: '/default-author.jpg'
-  }
-}))
-
 describe('BlogPostCard', () => {
+  afterEach(() => {
+    cleanup()
+  })
+
   const mockPost = {
     slug: 'test-post',
     frontmatter: {
@@ -27,7 +24,7 @@ describe('BlogPostCard', () => {
     }
   }
 
-  it('renders post information correctly', () => {
+  test('renders post information correctly', () => {
     render(<BlogPostCard post={mockPost} />)
 
     expect(screen.getByRole('img', { name: 'Featured Image' })).toHaveAttribute('src', mockPost.frontmatter.featured_image)
@@ -37,7 +34,7 @@ describe('BlogPostCard', () => {
     expect(screen.getByText('Read More...').closest('a')).toHaveAttribute('href', `/${mockPost.slug}`)
   })
 
-  it('uses default author info when not provided in frontmatter', () => {
+  test('uses default author info when not provided in frontmatter', () => {
     const postWithoutAuthor = {
       ...mockPost,
       frontmatter: {
@@ -48,6 +45,7 @@ describe('BlogPostCard', () => {
     }
 
     render(<BlogPostCard post={postWithoutAuthor} />)
-    expect(screen.getByText('Default Author')).toBeInTheDocument()
+    // Should use default author from siteMetadata
+    expect(screen.getByText('Benson Imoh,ST')).toBeInTheDocument()
   })
 })

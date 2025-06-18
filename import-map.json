@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "next/font/google": "./__mocks__/next/font/google.ts",
+    "@/app/fonts": "./src/app/__mocks__/fonts.ts"
+  }
+}

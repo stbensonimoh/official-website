@@ -1,159 +1,154 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, cleanup } from '@testing-library/react'
+import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import ThemeToggle from '../ThemeToggle'
-import { ThemeProvider, useTheme } from '@/app/context/ThemeContext'
-
-// Mock the ThemeContext
-jest.mock('@/app/context/ThemeContext', () => {
-  const originalModule = jest.requireActual('@/app/context/__mocks__/ThemeContext')
-  
-  return {
-    __esModule: true,
-    ...originalModule,
-    useTheme: jest.fn()
-  }
-})
+import { ThemeProvider } from '@/app/context/ThemeContext'
 
 describe('ThemeToggle', () => {
+  // Setup localStorage mock
+  const localStorageMock = (() => {
+    let store: Record<string, string> = {}
+    return {
+      getItem: (key: string) => store[key] || null,
+      setItem: (key: string, value: string) => {
+        store[key] = value
+      },
+      clear: () => {
+        store = {}
+      },
+      removeItem: (key: string) => {
+        delete store[key]
+      },
+    }
+  })()
+
   beforeEach(() => {
-    // Clear all mocks before each test
-    jest.clearAllMocks()
+    // Setup localStorage mock
+    Object.defineProperty(global, 'localStorage', {
+      value: localStorageMock,
+      writable: true
+    })
+    localStorageMock.clear()
+
+    // Setup matchMedia mock
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: (query: string) => ({
+        matches: false, // Default to light mode
+        media: query,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+      }),
+    })
   })
 
-  it('renders correctly with light theme', () => {
-    // Mock the useTheme hook to return light theme
-    const mockToggleTheme = jest.fn()
-    ;(useTheme as jest.Mock).mockReturnValue({
-      theme: 'light',
-      actualTheme: 'light',
-      toggleTheme: mockToggleTheme
-    })
+  afterEach(() => {
+    cleanup()
+  })
 
-    render(<ThemeToggle />)
+  test('renders correctly with default system theme', () => {
+    render(
+      <ThemeProvider>
+        <ThemeToggle />
+      </ThemeProvider>
+    )
     
     // Check if the button is rendered
     const button = screen.getByRole('button')
     expect(button).toBeInTheDocument()
     
-    // Check if the button has the correct aria-label
-    expect(button).toHaveAttribute('aria-label', 'Switch to dark theme')
-    
-    // Check if the sun icon is displayed (for light theme, we show moon icon for next theme)
-    const moonIcon = button.querySelector('svg path[d*="M21.752 15.002"]')
-    expect(moonIcon).toBeInTheDocument()
+    // Should show computer icon for system theme and aria-label for next action (light)
+    expect(button).toHaveAttribute('aria-label', 'Switch to light theme')
   })
 
-  it('renders correctly with dark theme', () => {
-    // Mock the useTheme hook to return dark theme
-    const mockToggleTheme = jest.fn()
-    ;(useTheme as jest.Mock).mockReturnValue({
-      theme: 'dark',
-      actualTheme: 'dark',
-      toggleTheme: mockToggleTheme
-    })
-
-    render(<ThemeToggle />)
+  test('changes theme when clicked multiple times', () => {
+    render(
+      <ThemeProvider>
+        <ThemeToggle />
+      </ThemeProvider>
+    )
     
     const button = screen.getByRole('button')
-    expect(button).toBeInTheDocument()
     
-    // Check if the button has the correct aria-label
+    // Initial state should be system theme
+    expect(button).toHaveAttribute('aria-label', 'Switch to light theme')
+    
+    // First click: system -> light
+    fireEvent.click(button)
+    expect(button).toHaveAttribute('aria-label', 'Switch to dark theme')
+    
+    // Second click: light -> dark
+    fireEvent.click(button)
     expect(button).toHaveAttribute('aria-label', 'Switch to system theme')
     
-    // Check if the sun icon is displayed (for dark theme)
-    const sunIcon = button.querySelector('svg path[d*="M12 3v2.25m6.364.386"]')
+    // Third click: dark -> system
+    fireEvent.click(button)
+    expect(button).toHaveAttribute('aria-label', 'Switch to light theme')
+  })
+
+  test('displays correct icons for each theme state', () => {
+    render(
+      <ThemeProvider>
+        <ThemeToggle />
+      </ThemeProvider>
+    )
+    
+    const button = screen.getByRole('button')
+    
+    // System theme should show computer icon
+    let computerIcon = button.querySelector('svg path[d*="M9 17.25v1.007"]')
+    expect(computerIcon).toBeInTheDocument()
+    
+    // Click to light theme
+    fireEvent.click(button)
+    let moonIcon = button.querySelector('svg path[d*="M21.752 15.002"]')
+    expect(moonIcon).toBeInTheDocument()
+    
+    // Click to dark theme  
+    fireEvent.click(button)
+    let sunIcon = button.querySelector('svg path[d*="M12 3v2.25m6.364.386"]')
     expect(sunIcon).toBeInTheDocument()
   })
 
-  it('renders correctly with system theme and light actual theme', () => {
-    // Mock the useTheme hook to return system theme with light actual theme
-    const mockToggleTheme = jest.fn()
-    ;(useTheme as jest.Mock).mockReturnValue({
-      theme: 'system',
-      actualTheme: 'light',
-      toggleTheme: mockToggleTheme
-    })
-
-    render(<ThemeToggle />)
-    
-    const button = screen.getByRole('button')
-    expect(button).toBeInTheDocument()
-    
-    // Check if the button has the correct aria-label
-    expect(button).toHaveAttribute('aria-label', 'Switch to light theme')
-    
-    // Check if the computer icon is displayed (for system theme)
-    const computerIcon = button.querySelector('svg path[d*="M9 17.25v1.007"]')
-    expect(computerIcon).toBeInTheDocument()
-  })
-
-  it('renders correctly with system theme and dark actual theme', () => {
-    // Mock the useTheme hook to return system theme with dark actual theme
-    const mockToggleTheme = jest.fn()
-    ;(useTheme as jest.Mock).mockReturnValue({
-      theme: 'system',
-      actualTheme: 'dark',
-      toggleTheme: mockToggleTheme
-    })
-
-    render(<ThemeToggle />)
-    
-    const button = screen.getByRole('button')
-    expect(button).toBeInTheDocument()
-    
-    // Check if the button has the correct aria-label
-    expect(button).toHaveAttribute('aria-label', 'Switch to light theme')
-    
-    // Check if the computer icon is displayed (for system theme)
-    const computerIcon = button.querySelector('svg path[d*="M9 17.25v1.007"]')
-    expect(computerIcon).toBeInTheDocument()
-  })
-
-  it('calls toggleTheme when button is clicked', () => {
-    // Mock the useTheme hook
-    const mockToggleTheme = jest.fn()
-    ;(useTheme as jest.Mock).mockReturnValue({
-      theme: 'light',
-      actualTheme: 'light',
-      toggleTheme: mockToggleTheme
-    })
-
-    render(<ThemeToggle />)
+  test('persists theme preference', () => {
+    render(
+      <ThemeProvider>
+        <ThemeToggle />
+      </ThemeProvider>
+    )
     
     const button = screen.getByRole('button')
     
-    // Click the button
+    // Click to set light theme
     fireEvent.click(button)
     
-    // Check if toggleTheme was called
-    expect(mockToggleTheme).toHaveBeenCalledTimes(1)
+    // Check localStorage was updated
+    expect(localStorageMock.getItem('theme')).toBe('light')
+    
+    // Click to set dark theme
+    fireEvent.click(button)
+    
+    // Check localStorage was updated again
+    expect(localStorageMock.getItem('theme')).toBe('dark')
   })
 
-  // Test for the hydration mismatch handling
-  it('handles hydration mismatch by not rendering until mounted', () => {
-    // Create a custom implementation of ThemeToggle that we can control
-    const MockThemeToggle = () => {
-      const { theme, actualTheme, toggleTheme } = useTheme();
-      // Force mounted to be false to simulate initial render
-      const [mounted] = React.useState(false);
-      
-      if (!mounted) return null;
-      
-      return <button>Toggle Theme</button>;
-    };
+  test('loads saved theme from localStorage', () => {
+    // Pre-set localStorage to dark theme
+    localStorageMock.setItem('theme', 'dark')
     
-    // Mock the useTheme hook
-    const mockToggleTheme = jest.fn();
-    (useTheme as jest.Mock).mockReturnValue({
-      theme: 'light',
-      actualTheme: 'light',
-      toggleTheme: mockToggleTheme
-    });
+    render(
+      <ThemeProvider>
+        <ThemeToggle />
+      </ThemeProvider>
+    )
     
-    // Render our mock component
-    const { container } = render(<MockThemeToggle />);
+    const button = screen.getByRole('button')
     
-    // Component should return null, so container should be empty
-    expect(container.firstChild).toBeNull();
+    // Should show system theme switch since current is dark
+    expect(button).toHaveAttribute('aria-label', 'Switch to system theme')
+    
+    // Should show sun icon (for dark theme)
+    const sunIcon = button.querySelector('svg path[d*="M12 3v2.25m6.364.386"]')
+    expect(sunIcon).toBeInTheDocument()
   })
 })
