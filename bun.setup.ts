@@ -1,5 +1,3 @@
-import '@testing-library/jest-dom'
-
 // Mock Next.js navigation for all tests
 const mockRouter = {
   push: () => {},

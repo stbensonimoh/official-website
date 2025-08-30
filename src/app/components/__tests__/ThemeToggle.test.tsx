@@ -55,10 +55,10 @@ describe('ThemeToggle', () => {
     
     // Check if the button is rendered
     const button = screen.getByRole('button')
-    expect(button).toBeInTheDocument()
+    expect(button).toBeTruthy()
     
     // Should show computer icon for system theme and aria-label for next action (light)
-    expect(button).toHaveAttribute('aria-label', 'Switch to light theme')
+    expect(button.getAttribute('aria-label')).toBe('Switch to light theme')
   })
 
   test('changes theme when clicked multiple times', () => {
@@ -71,19 +71,19 @@ describe('ThemeToggle', () => {
     const button = screen.getByRole('button')
     
     // Initial state should be system theme
-    expect(button).toHaveAttribute('aria-label', 'Switch to light theme')
+    expect(button.getAttribute('aria-label')).toBe('Switch to light theme')
     
     // First click: system -> light
     fireEvent.click(button)
-    expect(button).toHaveAttribute('aria-label', 'Switch to dark theme')
+    expect(button.getAttribute('aria-label')).toBe('Switch to dark theme')
     
     // Second click: light -> dark
     fireEvent.click(button)
-    expect(button).toHaveAttribute('aria-label', 'Switch to system theme')
+    expect(button.getAttribute('aria-label')).toBe('Switch to system theme')
     
     // Third click: dark -> system
     fireEvent.click(button)
-    expect(button).toHaveAttribute('aria-label', 'Switch to light theme')
+    expect(button.getAttribute('aria-label')).toBe('Switch to light theme')
   })
 
   test('displays correct icons for each theme state', () => {
@@ -97,17 +97,17 @@ describe('ThemeToggle', () => {
     
     // System theme should show computer icon
     let computerIcon = button.querySelector('svg path[d*="M9 17.25v1.007"]')
-    expect(computerIcon).toBeInTheDocument()
+    expect(computerIcon).toBeTruthy()
     
     // Click to light theme
     fireEvent.click(button)
     let moonIcon = button.querySelector('svg path[d*="M21.752 15.002"]')
-    expect(moonIcon).toBeInTheDocument()
+    expect(moonIcon).toBeTruthy()
     
     // Click to dark theme  
     fireEvent.click(button)
     let sunIcon = button.querySelector('svg path[d*="M12 3v2.25m6.364.386"]')
-    expect(sunIcon).toBeInTheDocument()
+    expect(sunIcon).toBeTruthy()
   })
 
   test('persists theme preference', () => {
@@ -145,10 +145,10 @@ describe('ThemeToggle', () => {
     const button = screen.getByRole('button')
     
     // Should show system theme switch since current is dark
-    expect(button).toHaveAttribute('aria-label', 'Switch to system theme')
+    expect(button.getAttribute('aria-label')).toBe('Switch to system theme')
     
     // Should show sun icon (for dark theme)
     const sunIcon = button.querySelector('svg path[d*="M12 3v2.25m6.364.386"]')
-    expect(sunIcon).toBeInTheDocument()
+    expect(sunIcon).toBeTruthy()
   })
 })

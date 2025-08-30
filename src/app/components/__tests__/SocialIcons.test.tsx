@@ -13,24 +13,24 @@ describe('SocialIcons', () => {
     const links = screen.getAllByRole('link')
     expect(links).toHaveLength(4)
     
-    expect(links[0]).toHaveAttribute('href', 'https://github.com/stbensonimoh')
-    expect(links[1]).toHaveAttribute('href', 'https://linkedin.com/in/stbensonimoh')
-    expect(links[2]).toHaveAttribute('href', 'https://twitter.com/stbensonimoh')
-    expect(links[3]).toHaveAttribute('href', 'https://instagram.com/stbensonimoh')
+    expect(links[0].getAttribute('href')).toBe('https://github.com/stbensonimoh')
+    expect(links[1].getAttribute('href')).toBe('https://linkedin.com/in/stbensonimoh')
+    expect(links[2].getAttribute('href')).toBe('https://twitter.com/stbensonimoh')
+    expect(links[3].getAttribute('href')).toBe('https://instagram.com/stbensonimoh')
   })
 
   test('applies custom className', () => {
     render(<SocialIcons className="custom-class" />)
     const container = screen.getByTestId('social-icons')
-    expect(container).toHaveClass('custom-class')
+    expect(container.classList.contains('custom-class')).toBe(true)
   })
 
   test('has proper accessibility attributes', () => {
     render(<SocialIcons />)
     const links = screen.getAllByRole('link')
     links.forEach(link => {
-      expect(link).toHaveAttribute('target', '_blank')
-      expect(link).toHaveAttribute('rel', 'noreferrer')
+      expect(link.getAttribute('target')).toBe('_blank')
+      expect(link.getAttribute('rel')).toBe('noreferrer')
     })
   })
 })

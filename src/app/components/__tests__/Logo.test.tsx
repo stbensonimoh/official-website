@@ -45,7 +45,7 @@ describe('Logo', () => {
       </ThemeProvider>
     )
     const logo = screen.getByTestId('logo')
-    expect(logo).toBeInTheDocument()
+    expect(logo).toBeTruthy()
     expect(logo.tagName.toLowerCase()).toBe('svg')
   })
 
@@ -56,8 +56,8 @@ describe('Logo', () => {
       </ThemeProvider>
     )
     const logo = screen.getByTestId('logo')
-    expect(logo).toHaveAttribute('width', '150')
-    expect(logo).toHaveAttribute('height', '75')
+    expect(logo.getAttribute('width')).toBe('150')
+    expect(logo.getAttribute('height')).toBe('75')
   })
 
   test('renders with different theme contexts', () => {
@@ -69,7 +69,7 @@ describe('Logo', () => {
     const logo = screen.getByTestId('logo')
     
     // Should render successfully with ThemeProvider
-    expect(logo).toBeInTheDocument()
-    expect(logo).toHaveAttribute('viewBox')
+    expect(logo).toBeTruthy()
+    expect(logo.getAttribute('viewBox')).toBeTruthy()
   })
 })

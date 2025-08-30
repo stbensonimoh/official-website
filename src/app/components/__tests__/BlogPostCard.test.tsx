@@ -27,11 +27,11 @@ describe('BlogPostCard', () => {
   test('renders post information correctly', () => {
     render(<BlogPostCard post={mockPost} />)
 
-    expect(screen.getByRole('img', { name: 'Featured Image' })).toHaveAttribute('src', mockPost.frontmatter.featured_image)
-    expect(screen.getByText(mockPost.frontmatter.title)).toBeInTheDocument()
-    expect(screen.getByText(mockPost.frontmatter.author)).toBeInTheDocument()
-    expect(screen.getByText(mockPost.frontmatter.excerpt)).toBeInTheDocument()
-    expect(screen.getByText('Read More...').closest('a')).toHaveAttribute('href', `/${mockPost.slug}`)
+    expect(screen.getByRole('img', { name: 'Featured Image' }).getAttribute('src')).toBe(mockPost.frontmatter.featured_image)
+    expect(screen.getByText(mockPost.frontmatter.title)).toBeTruthy()
+    expect(screen.getByText(mockPost.frontmatter.author)).toBeTruthy()
+    expect(screen.getByText(mockPost.frontmatter.excerpt)).toBeTruthy()
+    expect(screen.getByText('Read More...').closest('a')?.getAttribute('href')).toBe(`/${mockPost.slug}`)
   })
 
   test('uses default author info when not provided in frontmatter', () => {
@@ -46,6 +46,6 @@ describe('BlogPostCard', () => {
 
     render(<BlogPostCard post={postWithoutAuthor} />)
     // Should use default author from siteMetadata
-    expect(screen.getByText('Benson Imoh,ST')).toBeInTheDocument()
+    expect(screen.getByText('Benson Imoh,ST')).toBeTruthy()
   })
 })
