@@ -45,16 +45,16 @@ describe('BlogPost', () => {
     render(Component)
     
     // Check for post title
-    expect(screen.getByText(firstPost.frontmatter.title)).toBeInTheDocument()
+    expect(screen.getByText(firstPost.frontmatter.title)).toBeTruthy()
     
     // Check for author (either from frontmatter or default)
     const authorName = firstPost.frontmatter.author || 'Benson Imoh,ST'
-    expect(screen.getByText(authorName)).toBeInTheDocument()
+    expect(screen.getByText(authorName)).toBeTruthy()
     
     // Check for tags if they exist
     if (firstPost.frontmatter.tags && firstPost.frontmatter.tags.length > 0) {
       const tagsText = `Tags: #${firstPost.frontmatter.tags.join(' #')}`
-      expect(screen.getByText(tagsText)).toBeInTheDocument()
+      expect(screen.getByText(tagsText)).toBeTruthy()
     }
   })
 

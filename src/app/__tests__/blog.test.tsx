@@ -10,9 +10,9 @@ describe('Blog', () => {
   test('renders blog header section', async () => {
     render(await Blog({ params: {} }))
     
-    expect(screen.getByText('Welcome to my blog')).toBeInTheDocument()
-    expect(screen.getByText('We all owe death a life.')).toBeInTheDocument()
-    expect(screen.getByText(/I write about technology/)).toBeInTheDocument()
+    expect(screen.getByText('Welcome to my blog')).toBeTruthy()
+    expect(screen.getByText('We all owe death a life.')).toBeTruthy()
+    expect(screen.getByText(/I write about technology/)).toBeTruthy()
   })
 
   test('displays latest posts section', async () => {
