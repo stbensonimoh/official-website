@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom'
 import { render, screen, cleanup } from '@testing-library/react'
 import { describe, test, expect, afterEach } from 'bun:test'
 import About from '../about/page'
