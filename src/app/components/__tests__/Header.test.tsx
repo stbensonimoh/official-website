@@ -57,14 +57,15 @@ describe('Header', () => {
     
     const desktopNav = screen.getByTestId('desktop-nav')
     menuItems.forEach(item => {
-      expect(desktopNav).toHaveTextContent(item)
+      expect(desktopNav.textContent).toContain(item)
     })
   })
 
   test('renders Logo component', () => {
     renderWithTheme(<Header />)
     const desktopLogo = screen.getByTestId('desktop-logo')
-    expect(desktopLogo.closest('a')).toHaveClass('logo', 'ml-4')
+    expect(desktopLogo.closest('a')?.classList.contains('logo')).toBe(true)
+    expect(desktopLogo.closest('a')?.classList.contains('ml-4')).toBe(true)
   })
 
   test('toggles mobile menu when menu button is clicked', () => {
@@ -72,15 +73,15 @@ describe('Header', () => {
     const menuButton = screen.getByRole('button')
     
     // Initial state - menu is closed
-    expect(screen.getByRole('banner')).toHaveClass('-translate-y-full')
+    expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
     
     // Click to open menu
     fireEvent.click(menuButton)
-    expect(screen.getByRole('banner')).toHaveClass('-translate-y-0')
+    expect(screen.getByRole('banner').classList.contains('-translate-y-0')).toBe(true)
     
     // Click to close menu
     fireEvent.click(menuButton)
-    expect(screen.getByRole('banner')).toHaveClass('-translate-y-full')
+    expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
   })
 
   test('displays navigation links', () => {
@@ -88,9 +89,9 @@ describe('Header', () => {
     const desktopNav = screen.getByTestId('desktop-nav')
     
     // Check that all navigation links are present
-    expect(desktopNav.querySelector('a[href="/"]')).toBeInTheDocument()
-    expect(desktopNav.querySelector('a[href="/about"]')).toBeInTheDocument()
-    expect(desktopNav.querySelector('a[href="/blog"]')).toBeInTheDocument()
-    expect(desktopNav.querySelector('a[href="/contact"]')).toBeInTheDocument()
+    expect(desktopNav.querySelector('a[href="/"]')).toBeTruthy()
+    expect(desktopNav.querySelector('a[href="/about"]')).toBeTruthy()
+    expect(desktopNav.querySelector('a[href="/blog"]')).toBeTruthy()
+    expect(desktopNav.querySelector('a[href="/contact"]')).toBeTruthy()
   })
 })

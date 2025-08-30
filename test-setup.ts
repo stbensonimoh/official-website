@@ -1,7 +1,4 @@
 // Test environment setup for Bun
-// Import jest-dom matchers FIRST
-import '@testing-library/jest-dom'
-
 import { Window } from 'happy-dom'
 
 // Set up DOM environment

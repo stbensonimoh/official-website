@@ -53,7 +53,7 @@ For test files that you want to use Bun's native test runner:
 
 ```typescript
 // Before (Jest)
-import { describe, it, expect, beforeAll } from '@testing-library/jest-dom'
+import { describe, it, expect, beforeAll } from 'jest'
 
 // After (Bun)
 import { describe, test, expect, beforeAll } from 'bun:test'
@@ -87,7 +87,7 @@ mock()
 ### If tests fail:
 1. Ensure the test setup file is properly loaded
 2. Check that all mocks are properly configured
-3. Verify that `@testing-library/jest-dom` is properly imported
+3. Verify that native DOM assertions are working properly
 
 ### If Next.js doesn't start:
 1. Try using `bun --bun next dev` for better compatibility

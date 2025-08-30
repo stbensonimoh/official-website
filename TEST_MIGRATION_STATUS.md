@@ -22,7 +22,7 @@ The Next.js project has been successfully migrated from NPM to Bun with all test
 - Created `bunfig.toml` with test configuration
 - Created `test-setup.ts` with happy-dom DOM environment
 - Configured localStorage and matchMedia mocks
-- Added jest-dom matchers for Bun compatibility
+- Migrated to native Bun test assertions (removed jest-dom dependency)
 
 ### 3. Test Files Migration ✅
 - Converted all test syntax from Jest (`it`) to Bun (`test`)
