@@ -5,6 +5,7 @@ import { bebas, roboto, dosis, badscript, slab } from "./fonts";
 import Header from "@/app/components/Header";
 import { ThemeProvider } from "@/app/context/ThemeContext";
 import ThemeToggle from "@/app/components/ThemeToggle";
+import Analytics from "@/app/components/Analytics";
 
 export function generateMetadata(): Metadata {
   return {
@@ -30,6 +31,7 @@ export default function RootLayout({
           {children}
           <ThemeToggle />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
