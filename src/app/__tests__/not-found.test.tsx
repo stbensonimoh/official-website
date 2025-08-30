@@ -11,9 +11,9 @@ describe('NotFound', () => {
     const { container } = render(<NotFound />)
 
     // Check for main elements
-    expect(container).toHaveTextContent('404')
-    expect(container).toHaveTextContent('Awww... Are you lost?')
-    expect(container).toHaveTextContent("Let's go home")
+    expect(container.textContent).toContain('404')
+    expect(container.textContent).toContain('Awww... Are you lost?')
+    expect(container.textContent).toContain("Let's go home")
     
     // Check for home link
     const homeLink = container.querySelector('a[href="/"]')
@@ -22,8 +22,8 @@ describe('NotFound', () => {
 
   test('has correct image attributes', () => {
     const { container } = render(<NotFound />)
-    const image = container.querySelector('img[alt="404 Image"]')
-    expect(image).toHaveAttribute('src', '/images/404.png')
-    expect(image).toHaveAttribute('width', '40%')
+    const image = container.querySelector('img[alt="404 Image"]') as HTMLImageElement
+    expect(image?.getAttribute('src')).toBe('/images/404.png')
+    expect(image?.getAttribute('width')).toBe('40%')
   })
 })

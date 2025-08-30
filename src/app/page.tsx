@@ -27,7 +27,7 @@ export default function Home() {
             Deeply invested in improving DevX, Cx, and xD because how things feel is just as important as how they work.
           </p>
         </div>
-        <div className="image-section mx-10">
+        <div className="image-section mx-10 w-2/5">
           <img src="images/front-image.png" />
         </div>
       </div>

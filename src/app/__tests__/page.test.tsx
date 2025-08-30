@@ -30,14 +30,14 @@ describe('Home', () => {
     )
     
     // Check for main heading content
-    expect(screen.getByText('Hello!')).toBeInTheDocument()
-    expect(screen.getByText('I am Benson...')).toBeInTheDocument()
+    expect(screen.getByText('Hello!')).toBeTruthy()
+    expect(screen.getByText('I am Benson...')).toBeTruthy()
     
     // Find the desktop heading
     const desktopHeading = screen.getByRole('heading', { level: 1 })
-    expect(within(desktopHeading).getByText(/Software Engineer/)).toBeInTheDocument()
-    expect(within(desktopHeading).getByText(/DevOps Enthusiast/)).toBeInTheDocument()
-    expect(within(desktopHeading).getByText(/OSS Advocate/)).toBeInTheDocument()
+    expect(within(desktopHeading).getByText(/Software Engineer/)).toBeTruthy()
+    expect(within(desktopHeading).getByText(/DevOps Enthusiast/)).toBeTruthy()
+    expect(within(desktopHeading).getByText(/OSS Advocate/)).toBeTruthy()
   })
 
   test('renders social icons and copyright', () => {
@@ -51,14 +51,14 @@ describe('Home', () => {
     const socialIconsContainer = screen.getByTestId('social-icons');
 
     // Check for links by their href attribute within the container
-    expect(within(socialIconsContainer).getByRole('link', { name: /github profile/i })).toHaveAttribute('href', 'https://github.com/stbensonimoh');
-    expect(within(socialIconsContainer).getByRole('link', { name: /linkedin profile/i })).toHaveAttribute('href', 'https://linkedin.com/in/stbensonimoh');
-    expect(within(socialIconsContainer).getByRole('link', { name: /twitter profile/i })).toHaveAttribute('href', 'https://twitter.com/stbensonimoh');
-    expect(within(socialIconsContainer).getByRole('link', { name: /instagram profile/i })).toHaveAttribute('href', 'https://instagram.com/stbensonimoh');
+    expect(within(socialIconsContainer).getByRole('link', { name: /github profile/i }).getAttribute('href')).toBe('https://github.com/stbensonimoh');
+    expect(within(socialIconsContainer).getByRole('link', { name: /linkedin profile/i }).getAttribute('href')).toBe('https://linkedin.com/in/stbensonimoh');
+    expect(within(socialIconsContainer).getByRole('link', { name: /twitter profile/i }).getAttribute('href')).toBe('https://twitter.com/stbensonimoh');
+    expect(within(socialIconsContainer).getByRole('link', { name: /instagram profile/i }).getAttribute('href')).toBe('https://instagram.com/stbensonimoh');
 
     // Find the copyright container and check its text content
     const copyrightContainer = screen.getByText(/Copyright ©/).closest('div');
-    expect(copyrightContainer).toHaveTextContent('Copyright © 2025 Benson Imoh,ST');
+    expect(copyrightContainer?.textContent).toContain('Copyright © 2025 Benson Imoh,ST');
   })
 
   test('renders responsive layouts', () => {
@@ -71,8 +71,8 @@ describe('Home', () => {
     // Find the paragraph, get its parent div, then the grandparent div which has the responsive classes
     const desktopParagraph = screen.getByText(/I build software and infrastructure/);
     const desktopSectionContainer = desktopParagraph.closest('div')?.parentElement;
-    expect(desktopSectionContainer).toHaveClass('hidden');
-    expect(desktopSectionContainer).toHaveClass('md:flex');
+    expect(desktopSectionContainer?.classList.contains('hidden')).toBe(true);
+    expect(desktopSectionContainer?.classList.contains('md:flex')).toBe(true);
 
 
     // Mobile layout check
@@ -81,7 +81,10 @@ describe('Home', () => {
     // The text 'SOFTWARE ENGINEER' is inside a div, which is inside the 'mobile-header' div.
     const mobileTextElement = screen.getByText('SOFTWARE ENGINEER');
     const mobileHeader = mobileTextElement.closest('.mobile-header'); // Find the ancestor with the class
-    expect(mobileHeader).toBeInTheDocument(); // Ensure the header itself is found
-    expect(mobileHeader).toHaveClass('mobile-header', 'flex', 'flex-col', 'md:hidden'); // Check all expected classes
+    expect(mobileHeader).toBeTruthy(); // Ensure the header itself is found
+    expect(mobileHeader?.classList.contains('mobile-header')).toBe(true);
+    expect(mobileHeader?.classList.contains('flex')).toBe(true);
+    expect(mobileHeader?.classList.contains('flex-col')).toBe(true);
+    expect(mobileHeader?.classList.contains('md:hidden')).toBe(true);
   })
 })

@@ -1,7 +1,10 @@
 // Test environment setup for Bun
+// Import jest-dom matchers FIRST
+import '@testing-library/jest-dom'
+
 import { Window } from 'happy-dom'
 
-// Set up DOM environment first
+// Set up DOM environment
 const window = new Window()
 const document = window.document
 
@@ -77,6 +80,3 @@ if (typeof Bun !== 'undefined') {
     return originalRequire ? originalRequire(id) : undefined
   } as any
 }
-
-// Import jest-dom matchers after DOM is set up
-import '@testing-library/jest-dom'
