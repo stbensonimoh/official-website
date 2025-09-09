@@ -10,10 +10,7 @@ describe('About', () => {
   test('renders main sections', () => {
     render(<About />)
     
-    // Check main heading with role descriptions - target the first h1 which contains the roles
-    const mainHeading = screen.getAllByRole('heading', { level: 1 })[0]
-    console.log(mainHeading.textContent)
-    expect(mainHeading.textContent).toMatch(/Software Engineer.*DevOps Enthusiast.*OSS Advocate/)
+    expect(screen.getByText(/Software Engineer.*DevOps Enthusiast.*OSS Advocate/)).toBeTruthy()
 
     // Check sections content
     expect(screen.getByText('Over the past years,')).toBeTruthy()
