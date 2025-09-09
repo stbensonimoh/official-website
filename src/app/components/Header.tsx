@@ -27,10 +27,10 @@ const Header = () => {
   return (
     <>
       <div className="hidden header md:flex justify-between items-center my-4">
-        <Link href="/" className="logo ml-4">
+        <Link href="/" className="logo ml-4" aria-label="Benson Imoh - Home">
           <Logo width={96} height={96} className="w-24" data-testid="desktop-logo" />
         </Link>
-        <nav className="main-navigation uppercase text-base font-dosis mr-8" data-testid="desktop-nav">
+        <nav className="main-navigation uppercase text-base font-dosis mr-8" data-testid="desktop-nav" aria-label="Main navigation">
           {menuItems.map((item, index) =>
             item.internal ? (
               <Link
@@ -39,6 +39,7 @@ const Header = () => {
                 className={`nav-item ${
                   pathname === item.link ? "active-menu-item" : ""
                 }`}
+                aria-current={pathname === item.link ? "page" : undefined}
               >
                 {item.name}
               </Link>
@@ -92,6 +93,8 @@ const Header = () => {
       <button
         className="fixed top-8 right-8 text-3xl z-[21] md:hidden"
         onClick={toggleMenu}
+        aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={menuOpen}
       >
         {menuOpen ? <FiX /> : <FiMenu />}
       </button>

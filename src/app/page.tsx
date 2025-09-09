@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Copyright from "@/app/components/Copyright";
 import SocialIcons from "@/app/components/SocialIcons";
 import { useTheme } from "@/app/context/ThemeContext";
@@ -28,12 +29,26 @@ export default function Home() {
           </p>
         </div>
         <div className="image-section mx-10 w-2/5">
-          <img src="images/front-image.png" />
+          <Image 
+            src="/images/front-image.png" 
+            alt="Benson Imoh - Software Engineer, DevOps Enthusiast, and OSS Advocate" 
+            width={500}
+            height={500}
+            priority
+            className="w-full h-auto"
+          />
         </div>
       </div>
       <div className="mobile-header flex flex-col items-center pt-20 w-full md:hidden">
         {/* <Logo className="w-24" /> */}
-        <img src="images/front-image.png" className="my-12" />
+        <Image 
+          src="/images/front-image.png" 
+          alt="Benson Imoh - Software Engineer, DevOps Enthusiast, and OSS Advocate" 
+          width={300}
+          height={300}
+          priority
+          className="my-12 w-auto h-auto"
+        />
         <div className={`${boxBgClass} text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2`}>
           SOFTWARE ENGINEER
         </div>

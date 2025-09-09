@@ -98,6 +98,55 @@ body {
   color: var(--primary);
 }
 
+/* Enhanced focus indicators for accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Improved keyboard navigation for interactive elements */
+.main-navigation a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  background-color: var(--surface);
+}
+
+/* Social icons accessibility */
+.social-icons a:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  transform: scale(1.2);
+}
+
+/* Button focus states */
+.button:focus-visible {
+  outline: 2px solid var(--foreground);
+  outline-offset: 2px;
+}
+
+/* Skip to content link (for screen readers) */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #1a1a1a;
+  color: white;
+  padding: 8px;
+  z-index: 1000;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
 /* Article and prose styling - Fixed for TailwindCSS v4 */
 .article-body p {
   margin-top: 0.875rem;

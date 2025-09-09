@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Button from "@/app/components/Button";
 
 export default function NotFound() {
@@ -5,11 +6,12 @@ export default function NotFound() {
     <>
       <main>
         <div className="flex flex-col items-center justify-center font-roboto pt-60 md:pt-20 mx-10">
-          <img
+          <Image
             src="/images/404.png"
-            width="40%"
-            alt="404 Image"
-            style={{ marginBottom: "1rem" }}
+            alt="404 error page illustration"
+            width={400}
+            height={400}
+            className="w-2/5 h-auto mb-4"
           />
           <h1 className="font-roboto font-bold text-bensonpink text-6xl">
             404

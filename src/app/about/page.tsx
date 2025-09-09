@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import Button from "@/app/components/Button";
 import { MdArrowForward } from "react-icons/md";
 import { roboto } from "@/app/fonts";
@@ -37,9 +38,13 @@ export default function About() {
     <div className="flex flex-col">
       <div className="w-full xl:h-screen">
         <div className="flex flex-col pt-20 md:pt-0 xl:pt-32 pb-12 lg:pb-0 lg:flex-row items-center justify-center">
-          <img
+          <Image
             src="/images/about-page-picture.png"
-            className="px-10 md:ml-16 mt-20 mb-9 md:mt-0 xl:w-2/7 lg:w-2/5 md:w-2/3"
+            alt="Benson Imoh - About page profile picture"
+            width={400}
+            height={500}
+            priority
+            className="px-10 md:ml-16 mt-20 mb-9 md:mt-0 xl:w-2/7 lg:w-2/5 md:w-2/3 w-auto h-auto"
           />
           <div className="mx-10 lg:mx-16 lg:w-2/5 text-center lg:text-left">
             <h1

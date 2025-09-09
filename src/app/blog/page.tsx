@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Image from "next/image";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import BlogPostCard from "@/app/components/BlogPostCard";
 
@@ -110,9 +111,12 @@ export default async function Blog({ params }: any) {
               and life generally...
             </p>
           </div>
-          <img
+          <Image
             src="/images/blog-header-image.png"
-            className="hidden lg:block pt-12 xl:w-3/7 lg:w-2/5 lg:pr-12"
+            alt="Blog header illustration"
+            width={400}
+            height={300}
+            className="hidden lg:block pt-12 xl:w-3/7 lg:w-2/5 lg:pr-12 w-auto h-auto"
           />
         </section>
       </div>

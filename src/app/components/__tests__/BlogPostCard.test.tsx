@@ -27,7 +27,7 @@ describe('BlogPostCard', () => {
   test('renders post information correctly', () => {
     render(<BlogPostCard post={mockPost} />)
 
-    expect(screen.getByRole('img', { name: 'Featured Image' }).getAttribute('src')).toBe(mockPost.frontmatter.featured_image)
+    expect(screen.getByRole('img', { name: 'Featured image for blog post: Test Post' }).getAttribute('src')).toBe(mockPost.frontmatter.featured_image)
     expect(screen.getByText(mockPost.frontmatter.title)).toBeTruthy()
     expect(screen.getByText(mockPost.frontmatter.author)).toBeTruthy()
     expect(screen.getByText(mockPost.frontmatter.excerpt)).toBeTruthy()

@@ -13,7 +13,7 @@ describe('Contact', () => {
     // Check for contact vector image specifically
     const contactImages = screen.getAllByRole('img')
     const contactVectorImage = contactImages.find(img => 
-      img.getAttribute('src') === 'images/contact-vector.png'
+      img.getAttribute('src') === '/images/contact-vector.png'
     )
     expect(contactVectorImage).toBeTruthy()
     
