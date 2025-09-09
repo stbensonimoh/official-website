@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import AuthorBlob from "./AuthorBlob";
 import siteMetadata from "../../../siteMetadata";
 
@@ -28,7 +29,13 @@ export default function BlogPostCard({ post }: { post: Post }) {
     <div role="article" className="bg-surface w-full p-8 rounded-md shadow-sm">
       <Link href={`/${post.slug}`}>
         <div className="image-container max-h-52 overflow-hidden">
-          <img src={featured_image} alt="Featured Image" />
+          <Image 
+            src={featured_image} 
+            alt={`Featured image for blog post: ${title}`}
+            width={400}
+            height={200}
+            className="w-full h-auto object-cover"
+          />
         </div>
       </Link>
       <h2 className="text-lg font-roboto font-medium text-foreground my-2">

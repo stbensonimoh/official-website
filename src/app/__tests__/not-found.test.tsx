@@ -22,8 +22,8 @@ describe('NotFound', () => {
 
   test('has correct image attributes', () => {
     const { container } = render(<NotFound />)
-    const image = container.querySelector('img[alt="404 Image"]') as HTMLImageElement
+    const image = container.querySelector('img[alt="404 error page illustration"]') as HTMLImageElement
     expect(image?.getAttribute('src')).toBe('/images/404.png')
-    expect(image?.getAttribute('width')).toBe('40%')
+    expect(image?.getAttribute('width')).toBe('400')
   })
 })

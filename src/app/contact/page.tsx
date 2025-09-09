@@ -1,3 +1,4 @@
+import Image from "next/image";
 import SocialIcons from "@/app/components/SocialIcons";
 import Copyright from "@/app/components/Copyright";
 import Button from "@/app/components/Button";
@@ -10,7 +11,13 @@ export default function Contact() {
       <div
         className={`${roboto.className} flex flex-col pt-20 w-full justify-center items-center md:hidden`}
       >
-        <img src="images/contact-vector.png" className="my-20 mb-8" />
+        <Image 
+          src="/images/contact-vector.png" 
+          alt="Contact illustration vector"
+          width={300}
+          height={300}
+          className="my-20 mb-8 w-auto h-auto"
+        />
         <p className="text-center mx-10 mb-8">
           Got a question or proposal, or just want to say hello? Go ahead.
         </p>
