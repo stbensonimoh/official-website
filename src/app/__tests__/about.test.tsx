@@ -12,6 +12,7 @@ describe('About', () => {
     
     // Check main heading with role descriptions - target the first h1 which contains the roles
     const mainHeading = screen.getAllByRole('heading', { level: 1 })[0]
+    console.log(mainHeading.textContent)
     expect(mainHeading.textContent).toMatch(/Software Engineer.*DevOps Enthusiast.*OSS Advocate/)
 
     // Check sections content
