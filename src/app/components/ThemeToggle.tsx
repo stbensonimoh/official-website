@@ -1,20 +1,24 @@
 "use client";
 
 import { useTheme } from "@/app/context/ThemeContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { trackThemeChange } from "@/lib/clarity";
 
 export default function ThemeToggle() {
   const { theme, actualTheme, toggleTheme } = useTheme();
-  // Use a simpler pattern: check if we're in the browser
-  const [hasMounted, setHasMounted] = useState(typeof window !== 'undefined');
+  const [hasMounted, setHasMounted] = useState(false);
 
-  // Ensure mounting happens client-side
-  if (!hasMounted && typeof window !== 'undefined') {
+  // Only set mounted after hydration completes
+  useEffect(() => {
     setHasMounted(true);
-  }
+  }, []);
 
-  if (!hasMounted) return null;
+  // Return a placeholder with same dimensions to avoid layout shift
+  if (!hasMounted) {
+    return (
+      <div className="fixed bottom-6 right-6 z-50 w-12 h-12" />
+    );
+  }
 
   // Get the next theme for aria-label and title
   const getNextTheme = () => {

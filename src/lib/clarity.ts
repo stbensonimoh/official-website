@@ -8,10 +8,10 @@
 import Clarity from '@microsoft/clarity';
 
 /**
- * Check if Clarity is ready (client-side only)
+ * Check if Clarity is ready (client-side and initialized)
  */
 const isClarityReady = (): boolean => {
-  return typeof window !== 'undefined';
+  return typeof window !== 'undefined' && typeof (window as any).clarity === 'function';
 };
 
 /**
