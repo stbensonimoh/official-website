@@ -112,6 +112,7 @@ export default async function Blog({ params }: any) {
           </div>
           <img
             src="/images/blog-header-image.png"
+            alt="Blog header illustration"
             className="hidden lg:block pt-12 xl:w-3/7 lg:w-2/5 lg:pr-12"
           />
         </section>

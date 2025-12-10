@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useMemo } from "react";
 
 type Theme = "light" | "dark" | "system";
 type ActualTheme = "light" | "dark";
@@ -14,46 +14,38 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("system");
-  const [actualTheme, setActualTheme] = useState<ActualTheme>("light");
-
   // Function to get system theme
   const getSystemTheme = (): ActualTheme => {
+    if (typeof window === "undefined") return "light";
     return window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
   };
 
-  // Update actual theme based on theme setting
-  useEffect(() => {
-    if (theme === "system") {
-      setActualTheme(getSystemTheme());
-    } else {
-      setActualTheme(theme as ActualTheme);
-    }
-  }, [theme]);
+  // Initialize theme from localStorage or default to system
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "system";
+    return (localStorage.getItem("theme") as Theme) || "system";
+  });
+
+  // Track system theme preference
+  const [systemTheme, setSystemTheme] = useState<ActualTheme>(getSystemTheme);
+
+  // Compute actual theme using useMemo (derived state)
+  const actualTheme = useMemo<ActualTheme>(() => {
+    return theme === "system" ? systemTheme : (theme as ActualTheme);
+  }, [theme, systemTheme]);
 
   // Listen for system theme changes
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     
     const handleChange = () => {
-      if (theme === "system") {
-        setActualTheme(getSystemTheme());
-      }
+      setSystemTheme(getSystemTheme());
     };
     
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [theme]);
-
-  useEffect(() => {
-    // Check if theme is stored in localStorage
-    const storedTheme = localStorage.getItem("theme") as Theme | null;
-    
-    if (storedTheme) {
-      setTheme(storedTheme);
-    }
   }, []);
 
   useEffect(() => {

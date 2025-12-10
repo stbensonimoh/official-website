@@ -28,12 +28,12 @@ export default function Home() {
           </p>
         </div>
         <div className="image-section mx-10 w-2/5">
-          <img src="images/front-image.png" />
+          <img src="images/front-image.png" alt="Benson Imoh portrait" />
         </div>
       </div>
       <div className="mobile-header flex flex-col items-center pt-20 w-full md:hidden">
         {/* <Logo className="w-24" /> */}
-        <img src="images/front-image.png" className="my-12" />
+        <img src="images/front-image.png" className="my-12" alt="Benson Imoh portrait" />
         <div className={`${boxBgClass} text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2`}>
           SOFTWARE ENGINEER
         </div>

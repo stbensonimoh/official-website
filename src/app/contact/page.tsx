@@ -10,7 +10,7 @@ export default function Contact() {
       <div
         className={`${roboto.className} flex flex-col pt-20 w-full justify-center items-center md:hidden`}
       >
-        <img src="images/contact-vector.png" className="my-20 mb-8" />
+        <img src="images/contact-vector.png" alt="Contact illustration" className="my-20 mb-8" />
         <p className="text-center mx-10 mb-8">
           Got a question or proposal, or just want to say hello? Go ahead.
         </p>

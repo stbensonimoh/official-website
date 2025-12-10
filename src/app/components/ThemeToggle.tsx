@@ -1,18 +1,19 @@
 "use client";
 
 import { useTheme } from "@/app/context/ThemeContext";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function ThemeToggle() {
   const { theme, actualTheme, toggleTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  // Use a simpler pattern: check if we're in the browser
+  const [hasMounted, setHasMounted] = useState(typeof window !== 'undefined');
 
-  // Avoid hydration mismatch by only rendering after component is mounted
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // Ensure mounting happens client-side
+  if (!hasMounted && typeof window !== 'undefined') {
+    setHasMounted(true);
+  }
 
-  if (!mounted) return null;
+  if (!hasMounted) return null;
 
   // Get the next theme for aria-label and title
   const getNextTheme = () => {

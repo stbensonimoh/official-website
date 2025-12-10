@@ -39,6 +39,7 @@ export default function About() {
         <div className="flex flex-col pt-20 md:pt-0 xl:pt-32 pb-12 lg:pb-0 lg:flex-row items-center justify-center">
           <img
             src="/images/about-page-picture.png"
+            alt="Benson Imoh professional photo"
             className="px-10 md:ml-16 mt-20 mb-9 md:mt-0 xl:w-2/7 lg:w-2/5 md:w-2/3"
           />
           <div className="mx-10 lg:mx-16 lg:w-2/5 text-center lg:text-left">
