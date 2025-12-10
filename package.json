@@ -14,6 +14,7 @@
     "postinstall": "bun run test:setup"
   },
   "dependencies": {
+    "@microsoft/clarity": "^1.0.2",
     "@tailwindcss/postcss": "^4.1.7",
     "@tailwindcss/typography": "^0.5.15",
     "gray-matter": "^4.0.3",

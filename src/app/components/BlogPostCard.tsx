@@ -1,6 +1,9 @@
+'use client'
+
 import Link from "next/link";
 import AuthorBlob from "./AuthorBlob";
 import siteMetadata from "../../../siteMetadata";
+import { trackBlogClick } from "@/lib/clarity";
 
 type Post = {
   slug: string;
@@ -26,13 +29,13 @@ export default function BlogPostCard({ post }: { post: Post }) {
 
   return (
     <div role="article" className="bg-surface w-full p-8 rounded-md shadow-sm">
-      <Link href={`/${post.slug}`}>
+      <Link href={`/${post.slug}`} onClick={() => trackBlogClick(post.slug)}>
         <div className="image-container max-h-52 overflow-hidden">
           <img src={featured_image} alt="Featured Image" />
         </div>
       </Link>
       <h2 className="text-lg font-roboto font-medium text-foreground my-2">
-        <Link href={`/${post.slug}`}>{title}</Link>
+        <Link href={`/${post.slug}`} onClick={() => trackBlogClick(post.slug)}>{title}</Link>
       </h2>
       <AuthorBlob
         author={author ? author : name}

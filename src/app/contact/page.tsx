@@ -1,12 +1,14 @@
 import SocialIcons from "@/app/components/SocialIcons";
 import Copyright from "@/app/components/Copyright";
-import Button from "@/app/components/Button";
+import CTAButton from "@/app/components/CTAButton";
 import { FiSend } from "react-icons/fi";
 import { roboto } from "@/app/fonts";
+import ContactPageTracker from "@/app/components/ContactPageTracker";
 
 export default function Contact() {
   return (
     <>
+      <ContactPageTracker />
       <div
         className={`${roboto.className} flex flex-col pt-20 w-full justify-center items-center md:hidden`}
       >
@@ -15,9 +17,9 @@ export default function Contact() {
           Got a question or proposal, or just want to say hello? Go ahead.
         </p>
         <SocialIcons className="mb-4 social-icons flex flex-row text-center text-bensonpink" />
-        <Button type="external" href="mailto:benson@stbensonimoh.com">
+        <CTAButton type="external" href="mailto:benson@stbensonimoh.com" ctaName="contact_email_mobile">
           Send me a mail
-        </Button>
+        </CTAButton>
       </div>
       <div className={`${roboto.className} hidden md:flex flex-col`}>
         <div className="main flex flex-col items-center justify-center mt-12">
@@ -30,9 +32,9 @@ export default function Contact() {
           </p>
 
           <div className="xl:my-28">
-            <Button type="external" href={`mailto:benson@stbensonimoh.com`}>
+            <CTAButton type="external" href="mailto:benson@stbensonimoh.com" ctaName="contact_email_desktop">
               Send a message &nbsp; <FiSend />
-            </Button>
+            </CTAButton>
           </div>
         </div>
         <SocialIcons className="absolute bottom-10 social-icons flex flex-col w-8 ml-4 text-center text-bensongrey" />

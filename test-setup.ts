@@ -44,6 +44,15 @@ Object.defineProperty(window, 'localStorage', {
   },
 })
 
+// Mock Microsoft Clarity API
+Object.defineProperty(window, 'clarity', {
+  writable: true,
+  value: (...args: unknown[]) => {
+    // Silent mock for tests - no-op
+    return undefined
+  },
+})
+
 // Mock Next.js font functions - override the global require/import
 const mockFont = {
   className: 'mock-font',

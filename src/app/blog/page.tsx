@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import BlogPostCard from "@/app/components/BlogPostCard";
+import PageTracker from "@/app/components/PageTracker";
 
 type Post = {
   slug: string;

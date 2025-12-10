@@ -3,10 +3,17 @@
 import Copyright from "@/app/components/Copyright";
 import SocialIcons from "@/app/components/SocialIcons";
 import { useTheme } from "@/app/context/ThemeContext";
+import { useEffect } from "react";
+import { setPageContext } from "@/lib/clarity";
 
 export default function Home() {
   const { actualTheme } = useTheme();
   const boxBgClass = actualTheme === "dark" ? "bg-surface" : "bg-bensonblack";
+  
+  useEffect(() => {
+    setPageContext('home', { page_name: 'landing' });
+  }, []);
+  
   return (
     <div className="font-roboto">
       <div className="hidden md:flex items-center justify-center mt-12 md:mx-4 xl:mx-0">

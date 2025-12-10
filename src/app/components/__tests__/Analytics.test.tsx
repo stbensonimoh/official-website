@@ -1,16 +1,15 @@
-import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
+import { describe, test, expect, beforeEach, afterEach, mock } from 'bun:test'
 import { render } from '@testing-library/react'
 import Analytics from '../Analytics'
 
-// Mock the Next.js Script component
-const mockScripts: any[] = []
+// Mock the @microsoft/clarity package
+const mockClarityInit = mock(() => {})
 
-// Mock Next.js Script globally for this test suite
-const OriginalScript = global.Script
-global.Script = function MockScript(props: any) {
-  mockScripts.push(props)
-  return null
-} as any
+mock.module('@microsoft/clarity', () => ({
+  default: {
+    init: mockClarityInit,
+  },
+}))
 
 describe('Analytics', () => {
   const originalEnv = process.env
@@ -18,7 +17,7 @@ describe('Analytics', () => {
   beforeEach(() => {
     // Reset environment variables and mock data before each test
     process.env = { ...originalEnv }
-    mockScripts.length = 0
+    mockClarityInit.mockClear()
   })
 
   afterEach(() => {

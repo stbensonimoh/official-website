@@ -2,6 +2,7 @@
 
 import { useTheme } from "@/app/context/ThemeContext";
 import { useState } from "react";
+import { trackThemeChange } from "@/lib/clarity";
 
 export default function ThemeToggle() {
   const { theme, actualTheme, toggleTheme } = useTheme();
@@ -26,7 +27,11 @@ export default function ThemeToggle() {
     <button
       aria-label={`Switch to ${getNextTheme()} theme`}
       title={`Switch to ${getNextTheme()} theme`}
-      onClick={toggleTheme}
+      onClick={() => {
+        const nextTheme = getNextTheme();
+        trackThemeChange(nextTheme);
+        toggleTheme();
+      }}
       className="fixed bottom-6 right-6 z-50 flex items-center justify-center w-12 h-12 rounded-full bg-surface border-2 border-primary shadow-lg transition-transform duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary"
     >
       {theme === "system" ? (

@@ -1,8 +1,10 @@
 import Button from "@/app/components/Button";
+import NotFoundTracker from "@/app/components/NotFoundTracker";
 
 export default function NotFound() {
   return (
     <>
+      <NotFoundTracker />
       <main>
         <div className="flex flex-col items-center justify-center font-roboto pt-60 md:pt-20 mx-10">
           <img

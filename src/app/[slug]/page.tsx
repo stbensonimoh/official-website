@@ -5,6 +5,7 @@ import siteMetadata from "../../../siteMetadata";
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import BlogPostTracker from "@/app/components/BlogPostTracker";
 
 type Post = {
   slug: string;
@@ -81,6 +82,7 @@ export default async function BlogPost({ params }: any) {
 
   return (
     <div className="">
+      <BlogPostTracker slug={slug} tags={post.frontmatter.tags} />
       <main className="flex flex-col w-full">
         <div
           className="featured-image"

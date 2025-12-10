@@ -4,12 +4,14 @@ import Logo from "./Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiX, FiMenu } from "react-icons/fi";
+import { trackNavigation, trackMobileMenu } from "@/lib/clarity";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
 
   const toggleMenu = () => {
+    trackMobileMenu(menuOpen ? 'close' : 'open');
     setMenuOpen(!menuOpen);
   };
 
@@ -36,6 +38,7 @@ const Header = () => {
               <Link
                 key={index}
                 href={item.link}
+                onClick={() => trackNavigation(item.name)}
                 className={`nav-item ${
                   pathname === item.link ? "active-menu-item" : ""
                 }`}
@@ -43,7 +46,7 @@ const Header = () => {
                 {item.name}
               </Link>
             ) : (
-              <a key={index} href={item.link} className="nav-item">
+              <a key={index} href={item.link} className="nav-item" onClick={() => trackNavigation(item.name)}>
                 {item.name}
               </a>
             )
@@ -68,7 +71,10 @@ const Header = () => {
               <Link
                 key={index}
                 href={item.link}
-                onClick={() => setMenuOpen(false)}
+                onClick={() => {
+                  trackNavigation(item.name);
+                  setMenuOpen(false);
+                }}
                 className={`nav-item ${
                   pathname === item.link ? "active-menu-item" : ""
                 }`}
@@ -80,7 +86,10 @@ const Header = () => {
                 key={index}
                 href={item.link}
                 className="nav-item"
-                onClick={() => setMenuOpen(false)}
+                onClick={() => {
+                  trackNavigation(item.name);
+                  setMenuOpen(false);
+                }}
               >
                 {item.name}
               </a>

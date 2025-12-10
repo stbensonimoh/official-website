@@ -1,7 +1,9 @@
 import { Metadata } from "next";
 import Button from "@/app/components/Button";
+import CTAButton from "@/app/components/CTAButton";
 import { MdArrowForward } from "react-icons/md";
 import { roboto } from "@/app/fonts";
+import PageTracker from "@/app/components/PageTracker";
 
 export const metadata: Metadata = {
   title: "About - Benson Imoh,ST",
@@ -35,6 +37,7 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <div className="flex flex-col">
+      <PageTracker pageType="about" />
       <div className="w-full xl:h-screen">
         <div className="flex flex-col pt-20 md:pt-0 xl:pt-32 pb-12 lg:pb-0 lg:flex-row items-center justify-center">
           <img
@@ -123,14 +126,15 @@ I care a lot about open source and automation.
           <p className="md:text-2xl my-10 text-secondary w-12/12">
             Web Apps, freelance projects, personal projects and experiments
           </p>
-          <Button
+          <CTAButton
             type="external"
             href="https://github.com/stbensonimoh"
             target="_blank"
+            ctaName="see_my_work"
           >
             See my work &nbsp;
             <MdArrowForward />
-          </Button>
+          </CTAButton>
         </div>
         <div className="flex  flex-col bg-background px-10 lg:px-10 pt-12 pb-20 my-20 mt-10 md:mt-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
           <h1
@@ -141,10 +145,10 @@ I care a lot about open source and automation.
           <p className="md:text-2xl my-8 md:my-10 text-secondary w-11/12">
             About OSS, design, engineering and productivity.
           </p>
-          <Button type="internal" href="/blog">
+          <CTAButton type="internal" href="/blog" ctaName="read_my_blog">
             Read my Blog &nbsp;
             <MdArrowForward />
-          </Button>
+          </CTAButton>
         </div>
       </div>
     </div>
