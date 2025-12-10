@@ -28,14 +28,14 @@ describe('Analytics', () => {
 
   test('renders without crashing when tracking ID is provided', () => {
     // Set tracking ID environment variable
-    process.env.NEXT_PUBLIC_ALACRITY_TRACKING_ID = 'test-tracking-id'
+    process.env.NEXT_PUBLIC_CLARITY_TRACKING_ID = 'test-tracking-id'
     
     expect(() => render(<Analytics />)).not.toThrow()
   })
 
   test('renders nothing when tracking ID is not provided', () => {
     // Ensure tracking ID is not set
-    delete process.env.NEXT_PUBLIC_ALACRITY_TRACKING_ID
+    delete process.env.NEXT_PUBLIC_CLARITY_TRACKING_ID
     
     const { container } = render(<Analytics />)
     
@@ -45,7 +45,7 @@ describe('Analytics', () => {
 
   test('renders nothing when tracking ID is empty', () => {
     // Set empty tracking ID
-    process.env.NEXT_PUBLIC_ALACRITY_TRACKING_ID = ''
+    process.env.NEXT_PUBLIC_CLARITY_TRACKING_ID = ''
     
     const { container } = render(<Analytics />)
     
@@ -55,7 +55,7 @@ describe('Analytics', () => {
 
   test('renders nothing when tracking ID is placeholder value', () => {
     // Set placeholder tracking ID
-    process.env.NEXT_PUBLIC_ALACRITY_TRACKING_ID = 'your_tracking_id_here'
+    process.env.NEXT_PUBLIC_CLARITY_TRACKING_ID = 'your_tracking_id_here'
     
     const { container } = render(<Analytics />)
     
