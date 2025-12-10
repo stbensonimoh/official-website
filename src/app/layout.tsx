@@ -30,8 +30,8 @@ export default function RootLayout({
           <Header />
           {children}
           <ThemeToggle />
+          <Analytics />
         </ThemeProvider>
-        <Analytics />
       </body>
     </html>
   );
