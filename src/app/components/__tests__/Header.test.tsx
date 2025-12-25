@@ -1,47 +1,20 @@
-import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react'
-import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
+import { render, screen, fireEvent, cleanup } from '@testing-library/react'
+import { describe, test, expect, beforeEach, afterEach, mock } from 'bun:test'
 import Header from '../Header'
-import { ThemeProvider } from '@/app/context/ThemeContext'
 
-const renderWithTheme = (component: React.ReactNode) => {
-  // Setup localStorage and matchMedia for ThemeProvider
-  if (typeof localStorage === 'undefined') {
-    Object.defineProperty(global, 'localStorage', {
-      value: {
-        getItem: () => null,
-        setItem: () => {},
-        removeItem: () => {},
-        clear: () => {},
-        length: 0,
-        key: () => null,
-      },
-      writable: true
-    })
-  }
-
-  if (typeof window !== 'undefined' && !window.matchMedia) {
-    Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      value: (query: string) => ({
-        matches: false,
-        media: query,
-        addEventListener: () => {},
-        removeEventListener: () => {},
-      }),
-    })
-  }
-
-  return render(
-    <ThemeProvider>
-      {component}
-    </ThemeProvider>
-  )
-}
+// Mock ThemeContext to avoid queueMicrotask timing issues
+mock.module('@/app/context/ThemeContext', () => ({
+  ThemeProvider: ({ children }: { children: React.ReactNode }) => children,
+  useTheme: () => ({
+    theme: 'system',
+    actualTheme: 'light',
+    toggleTheme: () => {},
+  }),
+}))
 
 describe('Header', () => {
   beforeEach(() => {
     // Mock usePathname to return home page
-    const mockUsePathname = () => '/'
     if (typeof window !== 'undefined') {
       ;(window as any).__NEXT_PATHNAME__ = '/'
     }
@@ -51,47 +24,43 @@ describe('Header', () => {
     cleanup()
   })
 
-  test('renders navigation items', async () => {
-    renderWithTheme(<Header />)
+  test('renders navigation items', () => {
+    render(<Header />)
     const menuItems = ['Home', 'About', 'Blog', 'Contact']
     
-    const desktopNav = await screen.findByTestId('desktop-nav')
+    const desktopNav = screen.getByTestId('desktop-nav')
     menuItems.forEach(item => {
       expect(desktopNav.textContent).toContain(item)
     })
   })
 
-  test('renders Logo component', async () => {
-    renderWithTheme(<Header />)
-    const desktopLogo = await screen.findByTestId('desktop-logo')
+  test('renders Logo component', () => {
+    render(<Header />)
+    const desktopLogo = screen.getByTestId('desktop-logo')
     expect(desktopLogo.closest('a')?.classList.contains('logo')).toBe(true)
     expect(desktopLogo.closest('a')?.classList.contains('ml-4')).toBe(true)
   })
 
-  test('toggles mobile menu when menu button is clicked', async () => {
-    renderWithTheme(<Header />)
-    
-    // Wait for all buttons to be available (including ThemeToggle which uses queueMicrotask)
-    const menuButton = await screen.findByRole('button', { name: 'Open menu' })
+  test('toggles mobile menu when menu button is clicked', () => {
+    render(<Header />)
+    const menuButton = screen.getByRole('button', { name: 'Open menu' })
     
     // Initial state - menu is closed
     expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
     
     // Click to open menu
     fireEvent.click(menuButton)
-    const closeButton = await screen.findByRole('button', { name: 'Close menu' })
     expect(screen.getByRole('banner').classList.contains('-translate-y-0')).toBe(true)
+    expect(screen.getByRole('button', { name: 'Close menu' })).toBeTruthy()
     
     // Click to close menu
-    fireEvent.click(closeButton)
-    await waitFor(() => {
-      expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
-    })
+    fireEvent.click(screen.getByRole('button', { name: 'Close menu' }))
+    expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
   })
 
-  test('displays navigation links', async () => {
-    renderWithTheme(<Header />)
-    const desktopNav = await screen.findByTestId('desktop-nav')
+  test('displays navigation links', () => {
+    render(<Header />)
+    const desktopNav = screen.getByTestId('desktop-nav')
     
     // Check that all navigation links are present
     expect(desktopNav.querySelector('a[href="/"]')).toBeTruthy()
