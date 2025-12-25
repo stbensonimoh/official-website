@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, cleanup } from '@testing-library/react'
+import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react'
 import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import Header from '../Header'
 import { ThemeProvider } from '@/app/context/ThemeContext'
@@ -68,21 +68,25 @@ describe('Header', () => {
     expect(desktopLogo.closest('a')?.classList.contains('ml-4')).toBe(true)
   })
 
-  test('toggles mobile menu when menu button is clicked', () => {
+  test('toggles mobile menu when menu button is clicked', async () => {
     renderWithTheme(<Header />)
-    const menuButton = screen.getByRole('button', { name: 'Open menu' })
+    
+    // Wait for all buttons to be available (including ThemeToggle which uses queueMicrotask)
+    const menuButton = await screen.findByRole('button', { name: 'Open menu' })
     
     // Initial state - menu is closed
     expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
     
     // Click to open menu
     fireEvent.click(menuButton)
-    const closeButton = screen.getByRole('button', { name: 'Close menu' })
+    const closeButton = await screen.findByRole('button', { name: 'Close menu' })
     expect(screen.getByRole('banner').classList.contains('-translate-y-0')).toBe(true)
     
     // Click to close menu
     fireEvent.click(closeButton)
-    expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
+    await waitFor(() => {
+      expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
+    })
   })
 
   test('displays navigation links', () => {
