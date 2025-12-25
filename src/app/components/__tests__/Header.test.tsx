@@ -51,19 +51,19 @@ describe('Header', () => {
     cleanup()
   })
 
-  test('renders navigation items', () => {
+  test('renders navigation items', async () => {
     renderWithTheme(<Header />)
     const menuItems = ['Home', 'About', 'Blog', 'Contact']
     
-    const desktopNav = screen.getByTestId('desktop-nav')
+    const desktopNav = await screen.findByTestId('desktop-nav')
     menuItems.forEach(item => {
       expect(desktopNav.textContent).toContain(item)
     })
   })
 
-  test('renders Logo component', () => {
+  test('renders Logo component', async () => {
     renderWithTheme(<Header />)
-    const desktopLogo = screen.getByTestId('desktop-logo')
+    const desktopLogo = await screen.findByTestId('desktop-logo')
     expect(desktopLogo.closest('a')?.classList.contains('logo')).toBe(true)
     expect(desktopLogo.closest('a')?.classList.contains('ml-4')).toBe(true)
   })
@@ -89,9 +89,9 @@ describe('Header', () => {
     })
   })
 
-  test('displays navigation links', () => {
+  test('displays navigation links', async () => {
     renderWithTheme(<Header />)
-    const desktopNav = screen.getByTestId('desktop-nav')
+    const desktopNav = await screen.findByTestId('desktop-nav')
     
     // Check that all navigation links are present
     expect(desktopNav.querySelector('a[href="/"]')).toBeTruthy()
