@@ -1,9 +1,32 @@
 // Test environment setup for Bun
-import { Window } from "happy-dom";
+import { Window } from 'happy-dom'
+import { mock } from 'bun:test'
+import * as clarityMock from './__mocks__/lib/clarity'
+
+// Mock the Clarity library wrapper
+mock.module('@/lib/clarity', () => clarityMock)
+
+// Mock Microsoft Clarity module (fallback)
+mock.module('@microsoft/clarity', () => ({
+  default: {
+    event: () => {},
+    setTag: () => {},
+    upgrade: () => {},
+    identify: () => {},
+    consent: () => {},
+    init: () => {},
+  },
+}))
 
 // Set up DOM environment
-const window = new Window();
-const document = window.document;
+const window = new Window()
+const document = window.document
+
+// Ensure clarity is not defined on window to prevent isClarityReady() from returning true
+// This is a safety net in case the mocks fail
+if ((window as any).clarity) {
+  delete (window as any).clarity
+}
 
 // Make DOM available globally
 Object.assign(global, {
