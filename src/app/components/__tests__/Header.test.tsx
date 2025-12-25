@@ -6,6 +6,10 @@ import { ThemeProvider } from '../../context/ThemeContext'
 
 // Render helper that sets up ThemeProvider with required browser mocks
 const renderHeader = () => {
+  // Mock Clarity to prevent analytics errors in tests
+  if (typeof window !== 'undefined') {
+    ;(window as any).clarity = () => {}
+  }
   // Setup localStorage mock
   if (typeof localStorage === 'undefined' || !localStorage.getItem) {
     Object.defineProperty(global, 'localStorage', {
