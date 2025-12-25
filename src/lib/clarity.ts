@@ -1,17 +1,20 @@
 /**
  * Microsoft Clarity Analytics Utilities
- * 
+ *
  * Centralized wrapper functions for Clarity API calls.
  * Provides safe access to Clarity events, tags, and session upgrades.
  */
 
-import Clarity from '@microsoft/clarity';
+import Clarity from "@microsoft/clarity";
 
 /**
  * Check if Clarity is ready (client-side and initialized)
  */
 const isClarityReady = (): boolean => {
-  return typeof window !== 'undefined' && typeof (window as any).clarity === 'function';
+  return (
+    typeof window !== "undefined" &&
+    typeof (window as any).clarity === "function"
+  );
 };
 
 /**
@@ -89,23 +92,23 @@ export const trackSocialClick = (platform: string): void => {
  * Track blog post clicks
  */
 export const trackBlogClick = (slug: string): void => {
-  const sanitizedSlug = slug.replace(/-/g, '_');
+  const sanitizedSlug = slug.replace(/-/g, "_");
   trackEvent(`blog_click_${sanitizedSlug}`);
-  setTag('last_blog_clicked', slug);
+  setTag("last_blog_clicked", slug);
 };
 
 /**
  * Track CTA button clicks
  */
 export const trackCTAClick = (ctaName: string): void => {
-  trackEvent(`cta_${ctaName.toLowerCase().replace(/\s+/g, '_')}`);
+  trackEvent(`cta_${ctaName.toLowerCase().replace(/\s+/g, "_")}`);
 };
 
 /**
  * Track CTA with session upgrade (for high-value actions)
  */
 export const trackCTAWithUpgrade = (ctaName: string): void => {
-  const sanitizedName = ctaName.toLowerCase().replace(/\s+/g, '_');
+  const sanitizedName = ctaName.toLowerCase().replace(/\s+/g, "_");
   trackEvent(`cta_${sanitizedName}`);
   upgradeSession(`cta_engagement_${sanitizedName}`);
 };
@@ -115,13 +118,13 @@ export const trackCTAWithUpgrade = (ctaName: string): void => {
  */
 export const trackThemeChange = (newTheme: string): void => {
   trackEvent(`theme_change_to_${newTheme}`);
-  setTag('theme_preference', newTheme);
+  setTag("theme_preference", newTheme);
 };
 
 /**
  * Track mobile menu interactions
  */
-export const trackMobileMenu = (action: 'open' | 'close'): void => {
+export const trackMobileMenu = (action: "open" | "close"): void => {
   trackEvent(`mobile_menu_${action}`);
 };
 
@@ -129,15 +132,18 @@ export const trackMobileMenu = (action: 'open' | 'close'): void => {
  * Track 404 page visits and recovery
  */
 export const track404Recovery = (): void => {
-  trackEvent('404_return_home');
+  trackEvent("404_return_home");
 };
 
 /**
  * Set page context tags
  */
-export const setPageContext = (pageType: string, additionalTags?: Record<string, string>): void => {
-  setTag('page_type', pageType);
-  
+export const setPageContext = (
+  pageType: string,
+  additionalTags?: Record<string, string>
+): void => {
+  setTag("page_type", pageType);
+
   if (additionalTags) {
     Object.entries(additionalTags).forEach(([key, value]) => {
       setTag(key, value);
@@ -149,9 +155,10 @@ export const setPageContext = (pageType: string, additionalTags?: Record<string,
  * Track engaged reading behavior
  */
 export const trackEngagedReader = (duration: number): void => {
-  if (duration >= 30000) { // 30 seconds
-    upgradeSession('engaged_blog_reader');
-    trackEvent('engaged_reading_30s');
+  if (duration >= 30000) {
+    // 30 seconds
+    upgradeSession("engaged_blog_reader");
+    trackEvent("engaged_reading_30s");
   }
 };
 
@@ -160,9 +167,9 @@ export const trackEngagedReader = (duration: number): void => {
  */
 export const trackScrollDepth = (percentage: number): void => {
   if (percentage >= 90) {
-    upgradeSession('full_article_read');
-    trackEvent('scroll_depth_90_percent');
+    upgradeSession("full_article_read");
+    trackEvent("scroll_depth_90_percent");
   } else if (percentage >= 50) {
-    trackEvent('scroll_depth_50_percent');
+    trackEvent("scroll_depth_50_percent");
   }
 };

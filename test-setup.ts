@@ -1,5 +1,17 @@
 // Test environment setup for Bun
 import { Window } from 'happy-dom'
+import { mock } from 'bun:test'
+
+// Mock Microsoft Clarity module
+mock.module('@microsoft/clarity', () => ({
+  default: {
+    event: () => {},
+    setTag: () => {},
+    upgrade: () => {},
+    identify: () => {},
+    consent: () => {},
+  },
+}))
 
 // Set up DOM environment
 const window = new Window()
