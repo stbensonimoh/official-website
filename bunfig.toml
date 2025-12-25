@@ -6,7 +6,7 @@ preload = ["./test-setup.ts"]
 [test.imports]
 "next/font/google" = "./__mocks__/next/font/google.ts"
 "@/app/fonts" = "./src/app/__mocks__/fonts.ts"
-"@microsoft/clarity" = "./__mocks__/@microsoft/clarity.ts"
+"@/lib/clarity" = "./__mocks__/lib/clarity.ts"
 
 [test.env]
 NODE_ENV = "test"
