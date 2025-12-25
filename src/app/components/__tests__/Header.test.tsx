@@ -1,20 +1,54 @@
+import React from 'react'
 import { render, screen, fireEvent, cleanup } from '@testing-library/react'
-import { describe, test, expect, beforeEach, afterEach, mock } from 'bun:test'
+import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import Header from '../Header'
+import { ThemeProvider } from '../../context/ThemeContext'
 
-// Mock ThemeContext to avoid queueMicrotask timing issues
-mock.module('@/app/context/ThemeContext', () => ({
-  ThemeProvider: ({ children }: { children: React.ReactNode }) => children,
-  useTheme: () => ({
-    theme: 'system',
-    actualTheme: 'light',
-    toggleTheme: () => {},
-  }),
-}))
+// Render helper that sets up ThemeProvider with required browser mocks
+const renderHeader = () => {
+  // Setup localStorage mock
+  if (typeof localStorage === 'undefined' || !localStorage.getItem) {
+    Object.defineProperty(global, 'localStorage', {
+      value: {
+        getItem: () => null,
+        setItem: () => {},
+        removeItem: () => {},
+        clear: () => {},
+        length: 0,
+        key: () => null,
+      },
+      writable: true,
+      configurable: true,
+    })
+  }
+
+  // Setup matchMedia mock  
+  if (typeof window !== 'undefined' && !window.matchMedia) {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      configurable: true,
+      value: (query: string) => ({
+        matches: false,
+        media: query,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        addListener: () => {},
+        removeListener: () => {},
+        onchange: null,
+        dispatchEvent: () => false,
+      }),
+    })
+  }
+
+  return render(
+    <ThemeProvider>
+      <Header />
+    </ThemeProvider>
+  )
+}
 
 describe('Header', () => {
   beforeEach(() => {
-    // Mock usePathname to return home page
     if (typeof window !== 'undefined') {
       ;(window as any).__NEXT_PATHNAME__ = '/'
     }
@@ -25,7 +59,7 @@ describe('Header', () => {
   })
 
   test('renders navigation items', () => {
-    render(<Header />)
+    renderHeader()
     const menuItems = ['Home', 'About', 'Blog', 'Contact']
     
     const desktopNav = screen.getByTestId('desktop-nav')
@@ -35,14 +69,14 @@ describe('Header', () => {
   })
 
   test('renders Logo component', () => {
-    render(<Header />)
+    renderHeader()
     const desktopLogo = screen.getByTestId('desktop-logo')
     expect(desktopLogo.closest('a')?.classList.contains('logo')).toBe(true)
     expect(desktopLogo.closest('a')?.classList.contains('ml-4')).toBe(true)
   })
 
   test('toggles mobile menu when menu button is clicked', () => {
-    render(<Header />)
+    renderHeader()
     const menuButton = screen.getByRole('button', { name: 'Open menu' })
     
     // Initial state - menu is closed
@@ -59,7 +93,7 @@ describe('Header', () => {
   })
 
   test('displays navigation links', () => {
-    render(<Header />)
+    renderHeader()
     const desktopNav = screen.getByTestId('desktop-nav')
     
     // Check that all navigation links are present
