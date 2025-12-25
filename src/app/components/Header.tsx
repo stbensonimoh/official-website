@@ -101,6 +101,7 @@ const Header = () => {
       <button
         className="fixed top-8 right-8 text-3xl z-[21] md:hidden"
         onClick={toggleMenu}
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
       >
         {menuOpen ? <FiX /> : <FiMenu />}
       </button>

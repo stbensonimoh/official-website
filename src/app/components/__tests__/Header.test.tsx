@@ -1,11 +1,13 @@
-import { render, screen, fireEvent, cleanup } from '@testing-library/react'
+import React from 'react'
+import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react'
 import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import Header from '../Header'
-import { ThemeProvider } from '@/app/context/ThemeContext'
+import { ThemeProvider } from '../../context/ThemeContext'
 
-const renderWithTheme = (component: React.ReactNode) => {
-  // Setup localStorage and matchMedia for ThemeProvider
-  if (typeof localStorage === 'undefined') {
+// Render helper that sets up ThemeProvider with required browser mocks
+const renderHeader = () => {
+  // Setup localStorage mock
+  if (typeof localStorage === 'undefined' || !localStorage.getItem) {
     Object.defineProperty(global, 'localStorage', {
       value: {
         getItem: () => null,
@@ -15,33 +17,38 @@ const renderWithTheme = (component: React.ReactNode) => {
         length: 0,
         key: () => null,
       },
-      writable: true
+      writable: true,
+      configurable: true,
     })
   }
 
+  // Setup matchMedia mock  
   if (typeof window !== 'undefined' && !window.matchMedia) {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
+      configurable: true,
       value: (query: string) => ({
         matches: false,
         media: query,
         addEventListener: () => {},
         removeEventListener: () => {},
+        addListener: () => {},
+        removeListener: () => {},
+        onchange: null,
+        dispatchEvent: () => false,
       }),
     })
   }
 
   return render(
     <ThemeProvider>
-      {component}
+      <Header />
     </ThemeProvider>
   )
 }
 
 describe('Header', () => {
   beforeEach(() => {
-    // Mock usePathname to return home page
-    const mockUsePathname = () => '/'
     if (typeof window !== 'undefined') {
       ;(window as any).__NEXT_PATHNAME__ = '/'
     }
@@ -52,7 +59,7 @@ describe('Header', () => {
   })
 
   test('renders navigation items', () => {
-    renderWithTheme(<Header />)
+    renderHeader()
     const menuItems = ['Home', 'About', 'Blog', 'Contact']
     
     const desktopNav = screen.getByTestId('desktop-nav')
@@ -62,30 +69,38 @@ describe('Header', () => {
   })
 
   test('renders Logo component', () => {
-    renderWithTheme(<Header />)
+    renderHeader()
     const desktopLogo = screen.getByTestId('desktop-logo')
     expect(desktopLogo.closest('a')?.classList.contains('logo')).toBe(true)
     expect(desktopLogo.closest('a')?.classList.contains('ml-4')).toBe(true)
   })
 
-  test('toggles mobile menu when menu button is clicked', () => {
-    renderWithTheme(<Header />)
-    const menuButton = screen.getByRole('button')
+  test('toggles mobile menu when menu button is clicked', async () => {
+    renderHeader()
+    const menuButton = await screen.findByRole('button', { name: 'Open menu' })
     
     // Initial state - menu is closed
     expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
     
-    // Click to open menu
+    // Click to open menu and wait for state update
     fireEvent.click(menuButton)
-    expect(screen.getByRole('banner').classList.contains('-translate-y-0')).toBe(true)
+    await waitFor(() => {
+      expect(screen.getByRole('banner').classList.contains('-translate-y-0')).toBe(true)
+    })
     
-    // Click to close menu
-    fireEvent.click(menuButton)
-    expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
+    // Wait for button label to update
+    const closeButton = await screen.findByRole('button', { name: 'Close menu' })
+    expect(closeButton).toBeTruthy()
+    
+    // Click to close menu and wait for state update
+    fireEvent.click(closeButton)
+    await waitFor(() => {
+      expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
+    })
   })
 
   test('displays navigation links', () => {
-    renderWithTheme(<Header />)
+    renderHeader()
     const desktopNav = screen.getByTestId('desktop-nav')
     
     // Check that all navigation links are present

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, fireEvent, cleanup } from '@testing-library/react'
+import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react'
 import { describe, test, expect, beforeEach, afterEach } from 'bun:test'
 import ThemeToggle from '../ThemeToggle'
 import { ThemeProvider } from '@/app/context/ThemeContext'
@@ -46,29 +46,30 @@ describe('ThemeToggle', () => {
     cleanup()
   })
 
-  test('renders correctly with default system theme', () => {
+  test('renders correctly with default system theme', async () => {
     render(
       <ThemeProvider>
         <ThemeToggle />
       </ThemeProvider>
     )
     
-    // Check if the button is rendered
-    const button = screen.getByRole('button')
+    // Wait for component to mount (queueMicrotask)
+    const button = await waitFor(() => screen.getByRole('button'))
     expect(button).toBeTruthy()
     
     // Should show computer icon for system theme and aria-label for next action (light)
     expect(button.getAttribute('aria-label')).toBe('Switch to light theme')
   })
 
-  test('changes theme when clicked multiple times', () => {
+  test('changes theme when clicked multiple times', async () => {
     render(
       <ThemeProvider>
         <ThemeToggle />
       </ThemeProvider>
     )
     
-    const button = screen.getByRole('button')
+    // Wait for component to mount
+    const button = await waitFor(() => screen.getByRole('button'))
     
     // Initial state should be system theme
     expect(button.getAttribute('aria-label')).toBe('Switch to light theme')
@@ -86,14 +87,15 @@ describe('ThemeToggle', () => {
     expect(button.getAttribute('aria-label')).toBe('Switch to light theme')
   })
 
-  test('displays correct icons for each theme state', () => {
+  test('displays correct icons for each theme state', async () => {
     render(
       <ThemeProvider>
         <ThemeToggle />
       </ThemeProvider>
     )
     
-    const button = screen.getByRole('button')
+    // Wait for component to mount
+    const button = await waitFor(() => screen.getByRole('button'))
     
     // System theme should show computer icon
     let computerIcon = button.querySelector('svg path[d*="M9 17.25v1.007"]')
@@ -110,14 +112,15 @@ describe('ThemeToggle', () => {
     expect(sunIcon).toBeTruthy()
   })
 
-  test('persists theme preference', () => {
+  test('persists theme preference', async () => {
     render(
       <ThemeProvider>
         <ThemeToggle />
       </ThemeProvider>
     )
     
-    const button = screen.getByRole('button')
+    // Wait for component to mount
+    const button = await waitFor(() => screen.getByRole('button'))
     
     // Click to set light theme
     fireEvent.click(button)
@@ -132,7 +135,7 @@ describe('ThemeToggle', () => {
     expect(localStorageMock.getItem('theme')).toBe('dark')
   })
 
-  test('loads saved theme from localStorage', () => {
+  test('loads saved theme from localStorage', async () => {
     // Pre-set localStorage to dark theme
     localStorageMock.setItem('theme', 'dark')
     
@@ -142,7 +145,8 @@ describe('ThemeToggle', () => {
       </ThemeProvider>
     )
     
-    const button = screen.getByRole('button')
+    // Wait for component to mount
+    const button = await waitFor(() => screen.getByRole('button'))
     
     // Should show system theme switch since current is dark
     expect(button.getAttribute('aria-label')).toBe('Switch to system theme')
