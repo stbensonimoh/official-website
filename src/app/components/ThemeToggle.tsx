@@ -10,7 +10,8 @@ export default function ThemeToggle() {
 
   // Only set mounted after hydration completes
   useEffect(() => {
-    setHasMounted(true);
+    // Use a microtask to avoid synchronous state update within effect
+    queueMicrotask(() => setHasMounted(true));
   }, []);
 
   // Return a placeholder with same dimensions to avoid layout shift
