@@ -70,17 +70,18 @@ describe('Header', () => {
 
   test('toggles mobile menu when menu button is clicked', () => {
     renderWithTheme(<Header />)
-    const menuButton = screen.getByRole('button')
+    const menuButton = screen.getByRole('button', { name: 'Open menu' })
     
     // Initial state - menu is closed
     expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
     
     // Click to open menu
     fireEvent.click(menuButton)
+    const closeButton = screen.getByRole('button', { name: 'Close menu' })
     expect(screen.getByRole('banner').classList.contains('-translate-y-0')).toBe(true)
     
     // Click to close menu
-    fireEvent.click(menuButton)
+    fireEvent.click(closeButton)
     expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
   })
 
