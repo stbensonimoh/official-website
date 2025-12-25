@@ -6,10 +6,6 @@ import { ThemeProvider } from '../../context/ThemeContext'
 
 // Render helper that sets up ThemeProvider with required browser mocks
 const renderHeader = () => {
-  // Mock Clarity to prevent analytics errors in tests
-  if (typeof window !== 'undefined') {
-    ;(window as any).clarity = () => {}
-  }
   // Setup localStorage mock
   if (typeof localStorage === 'undefined' || !localStorage.getItem) {
     Object.defineProperty(global, 'localStorage', {
@@ -81,7 +77,7 @@ describe('Header', () => {
 
   test('toggles mobile menu when menu button is clicked', async () => {
     renderHeader()
-    const menuButton = screen.getByRole('button', { name: 'Open menu' })
+    const menuButton = await screen.findByRole('button', { name: 'Open menu' })
     
     // Initial state - menu is closed
     expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
@@ -91,10 +87,13 @@ describe('Header', () => {
     await waitFor(() => {
       expect(screen.getByRole('banner').classList.contains('-translate-y-0')).toBe(true)
     })
-    expect(screen.getByRole('button', { name: 'Close menu' })).toBeTruthy()
+    
+    // Wait for button label to update
+    const closeButton = await screen.findByRole('button', { name: 'Close menu' })
+    expect(closeButton).toBeTruthy()
     
     // Click to close menu and wait for state update
-    fireEvent.click(screen.getByRole('button', { name: 'Close menu' }))
+    fireEvent.click(closeButton)
     await waitFor(() => {
       expect(screen.getByRole('banner').classList.contains('-translate-y-full')).toBe(true)
     })
