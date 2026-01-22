@@ -7,11 +7,7 @@
     "build": "bun --bun next build",
     "start": "bun --bun next start",
     "lint": "bun --bun eslint .",
-    "test": "bun run test:setup && bun test",
-    "test:setup": "bun run scripts/setup-test-mocks.ts",
-    "test:watch": "bun test --watch",
-    "test:coverage": "bun test --coverage",
-    "postinstall": "bun run test:setup"
+    "test": "bun test"
   },
   "dependencies": {
     "@microsoft/clarity": "^1.0.2",
@@ -31,8 +27,6 @@
     "sweetalert2": "^11.6.13"
   },
   "devDependencies": {
-    "@testing-library/react": "^14.2.1",
-    "@testing-library/user-event": "^14.6.1",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^20",
     "@types/react": "19.2.7",
@@ -40,7 +34,6 @@
     "bun-types": "latest",
     "eslint": "^9.29.0",
     "eslint-config-next": "16.0.8",
-    "happy-dom": "^18.0.1",
     "postcss": "^8",
     "tailwindcss": "^4.1.7",
     "typescript": "^5"
