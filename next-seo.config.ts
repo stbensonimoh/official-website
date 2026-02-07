@@ -23,8 +23,8 @@ const defaultSEOConfig = {
   // Twitter Card meta tag namespace (twitter:card, twitter:site, etc.)
   // but references the updated branding in siteMetadata.
   twitter: {
-    handle: \`@\${siteMetadata.social.x}\`,
-    site: \`@\${siteMetadata.social.x}\`,
+    handle: `@${siteMetadata.social.x}`,
+    site: `@${siteMetadata.social.x}`,
     cardType: "summary_large_image",
   },
 };
