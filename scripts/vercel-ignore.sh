@@ -1,14 +1,20 @@
 #!/bin/bash
 
 # Vercel Deployment Control Script
-# Purpose: Only allow production builds when a Git Tag is pushed.
+# Purpose: Restrict production builds to Git Tags while allowing Preview builds.
 
+echo "VERCEL_ENV: $VERCEL_ENV"
 echo "VERCEL_GIT_COMMIT_REF: $VERCEL_GIT_COMMIT_REF"
 
-if [[ "$VERCEL_GIT_COMMIT_REF" == v* ]]; then
-  echo "✅ Build requested for tag $VERCEL_GIT_COMMIT_REF. Proceeding with build..."
-  exit 1 # Exit code 1 tells Vercel to proceed
+if [[ "$VERCEL_ENV" == "production" ]]; then
+  if [[ "$VERCEL_GIT_COMMIT_REF" == v* ]]; then
+    echo "✅ Production build requested for tag $VERCEL_GIT_COMMIT_REF. Proceeding..."
+    exit 1 # Proceed
+  else
+    echo "🛑 Production build skipped. Production only allows release tags (v*)."
+    exit 0 # Skip
+  fi
 else
-  echo "🛑 Build skipped. Current ref ($VERCEL_GIT_COMMIT_REF) is not a release tag."
-  exit 0 # Exit code 0 tells Vercel to skip
+  echo "✅ Non-production environment ($VERCEL_ENV). Proceeding with Preview build..."
+  exit 1 # Proceed
 fi
