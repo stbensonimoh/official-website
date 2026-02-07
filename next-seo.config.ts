@@ -1,3 +1,5 @@
+import siteMetadata from './siteMetadata';
+
 const defaultSEOConfig = {
   title: "Benson Imoh,ST",
   description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
@@ -17,15 +19,13 @@ const defaultSEOConfig = {
       },
     ],
   },
+  // Note: The property name remains 'twitter' to align with the 
+  // Twitter Card meta tag namespace (twitter:card, twitter:site, etc.)
+  // but references the updated branding in siteMetadata.
   twitter: {
-    creator: "@stbensonimoh",
-    card: "summary_large_image",
-    title: "Benson Imoh,ST",
-    description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
-    images: {
-      url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1735318948/stbensonimoh_logo.png",
-      alt: "Benson Imoh, ST's Logo",
-    },
+    handle: `@${siteMetadata.social.x}`,
+    site: `@${siteMetadata.social.x}`,
+    cardType: "summary_large_image",
   },
 };
 

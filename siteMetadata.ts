@@ -8,7 +8,7 @@ const siteMetadata = {
   description: `Software Engineer | DevOps Enthusiast | OSS Advocate`,
   siteUrl: `https://stbensonimoh.com/`,
   social: {
-    twitter: `stbensonimoh`,
+    x: `stbensonimoh`,
     linkedin: `stbensonimoh`,
     github: `stbensonimoh`,
     instagram: `stbensonimoh`,

@@ -1,6 +1,7 @@
 'use client'
 
-import { FaGithub, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import siteMetadata from "../../../siteMetadata";
 import { JSX, ClassAttributes, HTMLAttributes } from "react";
 import { trackSocialClick } from "@/lib/clarity";
@@ -10,7 +11,7 @@ const SocialIcons = (
     ClassAttributes<HTMLDivElement> &
     HTMLAttributes<HTMLDivElement>
 ) => {
-  const { twitter, linkedin, facebook, youtube, instagram, github } =
+  const { x, linkedin, facebook, youtube, instagram, github } =
     siteMetadata.social;
   return (
     <div {...props} data-testid="social-icons">
@@ -27,13 +28,13 @@ const SocialIcons = (
         <FaLinkedinIn />
       </a>
       <a
-        href={`https://twitter.com/${twitter}`}
+        href={`https://x.com/${x}`}
         target="_blank"
         rel="noreferrer"
-        aria-label="Twitter Profile"
-        onClick={() => trackSocialClick('twitter')}
+        aria-label="X Profile"
+        onClick={() => trackSocialClick('x')}
       >
-        <FaTwitter />
+        <FaXTwitter />
       </a>
       <a
         href={`https://instagram.com/${instagram}`}
