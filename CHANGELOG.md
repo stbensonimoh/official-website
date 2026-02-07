@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.4.0](https://github.com/stbensonimoh/official-website/compare/v1.3.0...v1.4.0) (2026-02-07)
+
+
+### Features
+
+* **deploy:** add vercel-ignore script for tag-based deployments ([74d1bb8](https://github.com/stbensonimoh/official-website/commit/74d1bb8bebd755c01d8a13a647a6d064c6dc8920))
+* **deploy:** implement tag-based production deployments ([f6f02dc](https://github.com/stbensonimoh/official-website/commit/f6f02dc6247e7d39afa950864af7caa3a547ac78))
+
+
+### Bug Fixes
+
+* **deploy:** allow preview builds ([b5d7f14](https://github.com/stbensonimoh/official-website/commit/b5d7f14be54bcf64bdec37ff1ce4405b7f5da9dc))
+* **deploy:** allow preview builds while restricting production to tags ([cf75959](https://github.com/stbensonimoh/official-website/commit/cf759597dac9da4f2cdb531cafe04f6d83a9607c))
+
 ## [1.3.0](https://github.com/stbensonimoh/official-website/compare/v1.2.0...v1.3.0) (2026-02-07)
 
 
