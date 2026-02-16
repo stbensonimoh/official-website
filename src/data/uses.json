@@ -1,0 +1,149 @@
+{
+  "lastUpdated": "2026-02-16",
+  "categories": [
+    {
+      "id": "hardware",
+      "name": "Hardware",
+      "description": "The physical tools that power my workflow",
+      "icon": "Monitor",
+      "items": [
+        {
+          "name": "MacBook Pro 16\" (M3 Max)",
+          "description": "My primary development machine with 36GB RAM",
+          "url": "https://www.apple.com/macbook-pro/"
+        },
+        {
+          "name": "Dell UltraSharp U2723QE",
+          "description": "27\" 4K USB-C monitor for extended screen real estate",
+          "url": "https://www.dell.com/en-us/shop/dell-ultrasharp-27-4k-usb-c-hub-monitor-u2723qe/apd/210-bdpf/monitors-monitor-accessories"
+        },
+        {
+          "name": "Keychron K2 Mechanical Keyboard",
+          "description": "Wireless mechanical keyboard with red switches",
+          "url": "https://www.keychron.com/products/keychron-k2-wireless-mechanical-keyboard"
+        },
+        {
+          "name": "Logitech MX Master 3S",
+          "description": "Ergonomic wireless mouse for productivity",
+          "url": "https://www.logitech.com/en-us/products/mice/mx-master-3s.html"
+        },
+        {
+          "name": "Sony WH-1000XM5",
+          "description": "Noise-canceling headphones for deep focus",
+          "url": "https://electronics.sony.com/headphones/headband/p/wh1000xm5"
+        },
+        {
+          "name": "Standing Desk",
+          "description": "Adjustable desk for alternating between sitting and standing",
+          "url": "https://www.autonomous.ai/standing-desks"
+        }
+      ]
+    },
+    {
+      "id": "software",
+      "name": "Software",
+      "description": "Applications that keep me productive",
+      "icon": "Code",
+      "items": [
+        {
+          "name": "VS Code",
+          "description": "Primary code editor with custom extensions",
+          "url": "https://code.visualstudio.com/"
+        },
+        {
+          "name": "Cursor",
+          "description": "AI-powered code editor for rapid development",
+          "url": "https://cursor.sh/"
+        },
+        {
+          "name": "iTerm2",
+          "description": "Terminal emulator with custom configurations",
+          "url": "https://iterm2.com/"
+        },
+        {
+          "name": "Notion",
+          "description": "All-in-one workspace for notes and documentation",
+          "url": "https://www.notion.so/"
+        },
+        {
+          "name": "Figma",
+          "description": "Design tool for UI/UX prototyping",
+          "url": "https://www.figma.com/"
+        },
+        {
+          "name": "Obsidian",
+          "description": "Knowledge base and note-taking in Markdown",
+          "url": "https://obsidian.md/"
+        },
+        {
+          "name": "Raycast",
+          "description": "Productivity launcher with custom workflows",
+          "url": "https://www.raycast.com/"
+        },
+        {
+          "name": "1Password",
+          "description": "Password manager for secure credential storage",
+          "url": "https://1password.com/"
+        }
+      ]
+    },
+    {
+      "id": "dev-tools",
+      "name": "Dev Tools",
+      "description": "Technologies and frameworks I work with",
+      "icon": "Terminal",
+      "items": [
+        {
+          "name": "Next.js",
+          "description": "React framework for production-grade applications",
+          "url": "https://nextjs.org/"
+        },
+        {
+          "name": "TypeScript",
+          "description": "Typed JavaScript for better developer experience",
+          "url": "https://www.typescriptlang.org/"
+        },
+        {
+          "name": "Tailwind CSS",
+          "description": "Utility-first CSS framework for rapid styling",
+          "url": "https://tailwindcss.com/"
+        },
+        {
+          "name": "React",
+          "description": "JavaScript library for building user interfaces",
+          "url": "https://react.dev/"
+        },
+        {
+          "name": "Node.js",
+          "description": "JavaScript runtime for server-side development",
+          "url": "https://nodejs.org/"
+        },
+        {
+          "name": "Docker",
+          "description": "Containerization platform for consistent environments",
+          "url": "https://www.docker.com/"
+        },
+        {
+          "name": "Git",
+          "description": "Version control system for tracking code changes",
+          "url": "https://git-scm.com/"
+        },
+        {
+          "name": "GitHub Actions",
+          "description": "CI/CD automation for testing and deployment",
+          "url": "https://github.com/features/actions"
+        },
+        {
+          "name": "PostgreSQL",
+          "description": "Relational database for structured data storage",
+          "url": "https://www.postgresql.org/"
+        },
+        {
+          "name": "Vercel",
+          "description": "Platform for deploying and hosting web applications",
+          "url": "https://vercel.com/"
+        }
+      ]
+    }
+  ]
+}
