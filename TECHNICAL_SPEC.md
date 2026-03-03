@@ -38,7 +38,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## 2. System Overview
 
-This is the personal website and blog of Benson Imoh, ST (Software Technologist). It is a statically-generated marketing and content site deployed on Vercel. Its primary functions are:
+This is the personal website and blog of Benson Imoh, ST (Software Engineer, DevOps Enthusiast and OSS Advocate). It is a statically-generated marketing and content site deployed on Vercel. Its primary functions are:
 
 - Professional identity presentation (homepage, about, contact)
 - Technical blog with MDX content
