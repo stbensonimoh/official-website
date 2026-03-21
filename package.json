@@ -7,7 +7,10 @@
     "build": "bun --bun next build",
     "start": "bun --bun next start",
     "lint": "bun --bun eslint .",
-    "test": "bun test"
+    "test": "bun test",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@microsoft/clarity": "^1.0.2",
@@ -27,6 +30,7 @@
     "sweetalert2": "^11.6.13"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.17.1",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^20",
     "@types/react": "19.2.7",
@@ -36,7 +40,8 @@
     "eslint-config-next": "16.0.8",
     "postcss": "^8",
     "tailwindcss": "^4.1.7",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.76.0"
   },
   "overrides": {
     "@types/react": "19.2.7",
