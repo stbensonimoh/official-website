@@ -1,24 +1,6 @@
 import { Metadata } from "next";
-import { getAllPosts, getPostBySlug } from "@/lib/posts";
+import { getAllPosts, type Post } from "@/lib/posts";
 import BlogPostCard from "@/app/components/BlogPostCard";
-import PageTracker from "@/app/components/PageTracker";
-
-type Post = {
-  slug: string;
-  frontmatter: {
-    title: string;
-    featured_image: string;
-    date: string;
-    tags: string[];
-    author?: string;
-    author_image?: string;
-    excerpt: string;
-  };
-  content: string;
-  readingTime: {
-    text: string;
-  };
-};
 
 type Posts = Post[];
 
@@ -51,9 +33,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Blog({ params }: any) {
-  // Extracting posts from params
-  const { slug } = await params;
+export default function Blog() {
   const posts: Posts = getAllPosts().map((post) => ({
     ...post,
     frontmatter: {
