@@ -124,7 +124,7 @@ The site is optimized for deployment on [Vercel](https://vercel.com), but can be
 
 ## 👤 About the Author
 
-Benson Imoh is a Software Engineer, DevOps Enthusiast, and Open Source Software Advocate passionate about blending engineering and design to creatively and efficiently solve problems.
+Benson Imoh,ST is a Software Engineer, DevOps Enthusiast, and Open Source Software Advocate passionate about blending engineering and design to creatively and efficiently solve problems.
 
 ## 📄 License
 
