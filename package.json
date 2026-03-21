@@ -6,7 +6,7 @@
     "dev": "bun --bun next dev",
     "build": "bun run scripts/generate-posts-data.ts && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "test": "bun test",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
