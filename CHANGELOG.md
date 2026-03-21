@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.4.1](https://github.com/stbensonimoh/official-website/compare/v1.4.0...v1.4.1) (2026-03-21)
+
+
+### Bug Fixes
+
+* bundle blog content for Cloudflare runtime ([d8b9a5a](https://github.com/stbensonimoh/official-website/commit/d8b9a5a3d6ed2edcc00dc551fd687df045a9d56d))
+* bundle blog content for Cloudflare runtime ([569e8b4](https://github.com/stbensonimoh/official-website/commit/569e8b4afdffee59c9f41c91f15160e4ffc36258))
+* correct lint script and ESLint config ([543e542](https://github.com/stbensonimoh/official-website/commit/543e542598a403654944b92fb66f268ab6d202d9))
+* use npm on cloudflare build ([2e30a8f](https://github.com/stbensonimoh/official-website/commit/2e30a8fbc97311bf341852e0cd57c33fbb6512e3))
+* use npm on cloudflare build ([ddb17fa](https://github.com/stbensonimoh/official-website/commit/ddb17fa4bb29afc030c0548119f4bd2aef424db1))
+
 ## [1.4.0](https://github.com/stbensonimoh/official-website/compare/v1.3.0...v1.4.0) (2026-02-07)
 
 
