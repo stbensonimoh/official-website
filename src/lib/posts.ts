@@ -1,37 +1,37 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import slugify from "slugify";
-import readingTime from "reading-time";
+import { postsData } from "./posts.data";
 
-const postsDirectory = path.join(process.cwd(), "blog");
+export type Post = {
+  slug: string;
+  frontmatter: {
+    title: string;
+    date: string;
+    featured_image: string;
+    author?: string;
+    author_image?: string;
+    excerpt: string;
+    tags: string[];
+  };
+  content: string;
+  readingTime: {
+    text: string;
+    minutes: number;
+    time: number;
+    words: number;
+  };
+};
 
-export function getAllPosts() {
-  const fileNames = fs.readdirSync(postsDirectory);
-
-  const posts = fileNames.map((fileName) => {
-    const fullPath = path.join(postsDirectory, fileName);
-
-    const fileContents = fs.readFileSync(fullPath, "utf8");
-
-    const { data: frontmatter, content } = matter(fileContents);
-
-    const slug = slugify(frontmatter.title, { lower: true, strict: true });
-
-    const readTime = readingTime(content);
-
-    return {
-      slug,
-      frontmatter,
-      content,
-      readingTime: readTime,
-    };
-  });
-
-  return posts;
+export function getAllPosts(): Post[] {
+  return postsData.map((post) => ({
+    ...post,
+    frontmatter: {
+      ...post.frontmatter,
+    },
+    readingTime: {
+      ...post.readingTime,
+    },
+  })) as Post[];
 }
 
-export function getPostBySlug(slug: string) {
-  const posts = getAllPosts();
-  return posts.find((post) => post.slug === slug);
+export function getPostBySlug(slug: string): Post | undefined {
+  return getAllPosts().find((post) => post.slug === slug);
 }
