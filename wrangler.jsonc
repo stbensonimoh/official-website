@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "pages_build_output_dir": "out",
+  "name": "official-website",
+  "compatibility_date": "2025-03-21",
+  "observability": {
+    "enabled": true
+  }
+}
