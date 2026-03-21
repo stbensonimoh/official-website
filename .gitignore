@@ -35,6 +35,12 @@ yarn.lock
 # vercel
 .vercel
 
+# cloudflare
+.wrangler/
+.open-next/
+*.log
+.dev.vars
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
