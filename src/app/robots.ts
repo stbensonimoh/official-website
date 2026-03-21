@@ -1,5 +1,8 @@
 import { MetadataRoute } from 'next';
-import siteMetadata from '../../siteMetadata'; 
+import siteMetadata from '../../siteMetadata';
+
+export const dynamic = 'force-static'; 
+export const revalidate = 86400;
 
 export default function robots(): MetadataRoute.Robots {
   const { siteUrl } = siteMetadata;

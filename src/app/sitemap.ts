@@ -2,6 +2,9 @@ import { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/posts";
 import siteMetadata from "../../siteMetadata";
 
+export const dynamic = 'force-static';
+export const revalidate = 86400;
+
 const sitemap = (): MetadataRoute.Sitemap => {
   const { siteUrl } = siteMetadata;
 

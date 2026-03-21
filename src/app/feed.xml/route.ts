@@ -2,6 +2,9 @@ import { getAllPosts } from '@/lib/posts';
 import siteMetadata from '../../../siteMetadata'; 
 import MarkdownIt from 'markdown-it';
 
+export const dynamic = 'force-static';
+export const revalidate = 86400;
+
 // Initialize markdown-it
 const md = new MarkdownIt({
   html: true, // Enable HTML tags in source
