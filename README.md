@@ -128,7 +128,11 @@ Benson Imoh,ST is a Software Engineer, DevOps Enthusiast, and Open Source Softwa
 
 ## 🏗️ Build Process
 
-The blog posts data is automatically generated from markdown files in the `blog/` directory. The generation script `scripts/generate-posts-data.ts` runs during the build process (`bun run build`), producing `src/lib/posts.data.ts`. This file is excluded from version control (see `.gitignore`) and should not be edited manually.
+The blog posts data is automatically generated from markdown files in the `blog/` directory. The generation script `scripts/generate-posts-data.ts` runs during the development (`bun run dev`), build (`bun run build`), preview, and deployment processes, producing `src/lib/posts.data.ts`. This file is excluded from version control (see `.gitignore`) and should not be edited manually.
+
+- **Local development**: The `dev` script automatically generates the file before starting the Next.js server.
+- **Build & deployment**: The `build`, `preview`, and `deploy` scripts include the generation step.
+- **Manual generation**: You can run `bun run generate-posts-data` to regenerate the file at any time.
 
 ### CI/CD Integration
 - GitHub Actions CI includes a Build step that validates the build succeeds.
