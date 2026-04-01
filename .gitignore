@@ -45,3 +45,6 @@ cloudflare-env.d.ts
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# generated posts data
+src/lib/posts.data.ts
