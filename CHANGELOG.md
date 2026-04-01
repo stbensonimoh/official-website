@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.4.2](https://github.com/stbensonimoh/official-website/compare/v1.4.1...v1.4.2) (2026-04-01)
+
+
+### Bug Fixes
+
+* ensure posts.data.ts is generated before dev server starts ([6a3f59d](https://github.com/stbensonimoh/official-website/commit/6a3f59d1d7d1b03b90a0adaf05db16b3713a8dc2))
+* remove generated posts.data.ts from version control and update CI/CD ([296d4c7](https://github.com/stbensonimoh/official-website/commit/296d4c7463b1ff90e10825e38ecb35e996fd15f9))
+* remove generated posts.data.ts from version control and update CI/CD ([fa2fe30](https://github.com/stbensonimoh/official-website/commit/fa2fe306c6c556bf0a87bf5729e2c668088ae1cf))
+* reorder CI steps to run Build before Test ([1cca89f](https://github.com/stbensonimoh/official-website/commit/1cca89f96fca453b0023c63a677670f54f9067d2))
+
 ## [1.4.1](https://github.com/stbensonimoh/official-website/compare/v1.4.0...v1.4.1) (2026-03-21)
 
 
