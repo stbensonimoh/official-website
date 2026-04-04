@@ -24,7 +24,8 @@ A Next.js 16 personal website/blog built with React 19 and Bun, featuring MDX bl
   tags: array # For categorization
   excerpt: string # For blog listing cards
   ```
-- **Rendering pipeline**: `src/lib/posts.ts` reads MDX → `gray-matter` parses frontmatter → `reading-time` calculates duration → `react-markdown` with `rehype-raw` renders HTML
+- **Rendering pipeline**: `scripts/generate-posts-data.ts` pre-builds post data → `src/lib/posts.ts` consumes generated data → `gray-matter` parses frontmatter → `reading-time` calculates duration → `react-markdown` with `rehype-raw` renders HTML
+- **Data generation**: Run automatically before `dev`, `build`, `preview`, and `deploy` scripts
 - **Slug generation**: Uses `slugify` package with `{lower: true, strict: true}` to create URL-safe slugs from titles
 
 ### Theme System (3-State with System Preference)
@@ -71,11 +72,13 @@ A Next.js 16 personal website/blog built with React 19 and Bun, featuring MDX bl
 
 ```bash
 bun install      # ~22s, includes postinstall hooks
-bun run dev      # ~1.4s to start on :3000
+bun run dev      # ~1.4s to start on :3000 (auto-generates post data)
 bun run lint     # ~2s, expect img element warnings (allowed in config)
-bun run build    # ~20-25s, generates static site
+bun run build    # ~20-25s, generates static site (auto-generates post data)
 bun run start    # ~370ms, requires build first
 bun test         # Runs Bun's native test runner
+bun run preview  # Build and preview with OpenNext Cloudflare locally
+bun run deploy   # Build and deploy to Cloudflare Workers
 ```
 
 ### Adding Blog Posts
@@ -104,10 +107,19 @@ bun test         # Runs Bun's native test runner
 
 ### Production Build Process
 
-1. Next.js pre-renders all routes at build time (SSG)
-2. Fetches Google Fonts during build (ensure network connectivity)
-3. Generates `.next/` static output optimized for Vercel
-4. Static assets copied from `public/` to output directory
+1. Pre-build step: `scripts/generate-posts-data.ts` generates blog post data
+2. Next.js pre-renders all routes at build time (SSG)
+3. Fetches Google Fonts during build (ensure network connectivity)
+4. OpenNext Cloudflare adapter packages output for Workers deployment
+5. Static assets copied from `public/` to output directory
+
+### Deployment (Cloudflare Workers + OpenNext)
+
+- **Target platform**: Cloudflare Workers via `@opennextjs/cloudflare`
+- **Preview**: `bun run preview` builds and previews locally with Wrangler
+- **Deploy**: `bun run deploy` builds and deploys to Cloudflare Workers
+- **Config**: `wrangler.jsonc` defines Worker settings, assets binding, and Node.js compatibility
+- **Build output**: `.open-next/` directory (not `.next/` for deployment)
 
 ### External Dependencies
 
@@ -118,14 +130,14 @@ bun test         # Runs Bun's native test runner
 ### CI/CD Pipeline (`.github/workflows/ci.yml`)
 
 ```yaml
-# Runs on: push to main/develop, PRs to main
-# Steps: Checkout → Setup Bun → Install → Lint → Build → Codecov
-# Note: Test step intentionally removed - testing framework being rebuilt from scratch
+# Runs on: push to main, PRs to main
+# Steps: Checkout → Setup Bun → Install → Lint → Build → Test
+# All checks must pass before merge
 ```
 
 ## Testing Strategy
 
-**Current Status**: Testing infrastructure is being rebuilt from scratch using Bun's native test runner.
+**Current Status**: Tests use Bun's native test runner (`bun:test`) and run in CI.
 
 **Requirements for new tests**:
 
@@ -133,7 +145,7 @@ bun test         # Runs Bun's native test runner
 - Test actual functionality and implementation, not just passing tests
 - Avoid excessive mocking - test real behavior
 - Focus on component contracts, user interactions, and data flow
-- No test files currently exist - clean slate approach
+- Existing tests: `src/lib/posts.test.ts` covers blog post utilities
 
 **When writing tests**:
 
@@ -163,7 +175,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 - **Tracker components**: Analytics event wrappers (e.g., `BlogPostTracker`, `PageTracker`)
 - **UI components**: Self-contained with no external state dependencies
-- **Testing**: No test files currently exist - clean slate for Bun-based testing
+- **Testing**: Tests exist in `src/lib/posts.test.ts` using `bun:test`
 
 ### Data Flow
 
@@ -193,7 +205,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 - Migrated from npm for 2-10x faster installations
 - All scripts use `bun --bun` prefix for Next.js compatibility
-- Native test runner preferred over Jest (testing infrastructure being rebuilt)
+- Native test runner used for tests (`bun:test`)
 
 ### Tailwind CSS v4 Migration
 
@@ -211,4 +223,4 @@ export async function generateMetadata(): Promise<Metadata> {
 
 ---
 
-**Quick Reference**: This is a statically-generated personal site/blog. Blog posts are MDX files, routing is file-based, theme cycles through 3 states, and builds need Google Fonts access. Start with `bun run dev` after `bun install`.
+**Quick Reference**: This is a statically-generated personal site/blog deployed on Cloudflare Workers via OpenNext. Blog posts are MDX files with auto-generated data, routing is file-based, theme cycles through 3 states, and builds need Google Fonts access. Start with `bun run dev` after `bun install`.
