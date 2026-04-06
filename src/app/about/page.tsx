@@ -74,22 +74,25 @@ I care a lot about open source and automation.
             Over the past years,
           </h1>
           <p className="my-4">
-          I have designed and built products, systems, teams, and processes that help people solve real problems efficiently, creatively, and at scale. From simplifying onboarding to refining sales flows, I focus on user experience at every touchpoint: what people see, feel, and remember. Then I find ways to automate the boring stuff so teams can focus on what really matters.
+          I have designed and built products, systems, distributed teams, and processes that help people solve real problems efficiently, creatively, and at scale. From leadership to hands-on software engineering and architecture to the final product, I focus on user experience at every touchpoint: what people see, feel, and remember. Then I find ways to automate the boring stuff so teams can focus on what really matters.
           </p>
 
           <p className="my-4">
-          Currently, I serve as the <strong>Associate Director of Engineering</strong> at <a href="https://350.org" target="_blank">350.org</a> - a global climate movement leveraging technology to drive meaningful action. I lead a distributed team of engineers, building infrastructure and platforms that scale our mission: solving the climate crisis by empowering people worldwide.
+          Currently, I am the DevOps and Cloud Infrastructure Consultant at <a href="https://350.org" target="_blank">350.org</a> - a global climate movement leveraging technology to drive meaningful action - having previously held roles as Associate Director of Engineering and Lead Developer where I had the privilege of working with teams across continents, guiding architecture changes, improving our cloud footprint, shaping engineering culture, and solving some really tricky problems. 
           </p>
 
-          <p className="my-4">
-          Beyond my professional role, I am deeply involved in the open-source community. As a volunteer with <a href="https://oscafrica.org/" target="_blank">Open Source Community Africa (OSCA) </a>, I contribute to fostering a vibrant ecosystem of open-source contributors across the continent. I am part of the organizing team for the annual <a href="https://festival.oscafrica.org/" target="_blank">Open Source Festival - <strong>OSCAFEST</strong></a> - a high-profile event that brings together developers, designers, and tech enthusiasts to share knowledge, collaborate, and promote open-source tools and practices. I also contribute to <a href="https://developer.mozilla.org" target="_blank">MDN Web Docs</a> because great documentation helps great developers become even better, and because sharing knowledge is just as important as writing code.
+          <p className="my-4">Some of the problems I tackled include completing an AWS-to-GCP migration that reduced infrastructure costs by 96% thereby cutting operational costs without compromising quality, shortened the lead time from idea to deployment, consolidated hosting into a unified GCP environment, brought real DevOps discipline to deployments, and introduced Infrastructure as Code, containerization, CI pipelines, Business Intelligence Analytics, and data warehousing that actually scaled. I improved security, observability, and reliability across systems used by teams in many timezones while managing a high-availability ecosystem of 500+ websites. During the 2024 Automattic/WP Engine dispute, I setup a custom internal Composer repository that kept our global network of 500+ websites secure and updated while other organizations on WPEngine lost access to the WordPress.org resources and infrastructure that impacted updates. I also launched the organisation's design system and initiated GDPR-compliant server-side tagging.
+          </p>
+          
+        </div>
+        <div className="md:mx-10 mt-8 md:mt-0 lg:w-1/2">
+        <p className="my-4">
+          Beyond my professional role, I am deeply involved in the open-source community. I've always believed that open source is not just a tooling choice but a philosophy. As a volunteer with <a href="https://oscafrica.org/" target="_blank">Open Source Community Africa (OSCA) </a>, I contribute to fostering a vibrant ecosystem of open-source contributors across the continent. I am part of the organizing team for the annual <a href="https://festival.oscafrica.org/" target="_blank">Open Source Festival - <strong>OSCAFEST</strong></a> - an event that brings together developers, designers, and tech enthusiasts to share knowledge, collaborate, and promote open-source tools and practices. I also contribute to <a href="https://developer.mozilla.org" target="_blank">MDN Web Docs</a> because great documentation helps great developers become even better, and because sharing knowledge is just as important as writing code.
           </p>
 
           <p>
           On the side, I also try to find time to build interesting tools that I release as open source software. 
           </p>
-        </div>
-        <div className="md:mx-10 mt-8 md:mt-0 lg:w-1/2">
           <p>Previously, I have worked in various organizations, sometimes in leadership positions:</p>
           <ul className="list-disc ml-8">
             <li>
@@ -104,7 +107,7 @@ I care a lot about open source and automation.
           </ul>
 
           <p className="my-4">
-          I am passionate about technology, automation, and building tools that help people do more with less. Lately, I have been experimenting with creatively adding AI to the mix.
+          I am passionate about technology, automation, and building tools that help people do more with less. Lately, I have been experimenting with AI and doing some interesting projects in that space.
           </p>
           <p>
             I am a realist with a leaning towards optimism. I am a big believer
