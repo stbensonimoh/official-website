@@ -10,7 +10,7 @@ A modern, responsive personal website and blog built with Next.js, React, and Ta
 - **Blog Platform**: MDX-powered blog with reading time estimation
 - **SEO Optimized**: Built-in SEO configuration with next-seo
 - **Modern UI**: Clean, professional interface with Tailwind CSS
-- **Comprehensive Testing**: Jest and React Testing Library setup
+- **Comprehensive Testing**: Bun Test & React Testing Library
 - **TypeScript**: Type-safe codebase
 
 ## 🛠️ Technologies
@@ -51,11 +51,12 @@ A modern, responsive personal website and blog built with Next.js, React, and Ta
 
 - `bun run dev` - Start the development server
 - `bun run build` - Build the application for production
-- `bun run start` - Start the production server
+- `bun run start` - Start the production server (after building)
 - `bun run lint` - Run ESLint to check for code issues
 - `bun run test` - Run Bun tests
-- `bun run test:watch` - Run tests in watch mode
-- `bun run test:coverage` - Generate test coverage report
+- `bun run preview` - Preview the production build locally (Cloudflare Workers)
+- `bun run deploy` - Deploy to Cloudflare Workers
+- `bun run generate-posts-data` - Regenerate posts data from MDX files
 
 ## 📁 Project Structure
 
@@ -81,9 +82,7 @@ A modern, responsive personal website and blog built with Next.js, React, and Ta
 │   ├── lib/               # Utility functions
 │   └── test-utils.tsx     # Testing utilities
 ├── siteMetadata.ts        # Website metadata
-├── tailwind.config.ts     # Tailwind CSS configuration
 ├── next.config.mjs        # Next.js configuration
-├── jest.config.js         # Jest configuration
 └── tsconfig.json          # TypeScript configuration
 ```
 
@@ -120,7 +119,7 @@ If you discover any security-related issues, please read my [security policy](.g
 
 ## 🌐 Deployment
 
-The site is optimized for deployment on [Vercel](https://vercel.com), but can be deployed to any static site hosting service.
+The site is deployed on [Cloudflare Workers](https://workers.cloudflare.com/) via [OpenNext](https://open-next.js.org/). Preview and production deployments are handled via the `bun run preview` and `bun run deploy` scripts.
 
 ## 👤 About the Author
 
