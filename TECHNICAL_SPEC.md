@@ -478,16 +478,32 @@ bun test --coverage  # Generate coverage report
 
 Triggered on: push to `main`, pull requests targeting `main`.
 
+#### Job: `lint-and-test`
+
 Steps (in order):
 
 1. Checkout repository
 2. Setup Bun
 3. `bun install --frozen-lockfile`
 4. `bun run lint`
-5. `bun run test`
+5. `bun run build`
+6. `bun run test`
 
-- The CI workflow MUST NOT merge if linting or tests fail.
-- A `bun run build` step SHOULD be added once build-time validation is required in CI.
+The CI workflow MUST NOT merge if linting or tests fail.
+
+#### Job: `validate-deployment-path`
+
+Validates the OpenNext/Cloudflare Workers build packaging path used by production deployments. Runs only on `push` to `main`, not on pull requests, to keep PR feedback cycles fast.
+
+Steps (in order):
+
+1. Checkout repository
+2. Setup Bun
+3. `bun install --frozen-lockfile`
+4. `bun run generate-posts-data`
+5. `opennextjs-cloudflare build`
+
+Requires `CLOUDFLARE_API_TOKEN` as a GitHub Actions secret (wired as the `CLOUDFLARE_API_TOKEN` environment variable). The build step does not deploy; it only validates that the packaging stage succeeds.
 
 ### 15.2 Release Workflow (`.github/workflows/release-please.yml`)
 
