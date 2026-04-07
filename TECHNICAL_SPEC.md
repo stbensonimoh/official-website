@@ -38,7 +38,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 ## 2. System Overview
 
-This is the personal website and blog of Benson Imoh, ST (Software Engineer, DevOps Enthusiast and OSS Advocate). It is a statically-generated marketing and content site deployed on Vercel. Its primary functions are:
+This is the personal website and blog of Benson Imoh, ST (Software Engineer, DevOps Enthusiast and OSS Advocate). It is a statically-generated marketing and content site deployed on Cloudflare Workers via OpenNext. Its primary functions are:
 
 - Professional identity presentation (homepage, about, contact)
 - Technical blog with MDX content
@@ -112,7 +112,7 @@ The system MUST remain a statically-generated site (no server-side rendering at 
 │   ├── logo.svg
 │   └── logo-white.svg
 ├── scripts/
-│   └── vercel-ignore.sh         # Restricts prod builds to v* tags
+│   └── generate-posts-data.ts    # Generates posts data at build time
 ├── src/
 │   ├── app/
 │   │   ├── [slug]/page.tsx      # Dynamic blog post route
@@ -424,7 +424,7 @@ See §7.5. The RSS feed SHOULD be made discoverable via a `<link rel="alternate"
 
 ### 12.1 Current State
 
-- The build MUST produce a fully static output via Next.js SSG for deployment on Vercel.
+- The build MUST produce a fully static output via Next.js SSG for deployment on Cloudflare Workers via OpenNext.
 - Google Fonts MUST be loaded via `next/font/google` to benefit from Next.js font optimization (self-hosting at build time).
 
 ### 12.2 Image Handling
@@ -495,10 +495,12 @@ Steps (in order):
 - Version tags MUST follow the format `v*` (e.g., `v1.4.0`).
 - `CHANGELOG.md` MUST be auto-generated and MUST NOT be manually edited.
 
-### 15.3 Vercel Deployment
+### 15.3 Cloudflare Workers Deployment
 
-- The `scripts/vercel-ignore.sh` script MUST restrict production Vercel builds to commits tagged with `v*`.
-- Preview deployments MAY be triggered on any branch.
+- Production deployments use OpenNext's Cloudflare Workers adapter.
+- The `bun run preview` script builds and previews the site locally using Cloudflare Workers.
+- The `bun run deploy` script builds and deploys directly to Cloudflare Workers.
+- Wrangler (`wrangler.jsonc`) manages Cloudflare Workers configuration.
 
 ---
 
@@ -563,7 +565,7 @@ The following features are planned. Each references its GitHub issue number.
 **Requirements:**
 
 - A `.lighthouserc.js` (or equivalent) configuration MUST be added to the repository.
-- GitHub Actions MUST run Lighthouse against Vercel preview URLs on every PR.
+- GitHub Actions MUST run Lighthouse against Cloudflare preview URLs on every PR.
 - PRs MUST display a summary comment containing Lighthouse scores for Performance, Accessibility, Best Practices, and SEO.
 - PRs MUST be blocked from merging if any tracked score falls below a defined threshold.
 - Visual regression tests using Playwright SHOULD be implemented to catch unintentional CSS changes.
