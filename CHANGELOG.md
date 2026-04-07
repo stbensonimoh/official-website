@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.4.3](https://github.com/stbensonimoh/official-website/compare/v1.4.2...v1.4.3) (2026-04-07)
+
+
+### Bug Fixes
+
+* **ci:** add explicit permissions block to workflow ([769658c](https://github.com/stbensonimoh/official-website/commit/769658c9317b26337e6028f5fd530ec5e6001f37))
+* **ci:** use bun run to execute opennextjs-cloudflare ([2dbb8a6](https://github.com/stbensonimoh/official-website/commit/2dbb8a665739a4f430fed133b901b2ccfffe1def))
+* **ci:** use bun run to execute opennextjs-cloudflare ([5b2c1c1](https://github.com/stbensonimoh/official-website/commit/5b2c1c121c9477cb96ca3e333d3f79e0d3e5ccae))
+
 ## [1.4.2](https://github.com/stbensonimoh/official-website/compare/v1.4.1...v1.4.2) (2026-04-01)
 
 
