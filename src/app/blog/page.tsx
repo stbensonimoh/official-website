@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "Blog - Benson Imoh,ST",
   description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
   openGraph: {
-    url: "https://stbensonimoh.com/about",
+    url: "https://stbensonimoh.com/blog",
     title: "Blog - Benson Imoh,ST",
     description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
     images: [
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     creator: "@stbensonimoh",
     card: "summary_large_image",
-    title: "Benson Imoh,ST",
+    title: "Blog - Benson Imoh,ST",
     description: "Software Engineer. DevOps Enthusiast. OSS Advocate.",
     images: {
       url: "https://res.cloudinary.com/stbensonimoh/image/upload/v1735318948/stbensonimoh_logo.png",
