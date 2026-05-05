@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.4.4](https://github.com/stbensonimoh/official-website/compare/v1.4.3...v1.4.4) (2026-05-05)
+
+
+### Bug Fixes
+
+* correct Open Graph URL and Twitter metadata on blog index page ([#136](https://github.com/stbensonimoh/official-website/issues/136)) ([c0e4a3f](https://github.com/stbensonimoh/official-website/commit/c0e4a3fdea342ee3a2ab14c5c0100f6f4b4c2f7e))
+* upgrade @opennextjs/cloudflare to 1.19.6 for Next.js 16.2 compatibility ([1013510](https://github.com/stbensonimoh/official-website/commit/101351003ea66110dd64aecbbe019ffa0228a7b5))
+* upgrade @opennextjs/cloudflare to 1.19.6 for Next.js 16.2 compatibility ([f5f1c25](https://github.com/stbensonimoh/official-website/commit/f5f1c2547721dce9406aafcb834101dc6e41e494)), closes [#121](https://github.com/stbensonimoh/official-website/issues/121)
+
 ## [1.4.3](https://github.com/stbensonimoh/official-website/compare/v1.4.2...v1.4.3) (2026-04-07)
 
 
