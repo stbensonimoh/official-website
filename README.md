@@ -115,6 +115,32 @@ Contributions are welcome! Please check out my [contribution guidelines](.github
 
 ## 🔒 Security
 
+### Cloudflare WAF
+
+A [Cloudflare WAF Custom Rule](https://developers.cloudflare.com/waf/custom-rules/) blocks common reconnaissance and exploitation paths at the edge before they reach the origin server. This reduces origin load, filters access log noise, and eliminates unnecessary attack surface.
+
+**Blocked path patterns:**
+
+- Version control: `.git`, `.svn`
+- Configuration files: `.env`, `.config`, `.htaccess`, `.htpasswd`
+- Infrastructure credentials: `.aws`
+- WordPress endpoints: `wp-login`, `wp-admin`, `wp-includes`, `wp-content`, `xmlrpc`
+- Database interfaces: `phpmyadmin`
+- OS metadata: `.DS_Store`
+
+**Verification:**
+
+```bash
+# Blocked paths return HTTP 403 from Cloudflare edge
+curl -I https://stbensonimoh.com/.env
+curl -I https://stbensonimoh.com/wp-login.php
+
+# Normal paths return HTTP 200
+curl -I https://stbensonimoh.com/
+```
+
+**Monitoring:** Review blocked requests via **Security > Events** in the Cloudflare dashboard. If legitimate traffic is blocked, refine the rule with additional scoping conditions such as request method or IP allowlisting.
+
 If you discover any security-related issues, please read my [security policy](.github/SECURITY.md) for information on how to report them.
 
 ## 🌐 Deployment
