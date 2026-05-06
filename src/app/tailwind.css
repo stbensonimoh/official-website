@@ -92,7 +92,7 @@ body {
 /* GLOBAL STYLES */
 /* Header */
 .main-navigation a {
-  @apply mx-4 p-2;
+	@apply mx-4 p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary;
 }
 .active,
 .active-menu-item {

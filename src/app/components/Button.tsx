@@ -26,7 +26,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 
   if (type === "internal") {
     return (
-      <Link {...(rest as LinkProps<string>)} className={`button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white`}>
+      <Link {...(rest as LinkProps<string>)} className={`button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}>
           {children}
       </Link>
     );
@@ -36,7 +36,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     return (
       <a
         {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
-        className={`button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white`}
+        className={`button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
       >
         {children}
       </a>
@@ -46,7 +46,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   return (
     <button
       {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
-      className={`button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white`}
+      className={`button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2`}
     >
       {children}
     </button>
