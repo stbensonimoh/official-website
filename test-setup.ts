@@ -1,8 +1,13 @@
 import { JSDOM } from "jsdom";
+import "@testing-library/jest-dom";
 
+// Setup jsdom environment for React Testing Library.
+// These globals are "sticky" — they persist across all test files
+// when preloaded via bunfig.toml.
 const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
 (globalThis as any).document = dom.window.document;
 (globalThis as any).window = dom.window;
 (globalThis as any).navigator = dom.window.navigator;
 (globalThis as any).MutationObserver = dom.window.MutationObserver;
 (globalThis as any).getComputedStyle = dom.window.getComputedStyle;
+(globalThis as any).Document = dom.window.Document;

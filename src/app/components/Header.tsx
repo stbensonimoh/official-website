@@ -24,12 +24,11 @@ const Header = () => {
     setMenuOpen(false);
   }, []);
 
-  // Handle Escape key to close menu
+  // Handle Escape key to close menu and return focus
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && menuOpen) {
         closeMenu();
-        // Return focus to menu button
         menuButtonRef.current?.focus();
       }
     };
@@ -38,15 +37,19 @@ const Header = () => {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [menuOpen, closeMenu]);
 
-  // Prevent body scroll when menu is open
+  // Prevent body scroll when menu is open, compensate for scrollbar width
   useEffect(() => {
     if (menuOpen) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     } else {
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     }
     return () => {
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
     };
   }, [menuOpen]);
 
@@ -92,13 +95,14 @@ const Header = () => {
         </nav>
       </div>
       <div className="flex justify-center absolute top-8 w-full items-center md:hidden">
-        <Logo width={96} height={96} className="w-24" data-testid="mobile-logo" />
+        <Logo width={96} height={96} className="w-24" data-testid="mobile-logo" aria-label="Benson Imoh,ST" />
       </div>
 
       {menuOpen && (
         <FocusTrap
           focusTrapOptions={{
             fallbackFocus: `#${menuId}`,
+            escapeDeactivates: false,
           }}
         >
           <div
@@ -109,6 +113,14 @@ const Header = () => {
             className="fixed inset-0 w-full h-screen bg-background z-[20] py-8 md:hidden flex flex-col items-center"
             tabIndex={-1}
           >
+            <button
+              onClick={closeMenu}
+              aria-label="Close menu"
+              className="absolute top-8 right-8 text-3xl"
+              type="button"
+            >
+              <FiX aria-hidden="true" />
+            </button>
             <Link href="/" className="logo" onClick={closeMenu}>
               <Logo width={96} height={96} className="w-24" data-testid="menu-logo" />
             </Link>
@@ -152,12 +164,12 @@ const Header = () => {
         ref={menuButtonRef}
         className="fixed top-8 right-8 text-3xl z-[21] md:hidden"
         onClick={toggleMenu}
-        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-label="Open menu"
         aria-expanded={menuOpen}
         aria-controls={menuId}
         type="button"
       >
-        {menuOpen ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
+        <FiMenu aria-hidden="true" />
       </button>
     </>
   );
