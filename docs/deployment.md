@@ -143,6 +143,17 @@ curl -I https://stbensonimoh.com/
 
 If production behavior regresses, use Cloudflare Workers deployment history to inspect or roll back the `official-website` Worker.
 
+## Deployment Authentication
+
+Deployment requires two environment variables set in the local shell or ignored `.env` file:
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `CLOUDFLARE_API_TOKEN` | Required for deploy | API token with Workers edit permissions. |
+| `CLOUDFLARE_ACCOUNT_ID` | Required for deploy | `104b0d461c72599532997388ee8bd8df`. Setting this explicitly avoids a `/memberships` API call that may not be permitted by the token scope. |
+
+Without `CLOUDFLARE_ACCOUNT_ID`, Wrangler attempts to resolve the account via `/memberships`, which fails with error code `9106` if the API token lacks Account Memberships permissions.
+
 ## Environment And Secrets
 
 Production public analytics currently depends on:
