@@ -15,7 +15,7 @@ A modern, responsive personal website and blog built with Next.js, React, and Ta
 
 ## 🛠️ Technologies
 
-- **Framework**: [Next.js 15](https://nextjs.org/)
+- **Framework**: [Next.js 16](https://nextjs.org/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Testing**: [Bun Test](https://bun.sh/docs/cli/test) & [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
@@ -49,14 +49,17 @@ A modern, responsive personal website and blog built with Next.js, React, and Ta
 
 ## 📝 Available Scripts
 
-- `bun run dev` - Start the development server
-- `bun run build` - Build the application for production
-- `bun run start` - Start the production server (after building)
+- `bun run dev` - Generate posts data and start the Next.js development server
+- `bun run build` - Generate posts data and validate the Next.js production build
+- `bun run start` - Start the Next.js production server after `bun run build`; this is not the Cloudflare Workers runtime
 - `bun run lint` - Run ESLint to check for code issues
 - `bun run test` - Run Bun tests
-- `bun run preview` - Preview the production build locally (Cloudflare Workers)
-- `bun run deploy` - Deploy to Cloudflare Workers
+- `bun run preview` - Build and preview the OpenNext/Cloudflare Workers artifact locally
+- `bun run deploy` - Build and deploy the OpenNext/Cloudflare Workers artifact to production
+- `bun run cf-typegen` - Generate local Cloudflare environment types from Wrangler
 - `bun run generate-posts-data` - Regenerate posts data from MDX files
+
+For production-like validation and deployment details, see the [deployment runbook](docs/deployment.md).
 
 ## 📁 Project Structure
 
@@ -68,6 +71,7 @@ A modern, responsive personal website and blog built with Next.js, React, and Ta
 │   ├── commit-template.txt # Git commit message template
 │   └── pull_request_template.md # PR template
 ├── blog/                  # Blog posts in MDX format
+├── docs/                  # Operational documentation and runbooks
 ├── public/                # Static assets
 │   ├── images/            # Image files
 │   └── logo.svg           # Website logo
@@ -92,12 +96,6 @@ The project uses Bun's built-in test runner and React Testing Library for testin
 
 ```bash
 bun run test
-```
-
-For test coverage:
-
-```bash
-bun run test:coverage
 ```
 
 ## 👥 Contributing
@@ -145,7 +143,9 @@ If you discover any security-related issues, please read my [security policy](.g
 
 ## 🌐 Deployment
 
-The site is deployed on [Cloudflare Workers](https://workers.cloudflare.com/) via [OpenNext](https://open-next.js.org/). Preview and production deployments are handled via the `bun run preview` and `bun run deploy` scripts.
+The site is deployed on [Cloudflare Workers](https://workers.cloudflare.com/) via [OpenNext](https://open-next.js.org/). `bun run build` validates the Next.js build, `bun run preview` validates the OpenNext/Cloudflare Workers runtime locally, and `bun run deploy` performs the production deployment.
+
+Read the [deployment runbook](docs/deployment.md) before deploying or debugging production-like behavior.
 
 ## 👤 About the Author
 
@@ -161,7 +161,7 @@ The blog posts data is automatically generated from markdown files in the `blog/
 
 ### CI/CD Integration
 - GitHub Actions CI includes a Build step that validates the build succeeds.
-- Cloudflare deployment scripts (`preview` and `deploy`) automatically regenerate the posts data before building.
+- Cloudflare preview and deployment scripts automatically regenerate posts data before building the OpenNext artifact.
 
 ## 📄 License
 
