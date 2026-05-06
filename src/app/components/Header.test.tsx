@@ -39,27 +39,32 @@ const getFocusableElements = (container: Element) =>
   );
 
 describe("Header Accessibility", () => {
-  test("hamburger button has aria-expanded and aria-controls", () => {
+  test("hamburger button has aria-expanded and aria-controls when rendered", () => {
     render(<Header />);
 
     const menuButton = screen.getByLabelText("Open menu");
+    // aria-expanded is false because menu is closed
     expect(menuButton).toHaveAttribute("aria-expanded", "false");
     expect(menuButton).toHaveAttribute("aria-controls", "mobile-navigation-menu");
   });
 
-  test("clicking hamburger button opens menu and sets aria-expanded to true", async () => {
+  test("clicking hamburger button opens menu and shows aria-expanded", async () => {
     render(<Header />);
 
     const menuButton = screen.getByLabelText("Open menu");
     fireEvent.click(menuButton);
 
+    // After opening, the hamburger button is removed from DOM
+    // Verify the menu opened by checking the mobile nav is visible
     await waitFor(() => {
-      expect(menuButton).toHaveAttribute("aria-expanded", "true");
+      const mobileNav = screen.getByTestId("mobile-nav");
+      expect(mobileNav).toBeInTheDocument();
     });
 
-    // Menu should be visible
-    const mobileNav = screen.getByTestId("mobile-nav");
-    expect(mobileNav).toBeInTheDocument();
+    // Verify hamburger button is removed (menu is open)
+    expect(screen.queryByLabelText("Open menu")).not.toBeInTheDocument();
+    // Close button should be present
+    expect(screen.getByLabelText("Close menu")).toBeInTheDocument();
   });
 
   test("close button is inside the focus trap dialog", async () => {
@@ -96,6 +101,18 @@ describe("Header Accessibility", () => {
 
     const activeAfterTab = document.activeElement;
     expect(dialog.contains(activeAfterTab)).toBe(true);
+  });
+
+  test("hamburger button is removed from DOM when menu is open", async () => {
+    render(<Header />);
+    const menuButton = screen.getByLabelText("Open menu");
+    expect(menuButton).toBeInTheDocument();
+
+    fireEvent.click(menuButton);
+
+    await waitFor(() => {
+      expect(screen.queryByLabelText("Open menu")).not.toBeInTheDocument();
+    });
   });
 
   test("pressing Escape closes the menu", async () => {

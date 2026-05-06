@@ -24,12 +24,11 @@ const Header = () => {
     setMenuOpen(false);
   }, []);
 
-  // Handle Escape key to close menu and return focus
+  // Handle Escape key to close menu
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape" && menuOpen) {
         closeMenu();
-        menuButtonRef.current?.focus();
       }
     };
 
@@ -160,17 +159,19 @@ const Header = () => {
         </FocusTrap>
       )}
 
-      <button
-        ref={menuButtonRef}
-        className="fixed top-8 right-8 text-3xl z-[21] md:hidden"
-        onClick={toggleMenu}
-        aria-label="Open menu"
-        aria-expanded={menuOpen}
-        aria-controls={menuId}
-        type="button"
-      >
-        <FiMenu aria-hidden="true" />
-      </button>
+      {!menuOpen && (
+        <button
+          ref={menuButtonRef}
+          className="fixed top-8 right-8 text-3xl z-[21] md:hidden"
+          onClick={toggleMenu}
+          aria-label="Open menu"
+          aria-expanded={menuOpen}
+          aria-controls={menuId}
+          type="button"
+        >
+          <FiMenu aria-hidden="true" />
+        </button>
+      )}
     </>
   );
 };
