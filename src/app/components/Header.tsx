@@ -1,19 +1,54 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FiX, FiMenu } from "react-icons/fi";
 import { trackNavigation, trackMobileMenu } from "@/lib/clarity";
+import FocusTrap from "focus-trap-react";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuId = "mobile-navigation-menu";
 
   const toggleMenu = () => {
-    trackMobileMenu(menuOpen ? 'close' : 'open');
-    setMenuOpen(!menuOpen);
+    const nextState = !menuOpen;
+    trackMobileMenu(nextState ? 'open' : 'close');
+    setMenuOpen(nextState);
   };
+
+  const closeMenu = useCallback(() => {
+    trackMobileMenu('close');
+    setMenuOpen(false);
+  }, []);
+
+  // Handle Escape key to close menu
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && menuOpen) {
+        closeMenu();
+        // Return focus to menu button
+        menuButtonRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen, closeMenu]);
+
+  // Prevent body scroll when menu is open
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   const menuItems: Array<{
     name: string;
@@ -25,6 +60,8 @@ const Header = () => {
     { name: "Blog", link: "/blog", internal: true },
     { name: "Contact", link: "/contact", internal: true },
   ];
+
+  const isActive = (link: string) => pathname === link;
 
   return (
     <>
@@ -40,8 +77,9 @@ const Header = () => {
                 href={item.link}
                 onClick={() => trackNavigation(item.name)}
                 className={`nav-item ${
-                  pathname === item.link ? "active-menu-item" : ""
+                  isActive(item.link) ? "active-menu-item" : ""
                 }`}
+                aria-current={isActive(item.link) ? "page" : undefined}
               >
                 {item.name}
               </Link>
@@ -56,54 +94,70 @@ const Header = () => {
       <div className="flex justify-center absolute top-8 w-full items-center md:hidden">
         <Logo width={96} height={96} className="w-24" data-testid="mobile-logo" />
       </div>
-      <div
-        role="banner"
-        className={`${
-          menuOpen ? "-translate-y-0 fixed" : "-translate-y-full absolute"
-        } w-full flex flex-col items-center h-screen bg-background z-[20] py-8 md:hidden transition transform ease-in-out duration-700`}
-      >
-        <Link href="/" className="logo">
-          <Logo width={96} height={96} className="w-24" data-testid="menu-logo" />
-        </Link>
-        <nav className="uppercase text-2xl font-dosis flex flex-col items-center h-1/2 mt-24 justify-between" data-testid="mobile-nav">
-          {menuItems.map((item, index) =>
-            item.internal ? (
-              <Link
-                key={index}
-                href={item.link}
-                onClick={() => {
-                  trackNavigation(item.name);
-                  setMenuOpen(false);
-                }}
-                className={`nav-item ${
-                  pathname === item.link ? "active-menu-item" : ""
-                }`}
-              >
-                {item.name}
-              </Link>
-            ) : (
-              <a
-                key={index}
-                href={item.link}
-                className="nav-item"
-                onClick={() => {
-                  trackNavigation(item.name);
-                  setMenuOpen(false);
-                }}
-              >
-                {item.name}
-              </a>
-            )
-          )}
-        </nav>
-      </div>
+
+      {menuOpen && (
+        <FocusTrap
+          focusTrapOptions={{
+            fallbackFocus: `#${menuId}`,
+          }}
+        >
+          <div
+            id={menuId}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Navigation menu"
+            className="fixed inset-0 w-full h-screen bg-background z-[20] py-8 md:hidden flex flex-col items-center"
+            tabIndex={-1}
+          >
+            <Link href="/" className="logo" onClick={closeMenu}>
+              <Logo width={96} height={96} className="w-24" data-testid="menu-logo" />
+            </Link>
+            <nav className="uppercase text-2xl font-dosis flex flex-col items-center h-1/2 mt-24 justify-between" data-testid="mobile-nav">
+              {menuItems.map((item, index) =>
+                item.internal ? (
+                  <Link
+                    key={index}
+                    href={item.link}
+                    onClick={() => {
+                      trackNavigation(item.name);
+                      closeMenu();
+                    }}
+                    className={`nav-item ${
+                      isActive(item.link) ? "active-menu-item" : ""
+                    }`}
+                    aria-current={isActive(item.link) ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={index}
+                    href={item.link}
+                    className="nav-item"
+                    onClick={() => {
+                      trackNavigation(item.name);
+                      closeMenu();
+                    }}
+                  >
+                    {item.name}
+                  </a>
+                )
+              )}
+            </nav>
+          </div>
+        </FocusTrap>
+      )}
 
       <button
+        ref={menuButtonRef}
         className="fixed top-8 right-8 text-3xl z-[21] md:hidden"
         onClick={toggleMenu}
         aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={menuOpen}
+        aria-controls={menuId}
+        type="button"
       >
-        {menuOpen ? <FiX /> : <FiMenu />}
+        {menuOpen ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
       </button>
     </>
   );
