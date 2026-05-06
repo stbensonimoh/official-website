@@ -169,6 +169,7 @@ Rules for environment values:
 - Do not commit `.env`, `.env.local`, `.env.production`, `.dev.vars`, or generated Cloudflare type files.
 - Store production-only secrets in Cloudflare or GitHub Actions secrets, not in repository files.
 - Keep local-only values in ignored files such as `.env.local` or `.dev.vars`.
+- Set public `NEXT_PUBLIC_*` values as GitHub repository variables (`vars`) so CI builds can inline them. Use GitHub Actions secrets (`secrets`) only for actual secrets that must not be visible in build logs.
 
 Current Cloudflare API inspection shows no Worker secrets configured for `official-website`. If server-side secrets are added later, document the secret names and how to rotate them without including secret values.
 

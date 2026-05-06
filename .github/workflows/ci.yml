@@ -29,6 +29,8 @@ jobs:
 
       - name: Build
         run: bun run build
+        env:
+          NEXT_PUBLIC_CLARITY_TRACKING_ID: ${{ vars.NEXT_PUBLIC_CLARITY_TRACKING_ID }}
 
       - name: Test
         run: bun run test
@@ -58,3 +60,4 @@ jobs:
         run: bun run opennextjs-cloudflare build
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          NEXT_PUBLIC_CLARITY_TRACKING_ID: ${{ vars.NEXT_PUBLIC_CLARITY_TRACKING_ID }}
