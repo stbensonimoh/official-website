@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <>
       <NotFoundTracker />
-      <main>
+      <div>
         <div className="flex flex-col items-center justify-center font-roboto pt-60 md:pt-20 mx-10">
           <img
             src="/images/404.png"
@@ -24,7 +24,7 @@ export default function NotFound() {
             Let's go home
           </Button>
         </div>
-      </main>
+      </div>
     </>
   );
 }

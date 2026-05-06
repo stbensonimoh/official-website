@@ -15,7 +15,7 @@ export default function Home() {
   }, []);
   
   return (
-    <div className="font-roboto">
+    <>
       <div className="hidden md:flex items-center justify-center mt-12 md:mx-4 xl:mx-0">
         <div className="flex flex-col mx-10 w-1/2 lg:w-1/3">
           <h3 className="text-4xl font-roboto">Hello!</h3>
@@ -55,6 +55,6 @@ export default function Home() {
       <div className="hidden md:flex copyright-container absolute right-24 bottom-8 font-roboto text-sm text-bensongrey">
         <Copyright />
       </div>
-    </div>
+    </>
   );
 }

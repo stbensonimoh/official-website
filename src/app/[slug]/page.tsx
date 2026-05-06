@@ -83,7 +83,7 @@ export default async function BlogPost({ params }: any) {
   return (
     <div className="">
       <BlogPostTracker slug={slug} tags={post.frontmatter.tags} />
-      <main className="flex flex-col w-full">
+      <div className="flex flex-col w-full">
         <div
           className="featured-image"
           style={{
@@ -120,7 +120,7 @@ export default async function BlogPost({ params }: any) {
               post.frontmatter.tags.map((tag: string) => `#${tag} `)}
           </p>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
