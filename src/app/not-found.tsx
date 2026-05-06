@@ -10,7 +10,7 @@ export default function NotFound() {
           <img
             src="/images/404.png"
             width="40%"
-            alt="404 Image"
+            alt="Page not found illustration"
             style={{ marginBottom: "1rem" }}
           />
           <h1 className="font-roboto font-bold text-bensonpink text-6xl">

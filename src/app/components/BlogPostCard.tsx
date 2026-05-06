@@ -31,12 +31,12 @@ export default function BlogPostCard({ post }: { post: Post }) {
     <div role="article" className="bg-surface w-full p-8 rounded-md shadow-sm">
       <Link href={`/${post.slug}`} onClick={() => trackBlogClick(post.slug)}>
         <div className="image-container max-h-52 overflow-hidden">
-          <img src={featured_image} alt="Featured Image" />
+          <img src={featured_image} alt={title} />
         </div>
+        <h2 className="text-lg font-roboto font-medium text-foreground my-2">
+          {title}
+        </h2>
       </Link>
-      <h2 className="text-lg font-roboto font-medium text-foreground my-2">
-        <Link href={`/${post.slug}`} onClick={() => trackBlogClick(post.slug)}>{title}</Link>
-      </h2>
       <AuthorBlob
         author={author ? author : name}
         date={new Date(date).toLocaleDateString("en-US", {
@@ -50,7 +50,7 @@ export default function BlogPostCard({ post }: { post: Post }) {
       <p>{post.frontmatter.excerpt}</p>
 
       <small className="text-primary">
-        <Link href={`/${post.slug}`}>Read More...</Link>
+        <Link href={`/${post.slug}`} aria-label={`Read more: ${title}`}>Read More...</Link>
       </small>
     </div>
   );
