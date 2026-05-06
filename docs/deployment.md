@@ -156,13 +156,26 @@ Without `CLOUDFLARE_ACCOUNT_ID`, Wrangler attempts to resolve the account via `/
 
 ## Environment And Secrets
 
-Production public analytics currently depends on:
+This project uses three different environments where variables must be set. A `NEXT_PUBLIC_*` value must be present in **every** environment that runs `next build` or `opennextjs-cloudflare build`, because Next.js inlines these into the client JS bundle at build time. They cannot be added after the build.
 
-| Variable | Required | Purpose | Where it must be set |
-|---|---|---|---|
-| `NEXT_PUBLIC_CLARITY_TRACKING_ID` | Required in production | Enables Microsoft Clarity analytics. | Set in the environment that runs `bun run build`, `bun run preview`, or `bun run deploy`, such as the local shell, ignored `.env.production`, or CI environment. |
+| Environment | Where to set variables | Used for |
+|---|---|---|
+| Local development | Ignored `.env` or `.env.local` file | `bun run dev`, `bun run build`, `bun run preview`, `bun run deploy` from your machine. |
+| GitHub Actions CI | Repository variables (`vars`) and secrets (`secrets`) | CI workflows that build or validate the application. |
+| Cloudflare Git-connected builds | Cloudflare dashboard → Worker Settings → Build → Variables and secrets | Automatic builds triggered by pushes to `main`. |
 
-Rules for environment values:
+### Production public analytics
+
+| Variable | Required | Purpose |
+|---|---|---|
+| `NEXT_PUBLIC_CLARITY_TRACKING_ID` | Required in production | Enables Microsoft Clarity analytics. |
+
+**Where it must be set:**
+1. Local `.env` file (ignored by Git)
+2. GitHub repository variable: `vars.NEXT_PUBLIC_CLARITY_TRACKING_ID`
+3. Cloudflare dashboard build variable: add as a **Variable** (not Secret) under Build → Variables and secrets
+
+### Rules for environment values
 
 - Public client-visible variables must use the `NEXT_PUBLIC_` prefix.
 - `NEXT_PUBLIC_*` values are build-time public values. Do not store them only as Cloudflare Worker runtime secrets, because the client bundle is produced before Wrangler deploys the Worker.
@@ -170,8 +183,9 @@ Rules for environment values:
 - Store production-only secrets in Cloudflare or GitHub Actions secrets, not in repository files.
 - Keep local-only values in ignored files such as `.env.local` or `.dev.vars`.
 - Set public `NEXT_PUBLIC_*` values as GitHub repository variables (`vars`) so CI builds can inline them. Use GitHub Actions secrets (`secrets`) only for actual secrets that must not be visible in build logs.
+- For Git-connected Cloudflare Workers builds, add build variables through the Cloudflare dashboard. The build environment is separate from the Worker runtime environment.
 
-Current Cloudflare API inspection shows no Worker secrets configured for `official-website`. If server-side secrets are added later, document the secret names and how to rotate them without including secret values.
+Current Cloudflare API inspection shows no Worker runtime secrets configured for `official-website`. If server-side secrets are added later, document the secret names and how to rotate them without including secret values.
 
 ## CI Relationship
 
