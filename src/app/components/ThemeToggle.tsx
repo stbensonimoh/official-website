@@ -42,6 +42,7 @@ export default function ThemeToggle() {
       {theme === "system" ? (
         // Computer icon for system theme
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -58,6 +59,7 @@ export default function ThemeToggle() {
       ) : actualTheme === "light" ? (
         // Moon icon for dark mode
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -74,6 +76,7 @@ export default function ThemeToggle() {
       ) : (
         // Sun icon for light mode
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

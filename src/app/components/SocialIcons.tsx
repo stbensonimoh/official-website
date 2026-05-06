@@ -16,7 +16,7 @@ const SocialIcons = (
   return (
     <div {...props} data-testid="social-icons">
       <a href={`https://github.com/${github}`} target="_blank" rel="noreferrer" aria-label="GitHub Profile" onClick={() => trackSocialClick('github')}>
-        <FaGithub />
+        <FaGithub aria-hidden="true" />
       </a>
       <a
         href={`https://linkedin.com/in/${linkedin}`}
@@ -25,7 +25,7 @@ const SocialIcons = (
         aria-label="LinkedIn Profile"
         onClick={() => trackSocialClick('linkedin')}
       >
-        <FaLinkedinIn />
+        <FaLinkedinIn aria-hidden="true" />
       </a>
       <a
         href={`https://x.com/${x}`}
@@ -34,7 +34,7 @@ const SocialIcons = (
         aria-label="X Profile"
         onClick={() => trackSocialClick('x')}
       >
-        <FaXTwitter />
+        <FaXTwitter aria-hidden="true" />
       </a>
       <a
         href={`https://instagram.com/${instagram}`}
@@ -43,7 +43,7 @@ const SocialIcons = (
         aria-label="Instagram Profile"
         onClick={() => trackSocialClick('instagram')}
       >
-        <FaInstagram />
+        <FaInstagram aria-hidden="true" />
       </a>
     </div>
   );
