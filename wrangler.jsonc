@@ -1,5 +1,5 @@
 {
-  "name": "official-website",
-  "compatibility_date": "2026-05-01",
-  "pages_build_output_dir": "./dist"
+  "name": "stbensonimoh-com",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2025-05-01"
 }
