@@ -1,16 +1,42 @@
 ---
-import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Benson Imoh,ST</title>
-  </head>
-  <body>
-    <main>
-      <h1>Hello, I'm Benson</h1>
-    </main>
-  </body>
-</html>
+<Layout>
+  <div class="font-roboto">
+    <div class="hidden md:flex items-center justify-center mt-12 md:mx-4 xl:mx-0">
+      <div class="flex flex-col mx-10 w-1/2 lg:w-1/3">
+        <h3 class="text-4xl font-roboto">Hello!</h3>
+        <h4 class="text-2xl font-badscript">I am Benson...</h4>
+        <h1 class="font-bebas my-4 lg:text-3xl xl:text-5xl">
+          Software Engineer <br />
+          DevOps Enthusiast <br />
+          OSS Advocate
+        </h1>
+        <p class="xl:w-4/5">
+          I build software and infrastructure with the precision of an engineer and the curiosity of an artist, creatively and
+          efficiently solving problems using bold ideas and experimental
+          methods. I'm passionate about OSS and automating workflows.
+        </p>
+        <p class="pt-4 text-bensongrey xl:w-3/5">
+          Deeply invested in improving DevX, Cx, and xD because how things feel is just as important as how they work.
+        </p>
+      </div>
+      <div class="image-section mx-10 w-2/5">
+        <img src="/images/front-image.png" alt="Benson Imoh portrait" />
+      </div>
+    </div>
+    <div class="mobile-header flex flex-col items-center pt-20 w-full md:hidden">
+      <img src="/images/front-image.png" class="my-12" alt="Benson Imoh portrait" />
+      <div class="bg-bensonblack text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2">
+        SOFTWARE ENGINEER
+      </div>
+      <div class="bg-bensonblack text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4 mb-2">
+        DEVOPS ENTHUSIAST
+      </div>
+      <div class="bg-bensonblack text-white py-3 px-8 border-bensonpink border-l-8 font-dosis text-lg text-center w-3/4">
+        OSS ADVOCATE
+      </div>
+    </div>
+  </div>
+</Layout>

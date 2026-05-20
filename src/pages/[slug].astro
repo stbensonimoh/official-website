@@ -1,0 +1,54 @@
+---
+import { getEntry, render } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+import { getReadingTime } from "../lib/posts";
+
+export const prerender = false;
+
+const { slug } = Astro.params;
+const post = await getEntry("blog", slug!);
+
+if (!post) {
+  return new Response(null, { status: 404 });
+}
+
+const { Content } = await render(post);
+const readingTime = getReadingTime(post.body || "");
+const postSlug = post.data.slug || post.id;
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  ogImage={post.data.heroImage}
+  canonicalURL={`https://stbensonimoh.com/${postSlug}`}
+>
+  <article class="max-w-3xl mx-auto px-4 py-12">
+    <header class="mb-8">
+      <h1 class="font-bebas text-4xl mb-4">{post.data.title}</h1>
+      <div class="flex items-center gap-4 text-secondary text-sm">
+        <time datetime={post.data.pubDate.toISOString()}>
+          {post.data.pubDate.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </time>
+        <span>&middot;</span>
+        <span>{readingTime.text}</span>
+      </div>
+      {
+        post.data.tags && post.data.tags.length > 0 && (
+          <div class="flex flex-wrap gap-2 mt-3">
+            {post.data.tags.map((tag: string) => (
+              <span class="text-xs bg-surface text-secondary px-2 py-1 rounded">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </header>
+    <div class="prose max-w-none">
+      <Content />
+    </div>
+  </article>
+</Layout>

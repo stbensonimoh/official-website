@@ -1,0 +1,50 @@
+---
+import "../styles/global.css";
+import siteMetadata from "../../siteMetadata";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string | URL;
+}
+
+const {
+  title = siteMetadata.title,
+  description = siteMetadata.description,
+  ogImage = "https://res.cloudinary.com/stbensonimoh/image/upload/v1735318948/stbensonimoh_logo.png",
+  canonicalURL,
+} = Astro.props;
+
+const pageTitle = title === siteMetadata.title ? title : `${title} - ${siteMetadata.title}`;
+const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteMetadata.title} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content={`@${siteMetadata.social.x}`} />
+
+    <link rel="canonical" href={pageUrl} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

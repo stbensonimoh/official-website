@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Contact">
+  <div class="font-roboto flex flex-col pt-20 w-full justify-center items-center md:hidden">
+    <img src="/images/contact-vector.png" alt="Contact illustration" class="my-20 mb-8" />
+    <p class="text-center mx-10 mb-8">
+      Got a question or proposal, or just want to say hello? Go ahead.
+    </p>
+    <a href="mailto:benson@stbensonimoh.com" class="button border border-bensonpink py-4 px-6 font-roboto font-medium text-lg text-bensonpink">
+      Send me a mail
+    </a>
+  </div>
+  <div class="font-roboto hidden md:flex flex-col">
+    <div class="main flex flex-col items-center justify-center mt-12">
+      <h1 class="font-medium text-6xl text-bensonpink">
+        Send me a message
+      </h1>
+      <p class="text-2xl my-12 w-5/12 text-center">
+        Do you have a question, a project you'd like to have me on, or just want to say hi?
+      </p>
+      <div class="xl:my-28">
+        <a href="mailto:benson@stbensonimoh.com" class="button border border-bensonpink py-4 px-6 font-roboto font-medium text-lg text-bensonpink">
+          Send a message
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
