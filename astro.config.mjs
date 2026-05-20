@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
+import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   output: 'server',
@@ -9,6 +10,7 @@ export default defineConfig({
       enabled: true,
     },
   }),
+  integrations: [mdx()],
   vite: {
     plugins: [tailwindcss()],
   },

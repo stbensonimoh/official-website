@@ -1,37 +1,20 @@
-import { postsData } from "./posts.data";
+const WORDS_PER_MINUTE = 200;
 
-export type Post = {
-  slug: string;
-  frontmatter: {
-    title: string;
-    date: string;
-    featured_image: string;
-    author?: string;
-    author_image?: string;
-    excerpt: string;
-    tags: string[];
+export function getReadingTime(content: string): {
+  text: string;
+  minutes: number;
+} {
+  const words = content.trim().split(/\s+/).filter(Boolean).length;
+  const minutes = Math.ceil(words / WORDS_PER_MINUTE);
+  return {
+    text: `${minutes} min read`,
+    minutes,
   };
-  content: string;
-  readingTime: {
-    text: string;
-    minutes: number;
-    time: number;
-    words: number;
-  };
-};
-
-export function getAllPosts(): Post[] {
-  return postsData.map((post) => ({
-    ...post,
-    frontmatter: {
-      ...post.frontmatter,
-    },
-    readingTime: {
-      ...post.readingTime,
-    },
-  })) as Post[];
 }
 
-export function getPostBySlug(slug: string): Post | undefined {
-  return getAllPosts().find((post) => post.slug === slug);
+export function createSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
 }

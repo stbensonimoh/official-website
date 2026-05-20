@@ -1,45 +1,54 @@
 import { test, expect, describe } from "bun:test";
-import { getAllPosts, getPostBySlug } from "./posts";
+import { getReadingTime, createSlug } from "./posts";
 
-describe("Blog Posts Library", () => {
-  test("getAllPosts returns an array of posts", () => {
-    const posts = getAllPosts();
-    expect(Array.isArray(posts)).toBe(true);
+describe("getReadingTime", () => {
+  test("returns correct minutes for known word count", () => {
+    const words = Array.from({ length: 400 }, () => "word").join(" ");
+    const result = getReadingTime(words);
+
+    expect(result.minutes).toBe(2);
+    expect(result.text).toBe("2 min read");
   });
 
-  test("getAllPosts returns posts with required fields", () => {
-    const posts = getAllPosts();
-    if (posts.length > 0) {
-      const firstPost = posts[0];
-      expect(firstPost).toHaveProperty("slug");
-      expect(firstPost).toHaveProperty("frontmatter");
-      expect(firstPost).toHaveProperty("content");
-      expect(firstPost).toHaveProperty("readingTime");
-    }
+  test("returns 1 min for short content", () => {
+    const result = getReadingTime("Hello world");
+
+    expect(result.minutes).toBe(1);
+    expect(result.text).toBe("1 min read");
   });
 
-  test("getPostBySlug returns undefined for non-existent slug", () => {
-    const post = getPostBySlug("this-slug-definitely-does-not-exist-12345");
-    expect(post).toBeUndefined();
+  test("returns 0 minutes for empty string", () => {
+    const result = getReadingTime("");
+
+    expect(result.minutes).toBe(0);
+    expect(result.text).toBe("0 min read");
   });
 
-  test("getPostBySlug returns correct post when slug exists", () => {
-    const posts = getAllPosts();
-    if (posts.length > 0) {
-      const existingSlug = posts[0].slug;
-      const foundPost = getPostBySlug(existingSlug);
-      expect(foundPost).toBeDefined();
-      expect(foundPost?.slug).toBe(existingSlug);
-    }
+  test("handles whitespace-only content", () => {
+    const result = getReadingTime("   \n  \t  ");
+
+    expect(result.minutes).toBe(0);
+  });
+});
+
+describe("createSlug", () => {
+  test("converts title to URL-safe slug", () => {
+    const slug = createSlug("Hello World! I Finally Beat Procrastination");
+    expect(slug).toBe("hello-world-i-finally-beat-procrastination");
   });
 
-  test("post slugs are lowercase and URL-safe", () => {
-    const posts = getAllPosts();
-    for (const post of posts) {
-      expect(post.slug).toBe(post.slug.toLowerCase());
-      expect(post.slug).not.toContain(" ");
-      expect(post.slug).not.toContain("?");
-      expect(post.slug).not.toContain("&");
-    }
+  test("removes special characters", () => {
+    const slug = createSlug("What's new in TypeScript 5.0?");
+    expect(slug).toBe("what-s-new-in-typescript-5-0");
+  });
+
+  test("trims leading and trailing hyphens", () => {
+    const slug = createSlug("  --Hello World--  ");
+    expect(slug).toBe("hello-world");
+  });
+
+  test("collapses multiple hyphens", () => {
+    const slug = createSlug("foo---bar___baz");
+    expect(slug).toBe("foo-bar-baz");
   });
 });
