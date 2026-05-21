@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.5](https://github.com/stbensonimoh/official-website/compare/v1.4.4...v1.4.5) (2026-05-21)
+
+
+### Bug Fixes
+
+* remove environment restriction from deploy job ([982bc2a](https://github.com/stbensonimoh/official-website/commit/982bc2a40d28e793a4c28ff6502565d3547ec599))
+
 ## [2.0.0](https://github.com/stbensonimoh/official-website) (2026-05-21)
 
 ### BREAKING CHANGES
