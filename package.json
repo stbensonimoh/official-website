@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "start": "astro dev",
+    "lint": "eslint .",
     "test": "bun test",
     "preview": "astro build && wrangler pages dev dist",
     "deploy": "astro build && wrangler deploy",
@@ -29,9 +30,12 @@
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^20",
     "bun-types": "latest",
+    "eslint": "^10.4.0",
+    "eslint-plugin-astro": "^1.7.0",
     "postcss": "^8",
     "tailwindcss": "^4.1.7",
     "typescript": "^5",
+    "typescript-eslint": "^8.59.4",
     "wrangler": "^4.76.0"
   },
   "overrides": {
