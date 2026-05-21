@@ -3,6 +3,7 @@ import "../styles/global.css";
 import siteMetadata from "../../siteMetadata";
 import Header from "../components/Header.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import { ClientRouter } from "astro:transitions";
 
 export interface Props {
   title?: string;
@@ -47,6 +48,7 @@ const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
     <meta name="twitter:creator" content={`@${siteMetadata.social.x}`} />
 
     <link rel="canonical" href={pageUrl} />
+    <ClientRouter />
 
     <script is:inline>
       // Prevent FOUC: set theme before any rendering
@@ -73,7 +75,7 @@ const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
     <slot />
     <ThemeToggle />
 
-    <script is:inline>
+    <script is:inline data-astro-rerun>
       // Clarity tracking helper
       function track(name) {
         if (typeof window.clarity === 'function') {
