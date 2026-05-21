@@ -1,4 +1,6 @@
 ---
+import AuthorBlob from "./AuthorBlob.astro";
+
 export interface Props {
   slug: string;
   title: string;
@@ -20,9 +22,7 @@ const { slug, title, date, description, heroImage, readingTime } = Astro.props;
   <h2 class="text-lg font-roboto font-medium text-foreground my-2">
     <a href={`/${slug}`}>{title}</a>
   </h2>
-  <p class="text-sm font-roboto text-secondary mb-2">
-    {date} &nbsp; | &nbsp; {readingTime}
-  </p>
+  <AuthorBlob date={date} timeToRead={readingTime} />
   <p>{description}</p>
   <small class="text-primary">
     <a href={`/${slug}`}>Read More...</a>

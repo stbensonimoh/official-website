@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import SocialIcons from "../components/SocialIcons.astro";
+import Copyright from "../components/Copyright.astro";
 ---
 
 <Layout title="Contact">
@@ -8,7 +10,8 @@ import Layout from "../layouts/Layout.astro";
     <p class="text-center mx-10 mb-8">
       Got a question or proposal, or just want to say hello? Go ahead.
     </p>
-    <a href="mailto:benson@stbensonimoh.com" class="button border border-bensonpink py-4 px-6 font-roboto font-medium text-lg text-bensonpink">
+    <SocialIcons class="mb-4 social-icons flex flex-row text-center text-bensonpink" />
+    <a href="mailto:benson@stbensonimoh.com" class="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white">
       Send me a mail
     </a>
   </div>
@@ -18,12 +21,19 @@ import Layout from "../layouts/Layout.astro";
         Send me a message
       </h1>
       <p class="text-2xl my-12 w-5/12 text-center">
-        Do you have a question, a project you'd like to have me on, or just want to say hi?
+        Do you have a question, a project you'd like to have me on, or just
+        want to say hi?
       </p>
       <div class="xl:my-28">
-        <a href="mailto:benson@stbensonimoh.com" class="button border border-bensonpink py-4 px-6 font-roboto font-medium text-lg text-bensonpink">
+        <a href="mailto:benson@stbensonimoh.com" class="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white">
           Send a message
         </a>
+      </div>
+    </div>
+    <SocialIcons class="absolute bottom-10 social-icons flex flex-col w-8 ml-4 text-center text-bensongrey" />
+    <div class="flex justify-center pt-20 pb-8">
+      <div class="copyright-container absolute bottom-8 right-24 text-sm text-bensongrey">
+        <Copyright />
       </div>
     </div>
   </div>

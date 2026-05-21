@@ -2,10 +2,10 @@
 import Logo from "./Logo.astro";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "HOME" },
+  { href: "/about", label: "ABOUT" },
+  { href: "/blog", label: "BLOG" },
+  { href: "/contact", label: "CONTACT" },
 ];
 ---
 
@@ -23,13 +23,15 @@ const navLinks = [
 </div>
 
 <div class="flex justify-center absolute top-8 w-full items-center md:hidden">
-  <Logo width={96} height={96} class="w-24" />
+  <a href="/">
+    <Logo width={96} height={96} class="w-24" />
+  </a>
 </div>
 
 <div
   id="mobile-menu"
   role="banner"
-  class="w-full flex flex-col items-center h-screen bg-background z-20 py-8 md:hidden transition transform ease-in-out duration-700 translate-y-[-200%] absolute"
+  class="w-full flex flex-col items-center h-screen bg-background z-20 py-8 md:hidden fixed top-0 left-0 translate-y-[-100vh] transition-transform duration-700 ease-in-out"
 >
   <a href="/" class="logo">
     <Logo width={96} height={96} class="w-24" />
@@ -45,7 +47,7 @@ const navLinks = [
 
 <button
   id="menu-toggle"
-  class="fixed top-8 right-8 text-3xl z-21 md:hidden"
+  class="fixed top-8 right-8 text-3xl z-30 md:hidden"
   aria-label="Open menu"
 >
   <svg id="menu-icon-open" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">

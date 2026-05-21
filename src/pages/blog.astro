@@ -4,34 +4,80 @@ import Layout from "../layouts/Layout.astro";
 import BlogPostCard from "../components/BlogPostCard.astro";
 import { getReadingTime } from "../lib/posts";
 
-const posts = await getCollection("blog");
-posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allPosts = await getCollection("blog");
+allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const featuredPosts = allPosts.filter((post) => post.data.tags.includes("featured"));
+const latestPosts = allPosts;
 ---
 
 <Layout title="Blog">
-  <div class="font-roboto max-w-4xl mx-auto px-4 py-12">
-    <h1 class="font-bebas text-4xl mb-8">Blog</h1>
-    {
-      posts.length === 0 ? (
-        <p>No posts yet.</p>
-      ) : (
-        <div class="space-y-8">
-          {posts.map((post) => (
-            <BlogPostCard
-              slug={post.data.slug || post.id}
-              title={post.data.title}
-              date={post.data.pubDate.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-              description={post.data.description}
-              heroImage={post.data.heroImage || ""}
-              readingTime={getReadingTime(post.body || "").text}
-            />
-          ))}
-        </div>
-      )
-    }
+  <div class="font-roboto">
+    <div class="flex flex-col items-center pt-10">
+      <h2 class="font-dosis uppercase tracking-wider text-secondary text-base">
+        WELCOME TO MY BLOG
+      </h2>
+      <h1 class="font-bebas text-5xl md:text-7xl my-4">
+        We all owe death a life.
+      </h1>
+      <p class="text-center text-secondary max-w-lg px-4">
+        I write about technology, design, engineering, productivity hacks, and life generally...
+      </p>
+      <img
+        src="/images/blog-header-image.png"
+        alt="Blog header illustration"
+        class="w-3/4 md:w-2/5 my-8"
+      />
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 py-8">
+      <h2 class="font-bebas text-2xl mb-8">Latest Posts</h2>
+      {
+        latestPosts.length === 0 ? (
+          <p>No posts yet.</p>
+        ) : (
+          <div class="space-y-8">
+            {latestPosts.map((post) => (
+              <BlogPostCard
+                slug={post.data.slug || post.id}
+                title={post.data.title}
+                date={post.data.pubDate.toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+                description={post.data.description}
+                heroImage={post.data.heroImage || ""}
+                readingTime={getReadingTime(post.body || "").text}
+              />
+            ))}
+          </div>
+        )
+      }
+
+      {
+        featuredPosts.length > 0 && (
+          <>
+            <h2 class="font-bebas text-2xl my-8">Featured Posts</h2>
+            <div class="space-y-8">
+              {featuredPosts.map((post) => (
+                <BlogPostCard
+                  slug={post.data.slug || post.id}
+                  title={post.data.title}
+                  date={post.data.pubDate.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                  description={post.data.description}
+                  heroImage={post.data.heroImage || ""}
+                  readingTime={getReadingTime(post.body || "").text}
+                />
+              ))}
+            </div>
+          </>
+        )
+      }
+    </div>
   </div>
 </Layout>

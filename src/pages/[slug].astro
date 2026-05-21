@@ -1,6 +1,7 @@
 ---
 import { getEntry, render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
+import AuthorBlob from "../components/AuthorBlob.astro";
 import { getReadingTime } from "../lib/posts";
 
 export const prerender = false;
@@ -15,6 +16,11 @@ if (!post) {
 const { Content } = await render(post);
 const readingTime = getReadingTime(post.body || "");
 const postSlug = post.data.slug || post.id;
+const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
 ---
 
 <Layout
@@ -23,32 +29,34 @@ const postSlug = post.data.slug || post.id;
   ogImage={post.data.heroImage}
   canonicalURL={`https://stbensonimoh.com/${postSlug}`}
 >
-  <article class="max-w-3xl mx-auto px-4 py-12">
-    <header class="mb-8">
-      <h1 class="font-bebas text-4xl mb-4">{post.data.title}</h1>
-      <div class="flex items-center gap-4 text-secondary text-sm">
-        <time datetime={post.data.pubDate.toISOString()}>
-          {post.data.pubDate.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
-        </time>
-        <span>&middot;</span>
-        <span>{readingTime.text}</span>
-      </div>
+  <main class="flex flex-col w-full">
+    {
+      post.data.heroImage && (
+        <div
+          class="featured-image hidden md:block"
+          style={`background-image: url(${post.data.heroImage}); background-repeat: no-repeat; background-size: cover; height: calc(100vh - 400px)`}
+        ></div>
+      )
+    }
+    <div
+      class="w-11/12 lg:w-4/5 xl:w-3/4 bg-background self-center h-60 relative bottom-36"
+      style="box-shadow: 0px -20px 20px rgba(0, 0, 0, 0.2)"
+    ></div>
+    <div class="w-11/12 lg:w-4/5 xl:w-3/4 px-10 md:px-20 lg:px-20 xl:px-20 self-center relative bottom-72">
+      <h1 class="my-4 text-3xl md:text-5xl font-roboto font-medium text-primary">
+        {post.data.title}
+      </h1>
+      <AuthorBlob date={formattedDate} timeToRead={readingTime.text} />
+      <article class="prose max-w-none font-roboto text-lg text-foreground">
+        <Content />
+      </article>
       {
         post.data.tags && post.data.tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mt-3">
-            {post.data.tags.map((tag: string) => (
-              <span class="text-xs bg-surface text-secondary px-2 py-1 rounded">{tag}</span>
-            ))}
-          </div>
+          <p class="text-primary text-lg mt-8">
+            Tags: {post.data.tags.map((tag: string) => `#${tag} `)}
+          </p>
         )
       }
-    </header>
-    <div class="prose max-w-none">
-      <Content />
     </div>
-  </article>
+  </main>
 </Layout>

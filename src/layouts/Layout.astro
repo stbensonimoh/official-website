@@ -68,19 +68,15 @@ const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
         var menu = document.getElementById('mobile-menu');
         var openIcon = document.getElementById('menu-icon-open');
         var closeIcon = document.getElementById('menu-icon-close');
-        var isOpen = menu.classList.contains('open');
+        var isOpen = !menu.classList.contains('translate-y-[-100vh]');
 
         if (isOpen) {
-          menu.classList.remove('open');
-          menu.classList.add('translate-y-[-200%]');
-          menu.classList.remove('-translate-y-0', 'fixed');
+          menu.classList.add('translate-y-[-100vh]');
           openIcon.classList.remove('hidden');
           closeIcon.classList.add('hidden');
           this.setAttribute('aria-label', 'Open menu');
         } else {
-          menu.classList.add('open');
-          menu.classList.remove('translate-y-[-200%]');
-          menu.classList.add('-translate-y-0', 'fixed');
+          menu.classList.remove('translate-y-[-100vh]');
           openIcon.classList.add('hidden');
           closeIcon.classList.remove('hidden');
           this.setAttribute('aria-label', 'Close menu');

@@ -1,9 +1,99 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Button from "../components/Button.astro";
 ---
 
 <Layout title="About">
   <div class="flex flex-col">
-    <h1>About</h1>
+    <div class="w-full xl:h-screen">
+      <div class="flex flex-col pt-20 md:pt-0 xl:pt-32 pb-12 lg:pb-0 lg:flex-row items-center justify-center">
+        <img
+          src="/images/about-page-picture.png"
+          alt="Benson Imoh professional photo"
+          class="px-10 md:ml-16 mt-20 mb-9 md:mt-0 xl:w-2/7 lg:w-2/5 md:w-2/3"
+        />
+        <div class="mx-10 lg:mx-16 lg:w-2/5 text-center lg:text-left">
+          <h1 class="font-roboto text-3xl lg:text-4xl xl:text-5xl font-medium leading-none">
+            Software Engineer<span class="text-primary">.</span><br />
+            DevOps Enthusiast<span class="text-primary">.</span><br />
+            OSS Advocate<span class="text-primary">.</span>
+          </h1>
+          <p class="hidden md:flex my-4 font-roboto">
+            I like finding smart ways to blend engineering and design to solve real problems—whether it is helping individuals work faster or helping teams build better systems. I am always looking for newer, simpler ways to do old things, especially when it means saving time, cutting friction, or unlocking something better. I care a lot about open source and automation.
+          </p>
+          <p class="hidden lg:flex text-secondary font-roboto">
+            Deeply invested in improving DevX, Cx, and xD because how things feel is just as important as how they work.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col w-full lg:flex-row px-12 py-20 items-center bg-bensonpink xl:h-screen text-white font-roboto">
+      <div class="md:mx-10 font-roboto lg:w-1/2">
+        <h1 class="font-roboto text-6xl font-medium md:w-2/3 py-8 md:py-8">
+          Over the past years,
+        </h1>
+        <p class="my-4">
+          I have designed and built products, systems, distributed teams, and processes that help people solve real problems efficiently, creatively, and at scale. From leadership to hands-on software engineering and architecture to the final product, I focus on user experience at every touchpoint: what people see, feel, and remember. Then I find ways to automate the boring stuff so teams can focus on what really matters.
+        </p>
+        <p class="my-4">
+          Currently, I am the DevOps and Cloud Infrastructure Consultant at <a href="https://350.org" target="_blank">350.org</a> - a global climate movement leveraging technology to drive meaningful action - having previously held roles as Associate Director of Engineering and Lead Developer where I had the privilege of working with teams across continents, guiding architecture changes, improving our cloud footprint, shaping engineering culture, and solving some really tricky problems.
+        </p>
+        <p class="my-4">
+          Some of the problems I tackled include completing an AWS-to-GCP migration that reduced infrastructure costs by 96% thereby cutting operational costs without compromising quality, shortened the lead time from idea to deployment, consolidated hosting into a unified GCP environment, brought real DevOps discipline to deployments, and introduced Infrastructure as Code, containerization, CI pipelines, Business Intelligence Analytics, and data warehousing that actually scaled. I improved security, observability, and reliability across systems used by teams in many timezones while managing a high-availability ecosystem of 500+ websites. During the 2024 Automattic/WP Engine dispute, I setup a custom internal Composer repository that kept our global network of 500+ websites secure and updated while other organizations on WPEngine lost access to the WordPress.org resources and infrastructure that impacted updates. I also launched the organisation's design system and initiated GDPR-compliant server-side tagging.
+        </p>
+      </div>
+      <div class="md:mx-10 mt-8 md:mt-0 lg:w-1/2">
+        <p class="my-4">
+          Beyond my professional role, I am deeply involved in the open-source community. I've always believed that open source is not just a tooling choice but a philosophy. As a volunteer with <a href="https://oscafrica.org/" target="_blank">Open Source Community Africa (OSCA)</a>, I contribute to fostering a vibrant ecosystem of open-source contributors across the continent. I am part of the organizing team for the annual <a href="https://festival.oscafrica.org/" target="_blank">Open Source Festival - <strong>OSCAFEST</strong></a> - an event that brings together developers, designers, and tech enthusiasts to share knowledge, collaborate, and promote open-source tools and practices. I also contribute to <a href="https://developer.mozilla.org" target="_blank">MDN Web Docs</a> because great documentation helps great developers become even better, and because sharing knowledge is just as important as writing code.
+        </p>
+        <p>
+          On the side, I also try to find time to build interesting tools that I release as open source software.
+        </p>
+        <p>Previously, I have worked in various organizations, sometimes in leadership positions:</p>
+        <ul class="list-disc ml-8">
+          <li>
+            <strong>Consultant CTO at Nyuma Harrison Foundation (Zambia):</strong> I helped to bring healthcare access in underserved communities in Zambia through technology solutions.
+          </li>
+          <li>
+            <strong>Chief Technology Officer at African Women in Leadership Organisation:</strong> I designed, built and deployed the organisation's cloud infrastructure, led DevOps adoption, powered digital campaigns across 12 countries, initiated a tech internship program, and secured strategic UN partnerships.
+          </li>
+          <li>
+            <strong>Volunteer at Hope Behind Bars Africa:</strong> Developed the "Connect Lawyer" app to connect prison inmates with pro bono legal assistance.
+          </li>
+        </ul>
+        <p class="my-4">
+          I am passionate about technology, automation, and building tools that help people do more with less. Lately, I have been experimenting with AI and doing some interesting projects in that space.
+        </p>
+        <p>
+          I am a realist with a leaning towards optimism. I am a big believer in Midwestern work ethic. I choose books over movies 9 times out of 10 and try to find time to write and blog about productivity hacks, automation, and business.
+        </p>
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row items-center justify-center xl:h-screen pt-12 bg-surface">
+      <div class="bg-background px-10 lg:px-10 pt-12 pb-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
+        <h1 class="font-roboto text-4xl md:text-5xl font-medium text-primary w-full">
+          I design and build stuff
+        </h1>
+        <p class="md:text-2xl my-10 text-secondary w-12/12">
+          Web Apps, freelance projects, personal projects and experiments
+        </p>
+        <a href="https://github.com/stbensonimoh" target="_blank" class="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white">
+          See my work
+        </a>
+      </div>
+      <div class="flex flex-col bg-background px-10 lg:px-10 pt-12 pb-20 my-20 mt-10 md:mt-20 md:pt-20 lg:pb-32 w-10/12 lg:w-1/3">
+        <h1 class="font-roboto text-4xl md:text-5xl font-medium text-primary w-12/12">
+          I write too, sometimes
+        </h1>
+        <p class="md:text-2xl my-8 md:my-10 text-secondary w-11/12">
+          About OSS, design, engineering and productivity.
+        </p>
+        <Button href="/blog">
+          Read my Blog
+        </Button>
+      </div>
+    </div>
   </div>
 </Layout>
