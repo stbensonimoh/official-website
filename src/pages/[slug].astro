@@ -33,7 +33,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
     {
       post.data.heroImage && (
         <div
-          class="featured-image hidden md:block"
+          class="featured-image"
           style={`background-image: url(${post.data.heroImage}); background-repeat: no-repeat; background-size: cover; height: calc(100vh - 400px)`}
         ></div>
       )
@@ -47,7 +47,7 @@ const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
         {post.data.title}
       </h1>
       <AuthorBlob date={formattedDate} timeToRead={readingTime.text} />
-      <article class="prose max-w-none font-roboto text-lg text-foreground">
+      <article class="prose max-w-none font-roboto text-lg font text-foreground">
         <Content />
       </article>
       {
