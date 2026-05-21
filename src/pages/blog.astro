@@ -7,77 +7,68 @@ import { getReadingTime } from "../lib/posts";
 const allPosts = await getCollection("blog");
 allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const featuredPosts = allPosts.filter((post) => post.data.tags.includes("featured"));
-const latestPosts = allPosts;
+const featuredPosts = allPosts.filter((post) => post.data.tags.includes("featured")).slice(0, 1);
+const latestPosts = allPosts.slice(0, 2);
 ---
 
 <Layout title="Blog">
-  <div class="font-roboto">
-    <div class="flex flex-col items-center pt-10">
-      <h2 class="font-dosis uppercase tracking-wider text-secondary text-base">
-        WELCOME TO MY BLOG
-      </h2>
-      <h1 class="font-bebas text-5xl md:text-7xl my-4">
-        We all owe death a life.
-      </h1>
-      <p class="text-center text-secondary max-w-lg px-4">
-        I write about technology, design, engineering, productivity hacks, and life generally...
-      </p>
-      <img
-        src="/images/blog-header-image.png"
-        alt="Blog header illustration"
-        class="w-3/4 md:w-2/5 my-8"
-      />
+  <div class="flex flex-col">
+    <div class="first-section flex flex-col md:h-screen">
+      <section class="flex flex-col md:flex-row justify-center items-center flex-grow lg:space-x-12 pt-40 md:pt-0 w-full pb-20 bg-surface">
+        <div class="text-center md:text-left flex flex-col items-center lg:items-start lg:ml-12">
+          <h2 class="text-lg font-dosis uppercase text-primary">
+            Welcome to my blog
+          </h2>
+          <h1 class="text-5xl font-roboto font-medium xl:w-2/4 my-6 mx-10 md:mx-0">
+            We all owe death a life.
+          </h1>
+          <p class="font-roboto xl:w-2/4 mb-12 md:mb-4 mx-10 md:mx-0">
+            I write about technology, design, engineering, productivity hacks,
+            and life generally...
+          </p>
+        </div>
+        <img
+          src="/images/blog-header-image.png"
+          alt="Blog header illustration"
+          class="hidden lg:block pt-12 xl:w-3/7 lg:w-2/5 lg:pr-12"
+        />
+      </section>
     </div>
-
-    <div class="max-w-4xl mx-auto px-4 py-8">
-      <h2 class="font-bebas text-2xl mb-8">Latest Posts</h2>
-      {
-        latestPosts.length === 0 ? (
-          <p>No posts yet.</p>
-        ) : (
-          <div class="space-y-8">
-            {latestPosts.map((post) => (
-              <BlogPostCard
-                slug={post.data.slug || post.id}
-                title={post.data.title}
-                date={post.data.pubDate.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-                description={post.data.description}
-                heroImage={post.data.heroImage || ""}
-                readingTime={getReadingTime(post.body || "").text}
-              />
-            ))}
-          </div>
-        )
-      }
-
-      {
-        featuredPosts.length > 0 && (
-          <>
-            <h2 class="font-bebas text-2xl my-8">Featured Posts</h2>
-            <div class="space-y-8">
-              {featuredPosts.map((post) => (
-                <BlogPostCard
-                  slug={post.data.slug || post.id}
-                  title={post.data.title}
-                  date={post.data.pubDate.toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                  description={post.data.description}
-                  heroImage={post.data.heroImage || ""}
-                  readingTime={getReadingTime(post.body || "").text}
-                />
-              ))}
-            </div>
-          </>
-        )
-      }
+    <div class="second-section bg-background py-12 flex flex-col items-center">
+      <div class="flex flex-col items-start w-10/12 md:w-11/12 lg:w-4/5">
+        <h2 class="text-3xl font-roboto font-medium text-foreground my-8">
+          Latest Posts
+        </h2>
+        <div class="posts w-full grid gap-8 md:grid-cols-2 xl:grid-cols-3" data-testid="latest-posts">
+          {latestPosts.map((post) => (
+            <BlogPostCard
+              slug={post.data.slug || post.id}
+              title={post.data.title}
+              date={post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+              description={post.data.description}
+              heroImage={post.data.heroImage || ""}
+              readingTime={getReadingTime(post.body || "").text}
+            />
+          ))}
+        </div>
+      </div>
+      <div class="flex flex-col items-start w-10/12 md:w-11/12 lg:w-4/5">
+        <h2 class="text-3xl font-roboto font-medium text-foreground my-8">
+          Featured Posts
+        </h2>
+        <div class="posts w-full grid gap-8 md:grid-cols-2 xl:grid-cols-3" data-testid="featured-posts">
+          {featuredPosts.map((post) => (
+            <BlogPostCard
+              slug={post.data.slug || post.id}
+              title={post.data.title}
+              date={post.data.pubDate.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+              description={post.data.description}
+              heroImage={post.data.heroImage || ""}
+              readingTime={getReadingTime(post.body || "").text}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   </div>
 </Layout>
