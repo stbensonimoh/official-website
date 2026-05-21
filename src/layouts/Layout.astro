@@ -18,6 +18,8 @@ const {
   canonicalURL,
 } = Astro.props;
 
+const clarityId = import.meta.env.PUBLIC_CLARITY_TRACKING_ID;
+
 const pageTitle = title === siteMetadata.title ? title : `${title} - ${siteMetadata.title}`;
 const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
 ---
@@ -56,6 +58,15 @@ const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
         document.documentElement.setAttribute('data-theme', theme);
       })();
     </script>
+    {
+      clarityId && (
+        <script set:html={`(function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window,document,"clarity","script","${clarityId}");`} />
+      )
+    }
   </head>
   <body>
     <Header />
@@ -63,6 +74,13 @@ const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
     <ThemeToggle />
 
     <script is:inline>
+      // Clarity tracking helper
+      function track(name) {
+        if (typeof window.clarity === 'function') {
+          window.clarity('event', name);
+        }
+      }
+
       // Mobile menu toggle
       document.getElementById('menu-toggle')?.addEventListener('click', function() {
         var menu = document.getElementById('mobile-menu');
@@ -75,11 +93,13 @@ const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
           openIcon.classList.remove('hidden');
           closeIcon.classList.add('hidden');
           this.setAttribute('aria-label', 'Open menu');
+          track('mobile_menu_close');
         } else {
           menu.classList.remove('translate-y-[-100vh]');
           openIcon.classList.add('hidden');
           closeIcon.classList.remove('hidden');
           this.setAttribute('aria-label', 'Close menu');
+          track('mobile_menu_open');
         }
       });
 
@@ -112,6 +132,7 @@ const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
           localStorage.setItem(THEME_KEY, next);
           applyTheme(getActualTheme());
           updateIcon();
+          track('theme_change_to_' + next);
         }
 
         function updateIcon() {
@@ -137,15 +158,27 @@ const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
         updateIcon();
       })();
 
-      // Active nav link highlighting
+      // Active nav link highlighting + tracking
       (function() {
         var currentPath = window.location.pathname;
         document.querySelectorAll('[data-nav]').forEach(function(link) {
           if (link.getAttribute('data-nav') === currentPath) {
             link.classList.add('active-menu-item');
           }
+          link.addEventListener('click', function() {
+            track('nav_click_' + (link.getAttribute('data-nav') || '').replace(/\//g, '_'));
+          });
         });
       })();
+
+      // Social icon click tracking
+      document.querySelectorAll('[aria-label*="Profile"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          var label = link.getAttribute('aria-label') || '';
+          var platform = label.replace(' Profile', '').toLowerCase();
+          track('social_click_' + platform);
+        });
+      });
     </script>
   </body>
 </html>
