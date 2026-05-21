@@ -1,64 +1,53 @@
 # Contributing to Benson Imoh's Official Website
 
-Thank you for your interest in contributing to this project! This document provides guidelines and steps for contributing.
-
-## Code of Conduct
-
-By participating in this project, you agree to maintain a respectful and inclusive environment for everyone.
-
-## How to Contribute
-
-### Reporting Bugs
-
-- Check if the bug has already been reported in the [Issues](https://github.com/stbensonimoh/official-website/issues)
-- If not, create a new issue using the [Bug Report template](https://github.com/stbensonimoh/official-website/issues/new?template=bug_report.md)
-- Include as much relevant information as possible and steps to reproduce
-
-### Suggesting Features
-
-- Check if the feature has already been suggested in the [Issues](https://github.com/stbensonimoh/official-website/issues)
-- If not, create a new issue using the [Feature Request template](https://github.com/stbensonimoh/official-website/issues/new?template=feature_request.md)
-- Describe the feature in detail and why it would be valuable
-
-### Pull Requests
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/your-feature-name`)
-3. Make your changes
-4. Run tests and ensure they pass: `bun run test`
-5. Commit your changes using the [conventional commit format](https://www.conventionalcommits.org/)
-   - The repository uses a commit template you can enable with:
-   - `git config --local commit.template .github/commit-template.txt`
-6. Push to your branch (`git push origin feature/your-feature-name`)
-7. Open a Pull Request
-
 ## Development Setup
 
-1. Clone your fork of the repository
-2. Install dependencies:
-   ```bash
-   bun install
-   ```
-3. Start the development server:
-   ```bash
-   bun run dev
-   ```
+```bash
+bun install                       # Install dependencies
+bun run dev                       # Start dev server at http://localhost:4321
+bun run lint                      # Run ESLint
+bun astro check                   # TypeScript type checking
+bun run test                      # Run Bun tests
+bun run build                     # Production build
+```
 
-## Coding Standards
+## Commit Conventions
 
-- Follow the existing code style
-- Write tests for new features
-- Keep pull requests focused on a single topic
-- Document any new functionality
+This project uses [Conventional Commits](https://www.conventionalcommits.org/):
+
+- `feat:` — New feature
+- `fix:` — Bug fix
+- `ci:` — CI/CD changes
+- `docs:` — Documentation
+- `style:` — CSS/styling changes
+- `refactor:` — Code changes without behavior change
+- `test:` — Test additions or changes
+
+## Development Workflow
+
+1. Fork or clone the repository
+2. Create a branch (`git checkout -b feat/your-feature`)
+3. Make your changes
+4. Run `bun astro check` and `bun run test` to verify
+5. Run `bun run dev` and visually verify in browser at http://localhost:4321
+6. Commit with conventional commit format
+7. Push and open a Pull Request
+
+## Adding Blog Posts
+
+1. Create `src/content/blog/your-title.mdx`
+2. Frontmatter: `title`, `pubDate`, `description`, `heroImage` (optional), `tags` (optional), `slug` (optional)
+3. The post appears on `/blog` listing and `/your-slug` automatically
 
 ## Testing
 
-- Run tests before submitting a PR:
-  ```bash
-  bun run test
-  ```
-- Add tests for new features
+```bash
+bun test           # Run all tests
+bun test --watch   # Watch mode
+```
+
+Tests use Bun's native test runner (`bun:test`). Utilities in `src/lib/` should have corresponding tests.
 
 ## License
 
-By contributing to this project, you agree that your contributions will be licensed under the project's MIT License.
+By contributing, you agree that your contributions will be licensed under the project's MIT License.
