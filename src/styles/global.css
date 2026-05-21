@@ -49,6 +49,8 @@
   --text-primary: var(--foreground);
   --text-secondary: var(--secondary);
   --accent: var(--primary);
+  --logo-primary: #ec2c7c;
+  --logo-fill: #040404;
 }
 
 [data-theme="dark"] {
@@ -57,6 +59,8 @@
   --primary: #ff4d94;
   --secondary: #a3a3a3;
   --surface: #1a1a1a;
+  --logo-primary: #ff4d94;
+  --logo-fill: #ffffff;
 }
 
 body {

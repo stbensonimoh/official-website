@@ -1,0 +1,9 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<p class={className}>Copyright &copy; {new Date().getFullYear()} Benson Imoh,ST</p>

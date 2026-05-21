@@ -1,0 +1,57 @@
+---
+import Logo from "./Logo.astro";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/blog", label: "Blog" },
+  { href: "/contact", label: "Contact" },
+];
+---
+
+<div class="hidden header md:flex justify-between items-center my-4">
+  <a href="/" class="logo ml-4">
+    <Logo width={96} height={96} class="w-24" />
+  </a>
+  <nav class="main-navigation uppercase text-base font-dosis mr-8" data-testid="desktop-nav">
+    {navLinks.map((link) => (
+      <a href={link.href} class="nav-item" data-nav={link.href}>
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</div>
+
+<div class="flex justify-center absolute top-8 w-full items-center md:hidden">
+  <Logo width={96} height={96} class="w-24" />
+</div>
+
+<div
+  id="mobile-menu"
+  role="banner"
+  class="w-full flex flex-col items-center h-screen bg-background z-20 py-8 md:hidden transition transform ease-in-out duration-700 translate-y-[-200%] absolute"
+>
+  <a href="/" class="logo">
+    <Logo width={96} height={96} class="w-24" />
+  </a>
+  <nav class="uppercase text-2xl font-dosis flex flex-col items-center h-1/2 mt-24 justify-between" data-testid="mobile-nav">
+    {navLinks.map((link) => (
+      <a href={link.href} class="nav-item" data-nav={link.href}>
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</div>
+
+<button
+  id="menu-toggle"
+  class="fixed top-8 right-8 text-3xl z-21 md:hidden"
+  aria-label="Open menu"
+>
+  <svg id="menu-icon-open" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+  </svg>
+  <svg id="menu-icon-close" class="hidden" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor">
+    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+  </svg>
+</button>

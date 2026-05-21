@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import SocialIcons from "../components/SocialIcons.astro";
+import Copyright from "../components/Copyright.astro";
 ---
 
 <Layout>
@@ -38,5 +40,9 @@ import Layout from "../layouts/Layout.astro";
         OSS ADVOCATE
       </div>
     </div>
+  </div>
+  <SocialIcons class="absolute bottom-10 social-icons hidden md:flex flex-col w-8 ml-4 text-center text-bensongrey" />
+  <div class="hidden md:flex copyright-container absolute right-24 bottom-8 font-roboto text-sm text-bensongrey">
+    <Copyright />
   </div>
 </Layout>
