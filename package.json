@@ -17,6 +17,8 @@
     "@astrojs/check": "^0.9.9",
     "@astrojs/cloudflare": "^13.5.2",
     "@astrojs/mdx": "^5.0.6",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
     "@microsoft/clarity": "^1.0.2",
     "@tailwindcss/postcss": "^4.3.0",
     "@tailwindcss/typography": "^0.5.15",
