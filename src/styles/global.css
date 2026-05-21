@@ -203,3 +203,20 @@ article {
 .prose code {
   background-color: var(--surface);
 }
+
+.mobile-badge {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 0.75rem 2rem;
+  border-left: 8px solid var(--primary);
+  font-family: var(--font-dosis);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  text-align: center;
+  width: 75%;
+  margin-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .mobile-badge {
+  background-color: var(--surface);
+}
