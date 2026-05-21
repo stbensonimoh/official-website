@@ -1,172 +1,102 @@
 # Benson Imoh's Personal Website
 
-A modern, responsive personal website and blog built with Next.js, React, and Tailwind CSS.
+A modern, responsive personal website and blog built with Astro and Tailwind CSS.
 
 ![Website Preview](public/images/front-image.png)
 
-## 🚀 Features
+## Features
 
-- **Responsive Design**: Optimized for both desktop and mobile devices
-- **Blog Platform**: MDX-powered blog with reading time estimation
-- **SEO Optimized**: Built-in SEO configuration with next-seo
-- **Modern UI**: Clean, professional interface with Tailwind CSS
-- **Comprehensive Testing**: Bun Test & React Testing Library
-- **TypeScript**: Type-safe codebase
+- **SPA Navigation**: Client-side routing via `<ClientRouter />` for instant page transitions
+- **Blog Platform**: MDX-powered blog with content collections and reading time estimation
+- **SEO Optimized**: Built-in OG/Twitter cards, RSS feed, and sitemap generation
+- **Theme System**: Light/Dark/System mode with FOUC prevention and localStorage persistence
+- **Modern UI**: Clean, professional interface with Tailwind CSS v4
+- **Zero React**: Pure Astro components + vanilla JS (no framework dependencies)
+- **TypeScript**: Strict mode throughout
+- **Testing**: Bun Test for utility functions
 
-## 🛠️ Technologies
+## Technologies
 
-- **Framework**: [Next.js 16](https://nextjs.org/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Testing**: [Bun Test](https://bun.sh/docs/cli/test) & [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
-- **Content**: [MDX](https://mdxjs.com/) for blog posts
-- **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
-- **UI Components**: Custom React components
+- **Framework**: [Astro 6](https://astro.build/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/) (strict)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Testing**: [Bun Test](https://bun.sh/docs/cli/test)
+- **Content**: [MDX](https://mdxjs.com/) via `@astrojs/mdx`
+- **Deployment**: [Cloudflare Workers](https://workers.cloudflare.com/) via `@astrojs/cloudflare`
+- **Analytics**: Microsoft Clarity (script-based, no npm dependency)
 
-## 📋 Prerequisites
+## Prerequisites
 
 - [Bun](https://bun.sh/) 1.0.0 or higher
 
-## 🔧 Installation
+## Installation
 
-1. Clone the repository
-   ```bash
-   git clone https://github.com/stbensonimoh/official-website.git
-   cd official-website
-   ```
+```bash
+git clone https://github.com/stbensonimoh/official-website.git
+cd official-website
+bun install
+bun run dev
+```
 
-2. Install dependencies
-   ```bash
-   bun install
-   ```
+Open [http://localhost:4321](http://localhost:4321) in your browser.
 
-3. Start the development server
-   ```bash
-   bun run dev
-   ```
+## Available Scripts
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+| Command | Description |
+|---------|-------------|
+| `bun run dev` | Start Astro dev server with Cloudflare platform proxy |
+| `bun run build` | Production build |
+| `bun run lint` | Run ESLint |
+| `bun run test` | Run Bun tests |
+| `bun astro check` | Type check all files |
+| `bun run preview` | Build + preview locally with Wrangler |
+| `bun run deploy` | Build + deploy to Cloudflare Workers |
 
-## 📝 Available Scripts
-
-- `bun run dev` - Generate posts data and start the Next.js development server
-- `bun run build` - Generate posts data and validate the Next.js production build
-- `bun run start` - Start the Next.js production server after `bun run build`; this is not the Cloudflare Workers runtime
-- `bun run lint` - Run ESLint to check for code issues
-- `bun run test` - Run Bun tests
-- `bun run preview` - Build and preview the OpenNext/Cloudflare Workers artifact locally
-- `bun run deploy` - Build and deploy the OpenNext/Cloudflare Workers artifact to production
-- `bun run cf-typegen` - Generate local Cloudflare environment types from Wrangler
-- `bun run generate-posts-data` - Regenerate posts data from MDX files
-
-For production-like validation and deployment details, see the [deployment runbook](docs/deployment.md).
-
-## 📁 Project Structure
+## Project Structure
 
 ```
-├── .github/               # GitHub-specific files
-│   ├── ISSUE_TEMPLATE/    # Issue templates
-│   ├── CONTRIBUTING.md    # Contribution guidelines
-│   ├── SECURITY.md        # Security policy
-│   ├── commit-template.txt # Git commit message template
-│   └── pull_request_template.md # PR template
-├── blog/                  # Blog posts in MDX format
-├── docs/                  # Operational documentation and runbooks
+├── .github/               # GitHub workflows, templates, docs
 ├── public/                # Static assets
 │   ├── images/            # Image files
-│   └── logo.svg           # Website logo
+│   └── robots.txt         # robots.txt for crawlers
 ├── src/
-│   ├── app/               # Next.js App Router
-│   │   ├── components/    # React components
-│   │   ├── [slug]/        # Dynamic blog post routes
-│   │   ├── about/         # About page
-│   │   ├── blog/          # Blog listing page
-│   │   ├── contact/       # Contact page
-│   │   └── page.tsx       # Homepage
-│   ├── lib/               # Utility functions
-│   └── test-utils.tsx     # Testing utilities
-├── siteMetadata.ts        # Website metadata
-├── next.config.mjs        # Next.js configuration
-└── tsconfig.json          # TypeScript configuration
+│   ├── components/        # Astro components (Header, Logo, ThemeToggle, etc.)
+│   ├── content/           # Content collections
+│   │   └── blog/          # Blog posts in MDX format
+│   ├── layouts/           # Page layouts (Layout.astro)
+│   ├── lib/               # Utility functions (posts.ts, clarity.ts, theme.ts)
+│   ├── pages/             # Routes (/ , /about, /blog, /contact, /404, /[slug])
+│   ├── styles/            # Global CSS (Tailwind theme, custom utilities)
+│   └── content.config.ts  # Content collection schema
+├── astro.config.mjs       # Astro configuration
+├── siteMetadata.ts        # Site metadata constants
+├── tsconfig.json          # TypeScript configuration
+└── wrangler.jsonc         # Cloudflare Workers configuration
 ```
 
-## 🧪 Testing
-
-The project uses Bun's built-in test runner and React Testing Library for testing. Run tests with:
+## Testing
 
 ```bash
-bun run test
+bun run test        # Run all tests
+bun run test --watch # Watch mode
 ```
 
-## 👥 Contributing
+## Contributing
 
-Contributions are welcome! Please check out my [contribution guidelines](.github/CONTRIBUTING.md) before getting started. This project includes:
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md). Commits follow [Conventional Commits](https://www.conventionalcommits.org/).
 
-- Issue templates for:
-  - Bug reports
-  - Feature requests
-  - Documentation updates
-  - Performance issues
-  - Security vulnerabilities
-- Pull request template
-- Git commit message template (enable with `git config --local commit.template .github/commit-template.txt`)
+## Security
 
-## 🔒 Security
+A Cloudflare WAF rule blocks common attack paths at the edge. See [SECURITY.md](.github/SECURITY.md) for reporting vulnerabilities.
 
-### Cloudflare WAF
+## Deployment
 
-A [Cloudflare WAF Custom Rule](https://developers.cloudflare.com/waf/custom-rules/) blocks common reconnaissance and exploitation paths at the edge before they reach the origin server. This reduces origin load, filters access log noise, and eliminates unnecessary attack surface.
+Deployed to Cloudflare Workers via GitHub Actions. Quality gates (lint, typecheck, test) must pass before deploy. See [DEPLOY.md](DEPLOY.md) for details.
 
-**Blocked path patterns:**
+## About the Author
 
-- Version control: `.git`, `.svn`
-- Configuration files: `.env`, `.config`, `.htaccess`, `.htpasswd`
-- Infrastructure credentials: `.aws`
-- WordPress endpoints: `wp-login`, `wp-admin`, `wp-includes`, `wp-content`, `xmlrpc`
-- Database interfaces: `phpmyadmin`
-- OS metadata: `.DS_Store`
+Benson Imoh,ST is a Software Engineer, DevOps Enthusiast, and Open Source Software Advocate.
 
-**Verification:**
+## License
 
-```bash
-# Blocked paths return HTTP 403 from Cloudflare edge
-curl -I https://stbensonimoh.com/.env
-curl -I https://stbensonimoh.com/wp-login.php
-
-# Normal paths return HTTP 200
-curl -I https://stbensonimoh.com/
-```
-
-**Monitoring:** Review blocked requests via **Security > Events** in the Cloudflare dashboard. If legitimate traffic is blocked, refine the rule with additional scoping conditions such as request method or IP allowlisting.
-
-If you discover any security-related issues, please read my [security policy](.github/SECURITY.md) for information on how to report them.
-
-## 🌐 Deployment
-
-The site is deployed on [Cloudflare Workers](https://workers.cloudflare.com/) via [OpenNext](https://open-next.js.org/). `bun run build` validates the Next.js build, `bun run preview` validates the OpenNext/Cloudflare Workers runtime locally, and `bun run deploy` performs the production deployment.
-
-Read the [deployment runbook](docs/deployment.md) before deploying or debugging production-like behavior.
-
-## 👤 About the Author
-
-Benson Imoh,ST is a Software Engineer, DevOps Enthusiast, and Open Source Software Advocate passionate about blending engineering and design to creatively and efficiently solve problems.
-
-## 🏗️ Build Process
-
-The blog posts data is automatically generated from markdown files in the `blog/` directory. The generation script `scripts/generate-posts-data.ts` runs during the development (`bun run dev`), build (`bun run build`), preview, and deployment processes, producing `src/lib/posts.data.ts`. This file is excluded from version control (see `.gitignore`) and should not be edited manually.
-
-- **Local development**: The `dev` script automatically generates the file before starting the Next.js server.
-- **Build & deployment**: The `build`, `preview`, and `deploy` scripts include the generation step.
-- **Manual generation**: You can run `bun run generate-posts-data` to regenerate the file at any time.
-
-### CI/CD Integration
-- GitHub Actions CI includes a Build step that validates the build succeeds.
-- Cloudflare preview and deployment scripts automatically regenerate posts data before building the OpenNext artifact.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-Built with ❤️ by [Benson Imoh](https://stbensonimoh.com)
+MIT — see [LICENSE](LICENSE) for details.

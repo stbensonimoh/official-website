@@ -1,0 +1,30 @@
+---
+import AuthorBlob from "./AuthorBlob.astro";
+
+export interface Props {
+  slug: string;
+  title: string;
+  date: string;
+  description: string;
+  heroImage: string;
+  readingTime: string;
+}
+
+const { slug, title, date, description, heroImage, readingTime } = Astro.props;
+---
+
+<div role="article" class="bg-surface w-full p-8 rounded-md shadow-sm">
+  <a href={`/${slug}`}>
+    <div class="image-container max-h-52 overflow-hidden">
+      <img src={heroImage} alt={title} />
+    </div>
+  </a>
+  <h2 class="text-lg font-roboto font-medium text-foreground my-2">
+    <a href={`/${slug}`}>{title}</a>
+  </h2>
+  <AuthorBlob date={date} timeToRead={readingTime} />
+  <p>{description}</p>
+  <small class="text-primary">
+    <a href={`/${slug}`}>Read More...</a>
+  </small>
+</div>

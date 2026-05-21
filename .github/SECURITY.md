@@ -2,35 +2,35 @@
 
 ## Reporting a Vulnerability
 
-The security of this project is taken seriously. If you believe you've found a security vulnerability in the website, please follow these steps:
-
 ### For Critical Vulnerabilities
 
-1. **Do not** create a public GitHub issue for the vulnerability
-2. Email the details to [benson@stbensonimoh.com](mailto:benson@stbensonimoh.com) with "SECURITY VULNERABILITY" in the subject
-3. Include a detailed description of the vulnerability and steps to reproduce if possible
+1. **Do not** create a public GitHub issue
+2. Email [benson@stbensonimoh.com](mailto:benson@stbensonimoh.com) with "SECURITY VULNERABILITY" in the subject
+3. Include a detailed description and steps to reproduce
 4. Allow time for the vulnerability to be addressed before public disclosure
 
 ### For Non-Critical Security Issues
 
-1. Submit a report via the [Security Vulnerability template](https://github.com/stbensonimoh/official-website/issues/new?template=security_vulnerability.md)
-
-## Security Updates
-
-Security patches will be applied as quickly as possible. Updates and acknowledgments will be provided to reporters of valid security issues.
+Submit a report via the [Security Vulnerability template](https://github.com/stbensonimoh/official-website/issues/new?template=security_vulnerability.md).
 
 ## Supported Versions
 
-Only the latest version of the website is actively maintained and receives security updates.
+Only the latest version receives security updates.
 
-## Security Best Practices
+## Cloudflare WAF
 
-This project aims to follow security best practices, including:
+A Cloudflare WAF Custom Rule blocks reconnaissance and exploitation paths at the edge:
 
+- Version control: `.git`, `.svn`
+- Configuration: `.env`, `.config`, `.htaccess`, `.htpasswd`
+- Infrastructure: `.aws`
+- WordPress paths: `wp-login`, `wp-admin`, `wp-includes`, `wp-content`, `xmlrpc`
+- Database: `phpmyadmin`
+- OS metadata: `.DS_Store`
+
+## Security Practices
+
+- Public env vars use `PUBLIC_` prefix (Astro convention)
+- No secrets committed to the repository
 - Regular dependency updates
-- Code scanning for vulnerabilities
-- Secure coding practices
-- Input validation and sanitization
-- Content Security Policy implementation
-
-Thank you for helping keep this project secure!
+- Content Security Policy via HTTP headers (Cloudflare)

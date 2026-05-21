@@ -1,0 +1,186 @@
+---
+import "../styles/global.css";
+import siteMetadata from "../../siteMetadata";
+import Header from "../components/Header.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
+import { ClientRouter } from "astro:transitions";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonicalURL?: string | URL;
+}
+
+const {
+  title = siteMetadata.title,
+  description = siteMetadata.description,
+  ogImage = "https://res.cloudinary.com/stbensonimoh/image/upload/v1735318948/stbensonimoh_logo.png",
+  canonicalURL,
+} = Astro.props;
+
+const clarityId = import.meta.env.PUBLIC_CLARITY_TRACKING_ID;
+
+const pageTitle = title === siteMetadata.title ? title : `${title} - ${siteMetadata.title}`;
+const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteMetadata.title} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content={`@${siteMetadata.social.x}`} />
+
+    <link rel="canonical" href={pageUrl} />
+    <ClientRouter />
+
+    <script is:inline>
+      // Prevent FOUC: set theme before any rendering
+      (function() {
+        var theme = localStorage.getItem('theme') || 'system';
+        if (theme === 'system') {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    {
+      clarityId && (
+        <script set:html={`(function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window,document,"clarity","script","${clarityId}");`} />
+      )
+    }
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <ThemeToggle />
+
+    <script is:inline data-astro-rerun>
+      // Clarity tracking helper
+      function track(name) {
+        if (typeof window.clarity === 'function') {
+          window.clarity('event', name);
+        }
+      }
+
+      // Mobile menu toggle
+      document.getElementById('menu-toggle')?.addEventListener('click', function() {
+        var menu = document.getElementById('mobile-menu');
+        var openIcon = document.getElementById('menu-icon-open');
+        var closeIcon = document.getElementById('menu-icon-close');
+        var isOpen = !menu.classList.contains('translate-y-[-100vh]');
+
+        if (isOpen) {
+          menu.classList.add('translate-y-[-100vh]');
+          openIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+          this.setAttribute('aria-label', 'Open menu');
+          track('mobile_menu_close');
+        } else {
+          menu.classList.remove('translate-y-[-100vh]');
+          openIcon.classList.add('hidden');
+          closeIcon.classList.remove('hidden');
+          this.setAttribute('aria-label', 'Close menu');
+          track('mobile_menu_open');
+        }
+      });
+
+      // Theme toggle
+      (function() {
+        var THEME_KEY = 'theme';
+        var themes = ['light', 'dark', 'system'];
+
+        function getSystemTheme() {
+          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function getTheme() {
+          return localStorage.getItem(THEME_KEY) || 'system';
+        }
+
+        function getActualTheme() {
+          var t = getTheme();
+          return t === 'system' ? getSystemTheme() : t;
+        }
+
+        function applyTheme(theme) {
+          document.documentElement.setAttribute('data-theme', theme);
+        }
+
+        function toggleTheme() {
+          var current = getTheme();
+          var idx = themes.indexOf(current);
+          var next = themes[(idx + 1) % themes.length];
+          localStorage.setItem(THEME_KEY, next);
+          applyTheme(getActualTheme());
+          updateIcon();
+          track('theme_change_to_' + next);
+        }
+
+        function updateIcon() {
+          var current = getTheme();
+          document.querySelectorAll('[data-theme-icon]').forEach(function(el) {
+            el.classList.add('hidden');
+          });
+          var icon = document.querySelector('[data-theme-icon="' + current + '"]');
+          if (icon) icon.classList.remove('hidden');
+        }
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function() {
+          if (getTheme() === 'system') {
+            applyTheme(getSystemTheme());
+          }
+        });
+
+        // Wire toggle button
+        document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+
+        // Init icon
+        updateIcon();
+      })();
+
+      // Active nav link highlighting + tracking
+      (function() {
+        var currentPath = window.location.pathname;
+        document.querySelectorAll('[data-nav]').forEach(function(link) {
+          if (link.getAttribute('data-nav') === currentPath) {
+            link.classList.add('active-menu-item');
+          }
+          link.addEventListener('click', function() {
+            track('nav_click_' + (link.getAttribute('data-nav') || '').replace(/\//g, '_'));
+          });
+        });
+      })();
+
+      // Social icon click tracking
+      document.querySelectorAll('[aria-label*="Profile"]').forEach(function(link) {
+        link.addEventListener('click', function() {
+          var label = link.getAttribute('aria-label') || '';
+          var platform = label.replace(' Profile', '').toLowerCase();
+          track('social_click_' + platform);
+        });
+      });
+    </script>
+  </body>
+</html>

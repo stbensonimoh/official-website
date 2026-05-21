@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Bebas+Neue&family=Dosis:wght@400&family=Roboto+Slab:wght@400&family=Roboto:wght@100;300;400;500;700&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-bensonpink: #ec2c7c;
+  --color-bensonblack: #000000;
+  --color-bensongrey: #666666;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-surface: var(--surface);
+
+  --font-roboto: "Roboto", sans-serif;
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-badscript: "Bad Script", cursive;
+  --font-dosis: "Dosis", sans-serif;
+  --font-slab: "Roboto Slab", serif;
+}
+
+.bg-surface {
+  background-color: var(--surface) !important;
+}
+
+.bg-background {
+  background-color: var(--background) !important;
+}
+
+.text-foreground {
+  color: var(--foreground) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-secondary {
+  color: var(--secondary) !important;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #ec2c7c;
+  --secondary: #666666;
+  --surface: #f8f8f8;
+  --text-primary: var(--foreground);
+  --text-secondary: var(--secondary);
+  --accent: var(--primary);
+  --logo-primary: #ec2c7c;
+  --logo-fill: #040404;
+}
+
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #ff4d94;
+  --secondary: #a3a3a3;
+  --surface: #1a1a1a;
+  --logo-primary: #ff4d94;
+  --logo-fill: #ffffff;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+}
+
+.main-navigation a {
+  @apply mx-4 p-2;
+}
+
+.active,
+.active-menu-item {
+  color: var(--primary);
+}
+
+.article-body p {
+  margin-top: 0.875rem;
+  margin-bottom: 0.875rem;
+}
+
+.prose p {
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+  line-height: 1.75 !important;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+  line-height: 1.25 !important;
+}
+
+.prose ul,
+.prose ol {
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
+.prose li {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.prose blockquote {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  padding-left: 1rem !important;
+  border-left: 4px solid var(--primary) !important;
+}
+
+.social-icons a {
+  @apply m-0 text-3xl leading-none transition-transform duration-300 ease-in-out origin-center transform hover:scale-150;
+  padding: 5px;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--secondary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+.button {
+  background: linear-gradient(to right, var(--primary) 50%, var(--background) 50%) right;
+  background-size: 200% 100%;
+  background-position: right;
+  transition: all 0.7s ease-out;
+}
+
+.button:hover {
+  background-position: left;
+  color: var(--background);
+}
+
+.contact-form {
+  font-family: "Roboto", sans-serif;
+}
+
+.contact-form label {
+  @apply text-xl mb-4;
+  color: var(--secondary);
+}
+
+.contact-form input,
+.contact-form input::placeholder,
+.contact-form textarea,
+.contact-form textarea::placeholder {
+  @apply text-2xl border-b;
+  color: var(--foreground);
+  border-color: var(--primary);
+}
+
+.contact-form input:focus-visible,
+.contact-form textarea:focus-visible {
+  outline: none;
+}
+
+.row {
+  @apply flex flex-wrap;
+}
+
+.column {
+  @apply flex flex-col;
+}
+
+article {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.prose strong,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6,
+.prose code,
+.prose blockquote {
+  color: var(--foreground);
+}
+
+.prose a {
+  color: var(--primary);
+}
+
+.prose code {
+  background-color: var(--surface);
+}
+
+.mobile-badge {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 0.75rem 2rem;
+  border-left: 8px solid var(--primary);
+  font-family: var(--font-dosis);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  text-align: center;
+  width: 75%;
+  margin-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .mobile-badge {
+  background-color: var(--surface);
+}

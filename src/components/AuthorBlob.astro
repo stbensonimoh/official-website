@@ -1,0 +1,24 @@
+---
+import siteMetadata from "../../siteMetadata";
+
+export interface Props {
+  image?: string;
+  date: string;
+  author?: string;
+  timeToRead: string;
+}
+
+const { author, date, timeToRead, image } = Astro.props;
+const authorName = author || siteMetadata.author.name;
+const authorImage = image || siteMetadata.author.image;
+---
+
+<div class="flex items-center mb-4">
+  <img src={authorImage} alt={`${authorName} avatar`} class="w-12 rounded-full" />
+  <div class="ml-4 my-4">
+    <p class="text-sm font-roboto text-foreground">{authorName}</p>
+    <p class="text-xs font-roboto text-secondary">
+      {date} &nbsp; | &nbsp; {timeToRead}
+    </p>
+  </div>
+</div>

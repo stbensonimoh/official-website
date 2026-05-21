@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SocialIcons from "../components/SocialIcons.astro";
+import Copyright from "../components/Copyright.astro";
+---
+
+<Layout title="Contact">
+  <div class="font-roboto flex flex-col pt-20 w-full justify-center items-center md:hidden">
+    <img src="/images/contact-vector.png" alt="Contact illustration" class="my-20 mb-8" />
+    <p class="text-center mx-10 mb-8">
+      Got a question or proposal, or just want to say hello? Go ahead.
+    </p>
+    <SocialIcons class="mb-4 social-icons flex flex-row text-center text-bensonpink" />
+    <a href="mailto:benson@stbensonimoh.com" class="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white">
+      Send me a mail
+    </a>
+  </div>
+  <div class="font-roboto hidden md:flex flex-col">
+    <div class="main flex flex-col items-center justify-center mt-12">
+      <h1 class="font-medium text-6xl text-bensonpink">
+        Send me a message
+      </h1>
+      <p class="text-2xl my-12 w-5/12 text-center">
+        Do you have a question, a project you'd like to have me on, or just
+        want to say hi?
+      </p>
+      <div class="xl:my-28">
+        <a href="mailto:benson@stbensonimoh.com" class="button flex items-center border border-bensonpink w-max py-3 px-10 font-dosis uppercase text-xl font-bold text-bensonpink hover:text-white">
+          Send a message
+        </a>
+      </div>
+    </div>
+    <SocialIcons class="absolute bottom-10 social-icons flex flex-col w-8 ml-4 text-center text-bensongrey" />
+    <div class="flex justify-center pt-20 pb-8">
+      <div class="copyright-container absolute bottom-8 right-24 text-sm text-bensongrey">
+        <Copyright />
+      </div>
+    </div>
+  </div>
+</Layout>
