@@ -20,5 +20,10 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "wrangler"
         update-types: ["version-update:semver-major"]
+      # TypeScript 7 (native port) is an ecosystem migration: typescript-eslint
+      # and @astrojs/check must support it first. Automated major bumps break
+      # lint today (see #169).
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
 # Note: Dependabot security updates are governed by repository settings and
 # remain enabled independently of this file.
