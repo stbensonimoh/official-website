@@ -1,0 +1,24 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # Framework majors must move together: astro, its integrations, and the
+      # adapter's pinned wrangler peer. Automated single-package major bumps
+      # broke CI before (PR #160). Land them as deliberate migrations instead,
+      # following the checklist in issue #159.
+      - dependency-name: "astro"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@astrojs/*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "wrangler"
+        update-types: ["version-update:semver-major"]
+# Note: Dependabot security updates are governed by repository settings and
+# remain enabled independently of this file.
