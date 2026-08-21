@@ -33,7 +33,7 @@
     "eslint-plugin-astro": "^1.7.0",
     "postcss": "^8",
     "tailwindcss": "^4.1.7",
-    "typescript": "^5",
+    "typescript": "^7",
     "typescript-eslint": "^8.59.4",
     "wrangler": "^4.83.0"
   },
