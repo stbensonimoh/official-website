@@ -30,7 +30,7 @@
     "@types/node": "^20",
     "bun-types": "latest",
     "eslint": "^10.4.0",
-    "eslint-plugin-astro": "^1.7.0",
+    "eslint-plugin-astro": "^3.1.0",
     "postcss": "^8",
     "tailwindcss": "^4.1.7",
     "typescript": "^5",
