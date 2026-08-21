@@ -27,8 +27,10 @@ Deployment only triggers after the quality gate passes — no broken code reache
 ## Manual Deploy
 
 ```bash
-bun run build && npx wrangler deploy
+bun run deploy      # astro build && wrangler deploy
 ```
+
+Prefer the pipeline: pushes to main deploy automatically after quality gates pass. Use the manual command only for exceptions, and expect CI to ship over it on the next merge to main.
 
 ## Local Development
 
