@@ -9,10 +9,6 @@
 # testing
 /coverage
 
-# next.js
-/.next/
-/out/
-
 # astro
 /.astro/
 /dist/
@@ -39,14 +35,12 @@ yarn.lock
 
 # cloudflare
 .wrangler/
-.open-next/
 *.log
 .dev.vars
 cloudflare-env.d.ts
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # generated posts data
 src/lib/posts.data.ts
