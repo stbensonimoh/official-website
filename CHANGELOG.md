@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/stbensonimoh/official-website/compare/v1.4.5...v1.5.0) (2026-08-21)
+
+
+### Features
+
+* upgrade astro to 7 with coordinated integration bumps ([#164](https://github.com/stbensonimoh/official-website/issues/164)) ([539331d](https://github.com/stbensonimoh/official-website/commit/539331d503e198367eafb07ad7dc1a094b2a32a9))
+
 ## [1.4.5](https://github.com/stbensonimoh/official-website/compare/v1.4.4...v1.4.5) (2026-05-21)
 
 
