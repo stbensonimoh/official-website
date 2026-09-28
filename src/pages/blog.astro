@@ -3,6 +3,8 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import BlogPostCard from "../components/BlogPostCard.astro";
 import { getReadingTime } from "../lib/posts";
+import { Picture } from "astro:assets";
+import blogHeader from "../assets/images/blog-header-image.png";
 
 const allPosts = await getCollection("blog");
 allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
@@ -27,10 +29,15 @@ const latestPosts = allPosts.slice(0, 2);
             and life generally...
           </p>
         </div>
-        <img
-          src="/images/blog-header-image.png"
+        <Picture
+          src={blogHeader}
+          formats={["avif", "webp"]}
+          widths={[400, 600, 900, 1200]}
+          sizes="(min-width: 1280px) 40vw, (min-width: 1024px) 35vw, 100vw"
+          fallbackFormat="webp"
           alt="Blog header illustration"
-          class="hidden lg:block pt-12 xl:w-3/7 lg:w-2/5 lg:pr-12"
+          pictureAttributes={{ class: "hidden lg:block pt-12 xl:w-3/7 lg:w-2/5 lg:pr-12" }}
+          class="w-full h-auto"
         />
       </section>
     </div>
