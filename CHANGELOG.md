@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.1](https://github.com/stbensonimoh/official-website/compare/v1.5.0...v1.5.1) (2026-09-28)
+
+
+### Performance Improvements
+
+* **images:** ship local images as optimized AVIF/WebP ([#190](https://github.com/stbensonimoh/official-website/issues/190)) ([4eb9bd4](https://github.com/stbensonimoh/official-website/commit/4eb9bd40b94b12dffc5e10cccef124ee65de4e02)), closes [#173](https://github.com/stbensonimoh/official-website/issues/173)
+
 ## [1.5.0](https://github.com/stbensonimoh/official-website/compare/v1.4.5...v1.5.0) (2026-08-21)
 
 
