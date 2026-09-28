@@ -1,16 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/Button.astro";
+import { Picture } from "astro:assets";
+import aboutPicture from "../assets/images/about-page-picture.png";
 ---
 
 <Layout title="About">
   <div class="flex flex-col">
     <div class="w-full xl:h-screen">
       <div class="flex flex-col pt-20 md:pt-0 xl:pt-32 pb-12 lg:pb-0 lg:flex-row items-center justify-center">
-        <img
-          src="/images/about-page-picture.png"
+        <Picture
+          src={aboutPicture}
+          formats={["avif", "webp"]}
+          widths={[400, 600, 900, 1200]}
+          sizes="(min-width: 1280px) 25vw, (min-width: 1024px) 35vw, (min-width: 768px) 66vw, 100vw"
+          fallbackFormat="webp"
           alt="Benson Imoh professional photo"
-          class="px-10 md:ml-16 mt-20 mb-9 md:mt-0 xl:w-2/7 lg:w-2/5 md:w-2/3"
+          pictureAttributes={{ class: "block px-10 md:ml-16 mt-20 mb-9 md:mt-0 xl:w-2/7 lg:w-2/5 md:w-2/3" }}
+          class="w-full h-auto"
+          priority
         />
         <div class="mx-10 lg:mx-16 lg:w-2/5 text-center lg:text-left">
           <h1 class="font-roboto text-3xl lg:text-4xl xl:text-5xl font-medium leading-none">

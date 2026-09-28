@@ -2,7 +2,7 @@
 
 A modern, responsive personal website and blog built with Astro and Tailwind CSS.
 
-![Website Preview](public/images/front-image.png)
+![Website Preview](src/assets/images/front-image.png)
 
 ## Features
 
@@ -56,10 +56,11 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 
 ```
 ├── .github/               # GitHub workflows, templates, docs
-├── public/                # Static assets
-│   ├── images/            # Image files
+├── public/                # Static assets served as-is (favicons, robots.txt)
+│   ├── images/            # Images not processed by astro:assets
 │   └── robots.txt         # robots.txt for crawlers
 ├── src/
+│   ├── assets/            # Source images processed by astro:assets
 │   ├── components/        # Astro components (Header, Logo, ThemeToggle, etc.)
 │   ├── content/           # Content collections
 │   │   └── blog/          # Blog posts in MDX format

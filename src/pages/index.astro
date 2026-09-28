@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import SocialIcons from "../components/SocialIcons.astro";
 import Copyright from "../components/Copyright.astro";
+import { Picture } from "astro:assets";
+import frontImage from "../assets/images/front-image.png";
 ---
 
 <Layout>
@@ -25,11 +27,28 @@ import Copyright from "../components/Copyright.astro";
         </p>
       </div>
       <div class="image-section mx-10 w-2/5">
-        <img src="/images/front-image.png" alt="Benson Imoh portrait" />
+        <Picture
+          src={frontImage}
+          formats={["avif", "webp"]}
+          widths={[400, 600, 900, 1200]}
+          sizes="(min-width: 768px) 40vw, 100vw"
+          fallbackFormat="webp"
+          alt="Benson Imoh portrait"
+          priority
+        />
       </div>
     </div>
     <div class="mobile-header flex flex-col items-center pt-20 w-full md:hidden">
-      <img src="/images/front-image.png" class="my-12" alt="Benson Imoh portrait" />
+      <Picture
+        src={frontImage}
+        formats={["avif", "webp"]}
+        widths={[400, 600, 900, 1200]}
+        sizes="(min-width: 768px) 40vw, 100vw"
+        class="my-12"
+        fallbackFormat="webp"
+        alt="Benson Imoh portrait"
+        loading="eager"
+      />
       <div class="mobile-badge">
         SOFTWARE ENGINEER
       </div>
