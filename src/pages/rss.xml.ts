@@ -1,5 +1,6 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
+import { cloudinaryUrl } from '../lib/cloudinary';
 
 export async function GET() {
   const posts = await getCollection('blog');
@@ -15,7 +16,7 @@ export async function GET() {
       link: `/${post.data.slug || post.id}`,
       pubDate: post.data.pubDate,
       customData: post.data.heroImage
-        ? `<enclosure url="${post.data.heroImage}" type="image/jpeg" />`
+        ? `<enclosure url="${cloudinaryUrl(post.data.heroImage, { width: 1200, autoFormat: false })}" type="image/jpeg" />`
         : undefined,
     })),
     customData: '<language>en-us</language>',

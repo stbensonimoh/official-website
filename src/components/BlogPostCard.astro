@@ -1,5 +1,6 @@
 ---
 import AuthorBlob from "./AuthorBlob.astro";
+import { cloudinaryUrl } from "../lib/cloudinary";
 
 export interface Props {
   slug: string;
@@ -16,7 +17,7 @@ const { slug, title, date, description, heroImage, readingTime } = Astro.props;
 <div role="article" class="bg-surface w-full p-8 rounded-md shadow-sm">
   <a href={`/${slug}`}>
     <div class="image-container max-h-52 overflow-hidden">
-      <img src={heroImage} alt={title} />
+      <img src={cloudinaryUrl(heroImage, { width: 800 })} alt={title} />
     </div>
   </a>
   <h2 class="text-lg font-roboto font-medium text-foreground my-2">
