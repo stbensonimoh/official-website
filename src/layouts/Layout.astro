@@ -24,7 +24,10 @@ const {
 const clarityId = import.meta.env.PUBLIC_CLARITY_TRACKING_ID;
 
 const pageTitle = title === siteMetadata.title ? title : `${title} - ${siteMetadata.title}`;
-const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
+// `build.format: 'file'` yields paths like `/about.html`; keep canonical and og URLs extensionless.
+const pageUrl = (canonicalURL ? String(canonicalURL) : String(Astro.url))
+  .replace(/\.html$/, "")
+  .replace(/\/index$/, "/");
 ---
 
 <!doctype html>
