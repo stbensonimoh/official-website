@@ -5,6 +5,7 @@ import Header from "../components/Header.astro";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import { ClientRouter } from "astro:transitions";
 import { Font } from "astro:assets";
+import { cloudinaryUrl } from "../lib/cloudinary";
 
 export interface Props {
   title?: string;
@@ -37,7 +38,7 @@ const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
 
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={cloudinaryUrl(ogImage, { width: 1200, autoFormat: false })} />
     <meta property="og:url" content={pageUrl} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={siteMetadata.title} />
@@ -45,7 +46,7 @@ const pageUrl = canonicalURL ? String(canonicalURL) : String(Astro.url);
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={cloudinaryUrl(ogImage, { width: 1200, autoFormat: false })} />
     <meta name="twitter:creator" content={`@${siteMetadata.social.x}`} />
 
     <link rel="canonical" href={pageUrl} />
