@@ -34,6 +34,11 @@ test("passes through non-Cloudinary and empty values", () => {
   expect(cloudinaryUrl(undefined, { width: 800 })).toBe("");
 });
 
+test("rejects lookalike hosts that merely contain the Cloudinary host", () => {
+  const lookalike = "https://evil.example/res.cloudinary.com/image/upload/v1/hero.jpg";
+  expect(cloudinaryUrl(lookalike, { width: 800 })).toBe(lookalike);
+});
+
 test("is idempotent for already-transformed URLs", () => {
   const transformed = "https://res.cloudinary.com/stbensonimoh/image/upload/f_auto,q_auto,dpr_auto,w_800/v1/hero.jpg";
   expect(cloudinaryUrl(transformed, { width: 1600 })).toBe(transformed);
