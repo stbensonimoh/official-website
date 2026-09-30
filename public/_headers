@@ -1,0 +1,28 @@
+# Caching policy for this site.
+#
+# Hashed build output under /_astro/* is served `public, max-age=31536000, immutable`
+# by @astrojs/cloudflare, which injects that rule into this file at build time.
+#
+# The rules below cover only the unhashed assets in public/. Do not add a catch-all
+# (`/*`) Cache-Control rule: the adapter skips its /_astro/* immutable injection when
+# an existing rule already sets Cache-Control on a matching path, which would strip
+# immutable caching from hashed assets. Matching rules also merge, so a catch-all would
+# append a second, conflicting Cache-Control value.
+#
+# HTML is intentionally left at the platform default
+# (`public, max-age=0, must-revalidate`): page contents change on every deploy under
+# stable paths, so browsers revalidate and get a cheap 304 via ETag instead of serving
+# stale markup. Feeds and sitemaps (rss.xml, sitemap.xml) are left on the default too,
+# so new posts appear on the next fetch. Revisit only alongside a deploy-time purge.
+
+/images/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/logo.svg
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/logo-white.svg
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/robots.txt
+  Cache-Control: public, max-age=86400
