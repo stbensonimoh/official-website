@@ -1,17 +1,24 @@
 ---
-import { getEntry, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import AuthorBlob from "../components/AuthorBlob.astro";
 import { getReadingTime } from "../lib/posts";
 import { cloudinaryUrl } from "../lib/cloudinary";
 
-export const prerender = false;
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { slug: post.data.slug || post.id },
+  }));
+}
 
 const { slug } = Astro.params;
 const post = await getEntry("blog", slug!);
 
 if (!post) {
-  return new Response(null, { status: 404 });
+  throw new Error(`Unknown blog slug: ${slug}`);
 }
 
 const { Content } = await render(post);

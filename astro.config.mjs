@@ -7,11 +7,14 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://stbensonimoh.com',
   output: 'server',
+  build: { format: 'file' },
   adapter: cloudflare({
     platformProxy: {
       enabled: true,
     },
+    imageService: { build: 'compile' },
   }),
+  session: false,
   integrations: [mdx(), sitemap()],
   fonts: [
     {
