@@ -8,7 +8,7 @@
     "start": "astro dev",
     "lint": "eslint .",
     "test": "bun test",
-    "preview": "astro build && wrangler pages dev dist",
+    "preview": "astro build && astro preview",
     "deploy": "astro build && wrangler deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "astro": "astro"

@@ -6,10 +6,10 @@ The site is deployed to Cloudflare Workers via GitHub Actions.
 
 The `.github/workflows/ci.yml` workflow has two jobs:
 
-1. **`quality`** — Runs on every PR and push to `main`: lint, typecheck, test, build
-2. **`deploy`** — Runs only on push to `main`, **gated behind `quality` passing**: build, `wrangler deploy`
+1. **`quality`**: Runs on every PR and push to `main`: lint, typecheck, test, build
+2. **`deploy`**: Runs only on push to `main`, **gated behind `quality` passing**: build, `wrangler deploy`
 
-Deployment only triggers after the quality gate passes — no broken code reaches production.
+Deployment only triggers after the quality gate passes: no broken code reaches production.
 
 ## Required GitHub Secrets
 
@@ -37,6 +37,7 @@ Prefer the pipeline: pushes to main deploy automatically after quality gates pas
 ```bash
 bun run dev        # Start dev server (platform proxy for Cloudflare bindings)
 bun run build      # Production build
+bun run preview    # Build and serve through the Workers runtime
 bun test           # Run tests
 bun astro check    # Type check
 ```
