@@ -11,7 +11,8 @@
     "preview": "astro build && wrangler pages dev dist",
     "deploy": "astro build && wrangler deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "astro": "astro"
+    "astro": "astro",
+    "lighthouse": "astro build && ASTRO_PREVIEW_BACKGROUND=1 lhci autorun"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.9",
@@ -25,6 +26,7 @@
     "astro": "^7.2.4"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "@types/node": "^26",
     "bun-types": "latest",
     "eslint": "^10.4.0",

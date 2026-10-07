@@ -44,6 +44,25 @@ jobs:
         env:
           PUBLIC_CLARITY_TRACKING_ID: ${{ vars.PUBLIC_CLARITY_TRACKING_ID }}
 
+      - name: Lighthouse CI
+        run: bunx lhci autorun
+        env:
+          PUBLIC_CLARITY_TRACKING_ID: ${{ vars.PUBLIC_CLARITY_TRACKING_ID }}
+          # Disables Astro's agent auto-detach so the preview server stays in the
+          # foreground and LHCI can manage its lifecycle.
+          ASTRO_PREVIEW_BACKGROUND: "1"
+
+      - name: Check render-blocking third parties
+        run: node scripts/check-render-blocking-third-parties.mjs
+
+      - name: Upload Lighthouse reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-reports
+          path: .lighthouseci
+          retention-days: 7
+
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: quality
