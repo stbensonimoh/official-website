@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.5.2](https://github.com/stbensonimoh/official-website/compare/v1.5.1...v1.5.2) (2026-10-09)
+
+
+### Performance Improvements
+
+* **cache:** cache unhashed public assets and document the HTML policy ([#196](https://github.com/stbensonimoh/official-website/issues/196)) ([4bc0c54](https://github.com/stbensonimoh/official-website/commit/4bc0c542b564588e8efaeea9bf41a422862741a3)), closes [#178](https://github.com/stbensonimoh/official-website/issues/178)
+* **fonts:** self-host web fonts and drop render-blocking Google Fonts ([#192](https://github.com/stbensonimoh/official-website/issues/192)) ([66a6a89](https://github.com/stbensonimoh/official-website/commit/66a6a89dcc090764e4420a26c20057b9e30adaeb)), closes [#176](https://github.com/stbensonimoh/official-website/issues/176)
+* **icons:** add a favicon and the cache rules for it ([#199](https://github.com/stbensonimoh/official-website/issues/199)) ([5adfff4](https://github.com/stbensonimoh/official-website/commit/5adfff42d1f59b409cdb6f055c66c553d237fe42)), closes [#180](https://github.com/stbensonimoh/official-website/issues/180)
+* **images:** serve remote Cloudinary images at delivery sizes ([#194](https://github.com/stbensonimoh/official-website/issues/194)) ([dff3e3d](https://github.com/stbensonimoh/official-website/commit/dff3e3d921a2d4d02884c99f5d332df8f70faf56))
+* **render:** prerender all routes and optimize images at build time ([#195](https://github.com/stbensonimoh/official-website/issues/195)) ([df964d7](https://github.com/stbensonimoh/official-website/commit/df964d704f101dbebbc1a913f62abf170eccba86)), closes [#179](https://github.com/stbensonimoh/official-website/issues/179)
+
 ## [1.5.1](https://github.com/stbensonimoh/official-website/compare/v1.5.0...v1.5.1) (2026-09-28)
 
 
