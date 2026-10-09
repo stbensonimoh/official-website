@@ -1,12 +1,14 @@
-# Technical Specification: `stbensonimoh.com` — Official Website
+# Technical Specification: Official Website for `stbensonimoh.com`
 
-**Version:** 2.0.0 | **Date:** 2026-05-21 | **Framework:** Astro 6
+**Version:** 3.0.0 | **Date:** 2026-10-07 | **Framework:** Astro 7.2.4
 
 ---
 
 ## 1. System Overview
 
-Personal website and blog of Benson Imoh, ST. Deployed on Cloudflare Workers via `@astrojs/cloudflare` adapter. Primary functions: professional identity, technical blog, SEO discoverability, behavioral analytics.
+Personal website and blog of Benson Imoh, ST. The site deploys to Cloudflare Workers through the `@astrojs/cloudflare` adapter. Primary functions: professional identity, technical blog, SEO discoverability, and behavioral analytics.
+
+The build prerenders every route. Cloudflare serves the pages as static assets. No page runs on demand.
 
 ---
 
@@ -14,11 +16,13 @@ Personal website and blog of Benson Imoh, ST. Deployed on Cloudflare Workers via
 
 | Concern | Technology |
 |---------|-----------|
-| Framework | Astro 6 (`output: 'server'`) |
+| Framework | Astro 7.2.4 (`output: 'server'`, `build.format: 'file'`, all routes prerendered) |
 | Language | TypeScript (strict) |
 | Styling | Tailwind CSS v4 + `@tailwindcss/vite` |
+| Fonts | Astro Fonts API, Google provider, self-hosted |
+| Images | `astro:assets` at build time; Cloudinary delivery transforms for remote images |
 | Content | MDX via `@astrojs/mdx` |
-| Deployment | Cloudflare Workers via `@astrojs/cloudflare` |
+| Deployment | Cloudflare Workers via `@astrojs/cloudflare` 14.2.3 |
 | Testing | Bun Test |
 | Package Manager | Bun |
 
@@ -28,14 +32,17 @@ Personal website and blog of Benson Imoh, ST. Deployed on Cloudflare Workers via
 
 ```
 ├── .github/workflows/ci.yml
-├── public/              # Static assets
+├── public/              # Static assets served as-is
 │   ├── images/
+│   ├── _headers         # Cache policy for unhashed assets
+│   ├── _redirects       # /feed.xml to /rss.xml
 │   └── robots.txt
 ├── src/
+│   ├── assets/images/   # Source images, optimized at build time
 │   ├── components/      # Astro components
 │   ├── content/blog/    # MDX blog posts
 │   ├── layouts/         # Layout.astro
-│   ├── lib/             # Utilities (posts.ts, clarity.ts, theme.ts)
+│   ├── lib/             # Utilities (posts.ts, cloudinary.ts, clarity.ts, theme.ts)
 │   ├── pages/           # Routes
 │   │   ├── index.astro          # /
 │   │   ├── about.astro          # /about
@@ -44,7 +51,6 @@ Personal website and blog of Benson Imoh, ST. Deployed on Cloudflare Workers via
 │   │   ├── 404.astro            # /404
 │   │   ├── [slug].astro         # /[slug]
 │   │   ├── rss.xml.ts           # /rss.xml
-│   │   ├── feed.xml.ts          # /feed.xml → 301 /rss.xml
 │   │   └── sitemap.xml.ts       # /sitemap.xml
 │   ├── styles/global.css        # Tailwind theme + custom CSS
 │   └── content.config.ts        # Content collection schema
@@ -56,21 +62,26 @@ Personal website and blog of Benson Imoh, ST. Deployed on Cloudflare Workers via
 
 ---
 
-## 4. Routing & Pages
+## 4. Routing and Rendering
 
-| Route | File | Rendering |
-|-------|------|-----------|
-| `/` | `index.astro` | Server (on-demand) |
-| `/about` | `about.astro` | Server |
-| `/blog` | `blog.astro` | Server |
-| `/contact` | `contact.astro` | Server |
-| `/404` | `404.astro` | Server |
-| `/[slug]` | `[slug].astro` | Server (on-demand) |
-| `/rss.xml` | `rss.xml.ts` | Endpoint |
-| `/feed.xml` | `feed.xml.ts` | 301 Redirect |
-| `/sitemap.xml` | `sitemap.xml.ts` | Endpoint |
+Every route sets `export const prerender = true`. The build writes one HTML file per route to `dist/client/`.
 
-Blog posts use `getEntry('blog', slug)` for on-demand rendering. URLs preserved via frontmatter `slug` field.
+| Route | File | Output |
+|-------|------|--------|
+| `/` | `index.astro` | `index.html` |
+| `/about` | `about.astro` | `about.html` |
+| `/blog` | `blog.astro` | `blog.html` |
+| `/contact` | `contact.astro` | `contact.html` |
+| `/404` | `404.astro` | `404.html` |
+| `/[slug]` | `[slug].astro` | one file per post |
+| `/rss.xml` | `rss.xml.ts` | `rss.xml` |
+| `/sitemap.xml` | `sitemap.xml.ts` | `sitemap.xml` |
+
+`build.format: 'file'` makes each route serve at its linked path. A request for `/about` returns `about.html` with status 200. No trailing-slash redirect occurs.
+
+`public/_redirects` holds the `/feed.xml` redirect to `/rss.xml` with status 301. A prerendered 3xx endpoint becomes a 200 page, so the redirect lives at the edge instead.
+
+`[slug].astro` exports `getStaticPaths()`. It maps `getCollection('blog')` to one path per post. The path uses `post.data.slug || post.id`. The page reads the entry with `getEntry('blog', slug)`. The entry id is the frontmatter slug when the frontmatter sets one.
 
 ---
 
@@ -80,7 +91,7 @@ All components are `.astro` files with vanilla JS for interactivity. Zero React.
 
 | Component | Type | Purpose |
 |-----------|------|---------|
-| `Layout.astro` | Layout | SEO meta, ClientRouter, theme init, Clarity, shared scripts |
+| `Layout.astro` | Layout | SEO meta, ClientRouter, font tags, theme init, Clarity, shared scripts |
 | `Header.astro` | Static + JS | Desktop nav + mobile hamburger menu |
 | `Logo.astro` | Static | Theme-aware SVG via CSS custom properties |
 | `SocialIcons.astro` | Static | Inline SVG icons with click tracking |
@@ -94,7 +105,7 @@ All components are `.astro` files with vanilla JS for interactivity. Zero React.
 
 ## 6. Blog System
 
-Content in `src/content/blog/`. Schema in `src/content.config.ts`:
+Content lives in `src/content/blog/`. The schema is in `src/content.config.ts`:
 
 ```typescript
 z.object({
@@ -109,54 +120,101 @@ z.object({
 })
 ```
 
-Posts fetched via `getCollection('blog')` and rendered with `render()` from `astro:content`. Reading time via `getReadingTime()` in `src/lib/posts.ts` (200 WPM). Slugs via `createSlug()` or frontmatter override.
+Posts are fetched with `getCollection('blog')` and rendered with `render()` from `astro:content`. Reading time comes from `getReadingTime()` in `src/lib/posts.ts` (200 words per minute). Slugs come from the frontmatter `slug` field. The content entry id supplies the slug when the frontmatter omits it.
 
 ---
 
 ## 7. Theme System
 
-Vanilla JS in Layout.astro. Three states: light, dark, system. Persisted via `localStorage`, applied via `data-theme` attribute on `<html>`. FOUC prevented by blocking `<script is:inline>` in `<head>`.
+Vanilla JS in `Layout.astro`. Three states: light, dark, system. State persists in `localStorage`, and the code applies it through the `data-theme` attribute on `<html>`. A blocking `<script is:inline>` in `<head>` prevents a flash of unstyled content.
 
 ---
 
 ## 8. Styling
 
-Tailwind CSS v4 via `@tailwindcss/vite` Vite plugin. Theme tokens in `@theme` block. Dark mode via `[data-theme="dark"]` CSS overrides.
+Tailwind CSS v4 runs through the `@tailwindcss/vite` Vite plugin. Theme tokens live in the `@theme` block in `src/styles/global.css`. Dark mode uses `[data-theme="dark"]` overrides.
 
 ---
 
-## 9. Analytics
+## 9. Fonts
 
-Microsoft Clarity loaded via inline `<script>` in Layout.astro. Conditional on `PUBLIC_CLARITY_TRACKING_ID`. Event tracking (nav, social, theme, mobile menu) via Layout script. `src/lib/clarity.ts` uses `window.clarity()` API directly.
+The Astro Fonts API downloads fonts at build time and serves them from this domain. `astro.config.mjs` registers four families with `fontProviders.google()`:
+
+| Family | Weights | CSS variable |
+|--------|---------|--------------|
+| Roboto | 400, 500, 700 | `--astro-font-roboto` |
+| Bebas Neue | 400 | `--astro-font-bebas` |
+| Bad Script | 400 | `--astro-font-badscript` |
+| Dosis | 400 | `--astro-font-dosis` |
+
+`Layout.astro` renders one `<Font>` tag per family and preloads Roboto. `@theme inline` in `global.css` maps the `font-*` utilities to these variables. No third-party font request occurs at run time.
 
 ---
 
-## 10. SEO
+## 10. Images
 
-Per-page metadata via `Layout.astro` props (`title`, `description`, `ogImage`, `canonicalURL`). RSS via `@astrojs/rss` at `/rss.xml` with `/feed.xml` redirect. Sitemap via custom endpoint at `/sitemap.xml`. `robots.txt` in `public/`.
+Local images live in `src/assets/images/`. Pages render them with `<Picture>`: AVIF and WebP sources, responsive `widths`, a `sizes` value, and `fallbackFormat="webp"`. The adapter uses `imageService: { build: 'compile' }`, so the build transforms each image once and writes hashed files to `dist/client/_astro/`.
+
+Remote Cloudinary images pass through `cloudinaryUrl()` in `src/lib/cloudinary.ts`. The helper inserts delivery transforms into the URL. Card heroes use `w_800`, post heroes use `w_1600`, and the author avatar uses `w_96`. The og and Twitter images and the RSS enclosure use `q_auto,w_1200` without `f_auto`, so the declared content type stays correct.
 
 ---
 
-## 11. CI/CD
+## 11. Analytics
+
+Microsoft Clarity loads through an inline `<script>` in `Layout.astro`. The script renders only when `PUBLIC_CLARITY_TRACKING_ID` is set at build time. Event tracking (nav, social, theme, mobile menu) runs in the Layout script. `src/lib/clarity.ts` calls the `window.clarity()` API directly.
+
+---
+
+## 12. SEO
+
+Per-page metadata comes from `Layout.astro` props (`title`, `description`, `ogImage`, `canonicalURL`). Canonical and og URLs strip the `.html` suffix and normalize `/index` to `/`. RSS uses `@astrojs/rss` at `/rss.xml`, with `/feed.xml` redirected at the edge. The sitemap endpoint writes `/sitemap.xml`, and the `@astrojs/sitemap` integration also writes `sitemap-index.xml`. `robots.txt` lives in `public/`.
+
+---
+
+## 13. Caching
+
+`public/_headers` holds the policy for unhashed assets. `@astrojs/cloudflare` prepends a rule for hashed output.
+
+| Path | Cache-Control |
+|------|---------------|
+| `/_astro/*` | `public, max-age=31536000, immutable` |
+| `/images/*`, `/logo.svg`, `/logo-white.svg` | `public, max-age=604800, stale-while-revalidate=86400` |
+| `/robots.txt` | `public, max-age=86400` |
+| HTML, `/rss.xml`, `/sitemap.xml` | `public, max-age=0, must-revalidate` |
+
+Do not add a catch-all `/*` Cache-Control rule. The adapter skips its `/_astro/*` rule when an existing rule matches that path, and matching rules merge headers.
+
+---
+
+## 14. CI/CD
 
 Single workflow (`.github/workflows/ci.yml`):
-- `quality` job: lint, typecheck, test, build (all pushes and PRs)
+
+- `quality` job: lint, type check, test, build (all pushes and PRs)
 - `deploy` job: build + `wrangler deploy` (push to main, gated behind quality)
 
----
-
-## 12. Testing
-
-Bun's native test runner. Tests in `src/lib/`:
-- `posts.test.ts` — reading time and slug generation (8 tests)
-- `theme.test.ts` — theme store state machine (4 tests)
-
-Run: `bun test`, `bun test --watch`, `bun test --coverage`
+The deploy step uses `cloudflare/wrangler-action@v4`.
 
 ---
 
-## 13. Environment Variables
+## 15. Testing
+
+Bun's native test runner. Tests live in `src/lib/`:
+
+- `posts.test.ts`: reading time and slug generation (8 tests)
+- `theme.test.ts`: theme store state machine (4 tests)
+- `cloudinary.test.ts`: URL transforms and passthrough rules (7 tests)
+
+Run: `bun test`, `bun test --watch`, `bun test --coverage`.
+
+---
+
+## 16. Environment Variables
 
 | Variable | Required | Purpose |
 |----------|----------|---------|
-| `PUBLIC_CLARITY_TRACKING_ID` | Production | Microsoft Clarity tracking ID |
+| `PUBLIC_CLARITY_TRACKING_ID` | Production | Microsoft Clarity tracking ID (build time only) |
+| `CLOUDFLARE_API_TOKEN` | Deploy only | Workers edit permission |
+| `CLOUDFLARE_ACCOUNT_ID` | Deploy only | Cloudflare account ID |
+
+Set `PUBLIC_CLARITY_TRACKING_ID` in `.env` for local builds. `.env.example` lists all three names.

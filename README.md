@@ -6,6 +6,9 @@ A modern, responsive personal website and blog built with Astro and Tailwind CSS
 
 ## Features
 
+- **Prerendered Pages**: Every route is static at build time and served from Cloudflare's edge
+- **Optimized Images**: Local images become AVIF and WebP at build time; remote Cloudinary images use delivery transforms
+- **Self-Hosted Fonts**: The Astro Fonts API serves fonts from this site, with one preloaded family and metric-matched fallbacks
 - **SPA Navigation**: Client-side routing via `<ClientRouter />` for instant page transitions
 - **Blog Platform**: MDX-powered blog with content collections and reading time estimation
 - **SEO Optimized**: Built-in OG/Twitter cards, RSS feed, and sitemap generation
@@ -17,9 +20,11 @@ A modern, responsive personal website and blog built with Astro and Tailwind CSS
 
 ## Technologies
 
-- **Framework**: [Astro 6](https://astro.build/)
+- **Framework**: [Astro 7](https://astro.build/) with `output: 'server'` and `prerender = true` on every route
 - **Language**: [TypeScript](https://www.typescriptlang.org/) (strict)
 - **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **Fonts**: [Astro Fonts API](https://docs.astro.build/en/guides/fonts/) (Google provider, self-hosted)
+- **Images**: [`astro:assets`](https://docs.astro.build/en/guides/images/) with build-time optimization
 - **Testing**: [Bun Test](https://bun.sh/docs/cli/test)
 - **Content**: [MDX](https://mdxjs.com/) via `@astrojs/mdx`
 - **Deployment**: [Cloudflare Workers](https://workers.cloudflare.com/) via `@astrojs/cloudflare`
@@ -30,6 +35,8 @@ A modern, responsive personal website and blog built with Astro and Tailwind CSS
 - [Bun](https://bun.sh/) 1.0.0 or higher
 
 ## Installation
+
+Run these commands to set up the project:
 
 ```bash
 git clone https://github.com/stbensonimoh/official-website.git
@@ -44,29 +51,33 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 
 | Command | Description |
 |---------|-------------|
-| `bun run dev` | Start Astro dev server with Cloudflare platform proxy |
-| `bun run build` | Production build |
+| `bun run dev` | Start the Astro dev server with the Cloudflare platform proxy |
+| `bun run build` | Build the production site |
 | `bun run lint` | Run ESLint |
-| `bun run test` | Run Bun tests |
-| `bun astro check` | Type check all files |
-| `bun run preview` | Build + preview locally with Wrangler |
-| `bun run deploy` | Build + deploy to Cloudflare Workers |
+| `bun run test` | Run the Bun test suite |
+| `bun astro check` | Type-check all files |
+| `bun run preview` | Build, then serve the Worker locally with `astro preview` |
+| `bun run deploy` | Build, then deploy to Cloudflare Workers |
+| `bun run cf-typegen` | Regenerate Cloudflare binding types |
 
 ## Project Structure
 
 ```
-├── .github/               # GitHub workflows, templates, docs
-├── public/                # Static assets served as-is (favicons, robots.txt)
-│   ├── images/            # Images not processed by astro:assets
+├── .github/               # GitHub workflows, templates, agent instructions
+├── docs/                  # Deployment runbook
+├── public/                # Static assets served as-is
+│   ├── images/            # Images that astro:assets does not process
+│   ├── _headers           # Cache policy for unhashed assets
+│   ├── _redirects         # /feed.xml to /rss.xml
 │   └── robots.txt         # robots.txt for crawlers
 ├── src/
-│   ├── assets/            # Source images processed by astro:assets
+│   ├── assets/images/     # Source images, optimized at build time
 │   ├── components/        # Astro components (Header, Logo, ThemeToggle, etc.)
 │   ├── content/           # Content collections
 │   │   └── blog/          # Blog posts in MDX format
 │   ├── layouts/           # Page layouts (Layout.astro)
-│   ├── lib/               # Utility functions (posts.ts, clarity.ts, theme.ts)
-│   ├── pages/             # Routes (/ , /about, /blog, /contact, /404, /[slug])
+│   ├── lib/               # Utilities (posts.ts, cloudinary.ts, clarity.ts, theme.ts)
+│   ├── pages/             # Routes and endpoints (/ , /about, /blog, /contact, /404, /[slug], /rss.xml, /sitemap.xml)
 │   ├── styles/            # Global CSS (Tailwind theme, custom utilities)
 │   └── content.config.ts  # Content collection schema
 ├── astro.config.mjs       # Astro configuration
@@ -78,7 +89,7 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 ## Testing
 
 ```bash
-bun run test        # Run all tests
+bun run test         # Run all tests
 bun run test --watch # Watch mode
 ```
 
@@ -92,7 +103,7 @@ A Cloudflare WAF rule blocks common attack paths at the edge. See [SECURITY.md](
 
 ## Deployment
 
-Deployed to Cloudflare Workers via GitHub Actions. Quality gates (lint, typecheck, test) must pass before deploy. See [DEPLOY.md](DEPLOY.md) for details.
+The site deploys to Cloudflare Workers through GitHub Actions. The quality gates (lint, type check, test, build) must pass before the deploy job runs. See [DEPLOY.md](DEPLOY.md) and [docs/deployment.md](docs/deployment.md) for details.
 
 ## About the Author
 
@@ -100,4 +111,4 @@ Benson Imoh,ST is a Software Engineer, DevOps Enthusiast, and Open Source Softwa
 
 ## License
 
-MIT — see [LICENSE](LICENSE) for details.
+MIT. See [LICENSE](LICENSE) for details.
