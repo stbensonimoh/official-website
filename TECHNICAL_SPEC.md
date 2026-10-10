@@ -1,6 +1,7 @@
 # Technical Specification: Official Website for `stbensonimoh.com`
 
 **Version:** 3.1.0 | **Date:** 2026-10-10 | **Framework:** Astro 7.2.4
+**Decision record:** [ADR 0001: performance and caching decisions](docs/adr/0001-performance-and-caching.md)
 
 ---
 

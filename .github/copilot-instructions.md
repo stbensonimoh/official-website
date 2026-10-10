@@ -130,6 +130,12 @@ Bun's native test runner (`bun:test`):
 10. Do not add a catch-all `/*` Cache-Control rule to `public/_headers`. It removes the immutable rule for `/_astro/*`.
 11. The `bun run preview` command uses `astro preview`. It runs in the foreground unless you add `--background` or Astro detects an agent. Stop a detached server with `bunx astro preview stop`.
 
+## Documentation
+
+- `TECHNICAL_SPEC.md`: the current architecture and behavior.
+- `docs/adr/0001-performance-and-caching.md`: why the rendering, image, font, cache, sitemap, landmark, contrast, analytics, and router decisions are what they are, with their costs.
+- `docs/audits/2026-09-25-performance.md`: the measured baseline that drove the performance batch.
+
 ## Quick Commands
 
 ```bash
