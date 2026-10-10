@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.5.4](https://github.com/stbensonimoh/official-website/compare/v1.5.3...v1.5.4) (2026-10-10)
+
+
+### Bug Fixes
+
+* **a11y:** clear WCAG AA contrast failures on all pink text ([#207](https://github.com/stbensonimoh/official-website/issues/207)) ([306a68e](https://github.com/stbensonimoh/official-website/commit/306a68ee66260dfb4f56969d6b1b6d45b6967ca5)), closes [#188](https://github.com/stbensonimoh/official-website/issues/188)
+* **a11y:** single main landmark per page, plus an accessible 404 button ([#205](https://github.com/stbensonimoh/official-website/issues/205)) ([0a01e90](https://github.com/stbensonimoh/official-website/commit/0a01e9053db55c519785c18eb390a1cf1dcaa974)), closes [#182](https://github.com/stbensonimoh/official-website/issues/182)
+* **seo:** keep one sitemap source of truth ([#204](https://github.com/stbensonimoh/official-website/issues/204)) ([9d121b2](https://github.com/stbensonimoh/official-website/commit/9d121b2d64ee0d048a706525d338b97e43c6c52d))
+
+
+### Performance Improvements
+
+* **analytics:** defer Clarity until interaction or an idle window ([#212](https://github.com/stbensonimoh/official-website/issues/212)) ([25b7838](https://github.com/stbensonimoh/official-website/commit/25b783826bdeca59c2f6aad88bfb1c45572498e7)), closes [#189](https://github.com/stbensonimoh/official-website/issues/189)
+* **images:** stop fetching CSS-hidden hero images ([#206](https://github.com/stbensonimoh/official-website/issues/206)) ([d80fce3](https://github.com/stbensonimoh/official-website/commit/d80fce3c6a00b830d4d0b9bcf16d6d305d1508aa)), closes [#174](https://github.com/stbensonimoh/official-website/issues/174)
+* **prefetch:** pin ClientRouter prefetch to all links with hover ([#211](https://github.com/stbensonimoh/official-website/issues/211)) ([6663e8e](https://github.com/stbensonimoh/official-website/commit/6663e8eb733a9cec0492dd8da4d244f158281491))
+
 ## [1.5.3](https://github.com/stbensonimoh/official-website/compare/v1.5.2...v1.5.3) (2026-10-10)
 
 
