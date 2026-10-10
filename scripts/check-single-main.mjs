@@ -13,14 +13,15 @@ import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 
 const ROOT = process.argv[2] ?? "dist/client";
-const MAIN_TAG = /<main[\s>]/g;
-// Script, style, and comment bodies can mention `<main>` without rendering a
-// landmark, so strip them before counting.
-const NON_MARKUP = [
-  /<script\b[\s\S]*?<\/script>/gi,
-  /<style\b[\s\S]*?<\/style>/gi,
-  /<!--[\s\S]*?-->/g,
-];
+// Tag names are case-insensitive, so `<MAIN>` counts as the same landmark.
+const MAIN_TAG = /<main[\s>]/gi;
+// Comments, script bodies, and style bodies can mention `<main>` without
+// rendering a landmark, so strip them before counting. The single alternation
+// scans left to right and strips each construct at its true start, with the
+// comment branch first: a comment containing `<script>` cannot swallow the
+// markup that follows it, and a script body containing `<!--` cannot swallow
+// markup either. Sequential passes get one of those two cases wrong.
+const NON_MARKUP = /<!--[\s\S]*?-->|<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi;
 
 function fail(message) {
   console.error(`single-main check failed: ${message}`);
@@ -47,8 +48,7 @@ if (pages.length === 0) {
 
 const offenders = [];
 for (const page of pages) {
-  let html = readFileSync(page, "utf8");
-  for (const pattern of NON_MARKUP) html = html.replace(pattern, "");
+  const html = readFileSync(page, "utf8").replace(NON_MARKUP, "");
   const count = (html.match(MAIN_TAG) ?? []).length;
   if (count !== 1) offenders.push(`${relative(ROOT, page)} (found ${count})`);
 }
