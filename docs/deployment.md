@@ -41,7 +41,7 @@ Deployment is automatic. A single workflow, `.github/workflows/ci.yml`, handles 
 
 **Triggers:** pull requests that target `main`, pushes to `main`, and manual `workflow_dispatch` runs.
 
-**The `quality` job** runs on every trigger: `bun install`, ESLint, `astro check`, `bun test`, and a full `astro build`. This job is the gate. Nothing deploys until it passes.
+**The `quality` job** runs on every trigger: `bun install`, ESLint, `astro check`, `bun test`, a full `astro build`, Lighthouse CI (`bunx lhci autorun`), and the render-blocking third-party check (`scripts/check-render-blocking-third-parties.mjs`). This job is the gate. Nothing deploys until it passes.
 
 **The `deploy` job** runs only when the event is a push to `refs/heads/main` and the `quality` job passed. It checks out the code, installs dependencies, and runs `astro build` again. Jobs do not share artifacts, so the production bundle is built fresh. It then calls `cloudflare/wrangler-action@v4` with `command: deploy`. Two repository secrets authenticate the call:
 
@@ -139,4 +139,4 @@ Reproduce locally with `bun run preview`. That command runs the same built Worke
 
 Workers keeps deployment history. Roll back from the Cloudflare dashboard (Worker `official-website`, then Deployments) or with `npx wrangler rollback`. Treat a rollback as a stopgap. Fix forward through a reviewed PR. This repo does not allow production changes outside the review process.
 
-The HTML uses `public, max-age=0, must-revalidate`, so a rollback takes effect on the next request. Purge only the cached asset paths (`/images/*`, `/logo.svg`, `/logo-white.svg`) if they changed.
+The HTML uses `public, max-age=0, must-revalidate`, so a rollback takes effect on the next request. Purge only the cached asset paths (`/images/*`, `/robots.txt`, `/favicon.svg`, `/favicon.ico`, `/favicon-32.png`, `/apple-touch-icon.png`) if they changed.

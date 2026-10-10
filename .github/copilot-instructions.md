@@ -10,9 +10,9 @@ An Astro 7.2.4 personal website and blog. The stack is TypeScript, Tailwind CSS 
 
 - Pages live in `src/pages/`: `index.astro` (/), `about.astro` (/about), `blog.astro` (/blog), `contact.astro` (/contact), `404.astro`, `[slug].astro` (blog posts).
 - Blog posts serve at `/[slug]`, not `/blog/[slug]`.
-- Endpoints: `rss.xml.ts` (/rss.xml) and `sitemap.xml.ts` (/sitemap.xml).
-- The `/feed.xml` redirect lives in `public/_redirects`. It returns 301 to `/rss.xml`.
-- SPA navigation uses `<ClientRouter />` from `astro:transitions` in `Layout.astro`.
+- Endpoint: `rss.xml.ts` (/rss.xml). The `@astrojs/sitemap` integration generates `sitemap-index.xml` and `sitemap-0.xml` at build time; there is no sitemap endpoint in `src/pages`.
+- `public/_redirects` holds two 301s: `/feed.xml` to `/rss.xml` and `/sitemap.xml` to `/sitemap-index.xml`.
+- SPA navigation uses `<ClientRouter />` from `astro:transitions` in `Layout.astro`. `astro.config.mjs` pins prefetch to all links with the `hover` strategy.
 - Every route sets `export const prerender = true`. The build writes one HTML file per route.
 - `build.format: 'file'` makes each route serve at its linked path. `/about` returns `about.html` with status 200.
 - `[slug].astro` exports `getStaticPaths()` over `getCollection('blog')`. The path uses `post.data.slug || post.id`.
@@ -29,7 +29,7 @@ An Astro 7.2.4 personal website and blog. The stack is TypeScript, Tailwind CSS 
 
 All components are `.astro` files. There is no React. Interactivity uses `is:inline` scripts.
 
-- `Layout.astro`: Root layout: SEO meta, ClientRouter, font tags, theme init (FOUC prevention), Clarity script, mobile menu and theme toggle scripts.
+- `Layout.astro`: Root layout: SEO meta, ClientRouter, font tags, theme init (FOUC prevention), deferred Clarity loader, mobile menu and theme toggle scripts, and the only `<main>` landmark. Pages render into its slot and must not add another `<main>`.
 - `Header.astro`: Desktop nav and mobile hamburger. The logo sits at top center on mobile.
 - `Logo.astro`: Inline SVG that uses `var(--logo-primary)` and `var(--logo-fill)`.
 - `SocialIcons.astro`: GitHub, LinkedIn, X, and Instagram inline SVGs.
@@ -58,6 +58,7 @@ All components are `.astro` files. There is no React. Interactivity uses `is:inl
 ### Images
 
 - Local source images live in `src/assets/images/`. Pages render them with `<Picture>` and the AVIF and WebP formats.
+- `index.astro` and `blog.astro` gate hero `<source>` elements to the Tailwind breakpoints with `media` queries and use a transparent-pixel fallback, so a CSS-hidden hero copy never downloads.
 - The adapter uses `imageService: { build: 'compile' }`. The build transforms each image once and writes hashed files to `dist/client/_astro/`.
 - Remote Cloudinary URLs pass through `cloudinaryUrl()` in `src/lib/cloudinary.ts`.
 - The helper requires the exact host `res.cloudinary.com`. It inserts the transforms into the path.
@@ -67,15 +68,17 @@ All components are `.astro` files. There is no React. Interactivity uses `is:inl
 - Vite plugin: `@tailwindcss/vite` in `astro.config.mjs`.
 - Theme tokens live in the `@theme` block in `src/styles/global.css`.
 - Custom colors: `--color-bensonpink`, `--color-bensonblack`, `--color-bensongrey`.
+- Text uses `--primary-text` (`#d41c6b`, 5.03:1 with white); `--color-bensonpink` is decoration only. `--color-bensonpink-deep` (`#d41c6b`) backs the About panel's white body text.
 - Dark mode uses `[data-theme="dark"]` CSS variable overrides.
 - Typography plugin: `@plugin "@tailwindcss/typography"`.
 
 ### Analytics (Microsoft Clarity)
 
-- Loads through an inline `<script>` in the `Layout.astro` head.
-- The script renders only when `import.meta.env.PUBLIC_CLARITY_TRACKING_ID` is set.
+- `Layout.astro` installs Clarity's queue function inline in the head, and the script renders only when `import.meta.env.PUBLIC_CLARITY_TRACKING_ID` is set.
+- The tag script itself loads on the first interaction, or after window load plus a 3 s settle and an idle callback. A window guard keeps it to one download across soft navigations.
 - `src/lib/clarity.ts` wraps the `window.clarity()` API. It adds no npm dependency.
 - The Layout body script tracks nav clicks, social clicks, theme changes, and mobile menu events.
+- The Cloudflare Web Analytics beacon is injected by the Cloudflare edge, not by this repository. It is kept for real-user Core Web Vitals data; removing it means turning Web Analytics off in the Cloudflare dashboard.
 
 ### SEO and Feeds
 
@@ -83,7 +86,7 @@ All components are `.astro` files. There is no React. Interactivity uses `is:inl
 - The OG and Twitter cards come from the props and `siteMetadata.ts`.
 - Canonical and og URLs strip the `.html` suffix and normalize `/index` to `/`.
 - RSS uses `@astrojs/rss` at `/rss.xml`. `public/_redirects` sends `/feed.xml` to `/rss.xml`.
-- The sitemap endpoint writes `/sitemap.xml`. The `@astrojs/sitemap` integration writes `sitemap-index.xml`.
+- The `@astrojs/sitemap` integration is the only sitemap source. It writes `sitemap-index.xml` and `sitemap-0.xml`; `public/_redirects` sends `/sitemap.xml` to `/sitemap-index.xml` with a 301.
 - `robots.txt` lives in `public/`.
 - `site: 'https://stbensonimoh.com'` is set in `astro.config.mjs`.
 
@@ -93,7 +96,7 @@ All components are `.astro` files. There is no React. Interactivity uses `is:inl
 - **Deploy:** `wrangler deploy` (Workers, not Pages) through GitHub Actions.
 - **Adapter:** `@astrojs/cloudflare` 14.2.3 with `output: 'server'`, `imageService: { build: 'compile' }`, and `session: false`.
 - **Bindings:** `ASSETS` only. The build does not provision `SESSION` or `IMAGES`.
-- **CI:** `.github/workflows/ci.yml` runs `quality` (lint, check, test, build) and then `deploy` (main only, gated by quality). The deploy step uses `wrangler-action@v4`.
+- **CI:** `.github/workflows/ci.yml` runs `quality` (lint, check, test, build, Lighthouse CI, render-blocking third-party check) and then `deploy` (main only, gated by quality). The deploy step uses `wrangler-action@v4`.
 
 ## Testing
 
