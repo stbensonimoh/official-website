@@ -82,9 +82,11 @@ The head installs Clarity's official queue function, and the tag script loads on
 
 The router costs 16,338 bytes raw (4,962 bytes brotli), and the explicit prefetch pin adds 187 bytes raw (358 bytes brotli). Prefetching is same-origin only and honors `data-astro-prefetch="false"` (#181, #211). Hover is pinned because the `viewport` strategy would prefetch every in-view link on a phone, and that needs a byte measurement first.
 
-### 12. Extend the Lighthouse gate with the audits this batch fixed
+### 12. Extend the Lighthouse gate, and enforce the single main landmark outside it
 
-The accessibility category was collected but never asserted, which is how a missing `<main>` and the contrast failures shipped. `lighthouserc.json` now asserts `color-contrast` and `landmark-one-main` at `minScore` 1 in both matrix entries. The whole category is deliberately not asserted with a score, because that would fail on audits this batch did not touch and turn the gate into noise. The landmark assertion is weaker than it looks: the bundled Lighthouse 12.6.1 normalises informative audits to a score of 1 even when the axe rule fails, and LHCI reads that numeric score before the display mode, so a page with no `<main>` still passes. It only fails when the audit is absent or errors, never because the page lacks a main. A stricter assertion, such as `maxLength` on the failing-elements table, is left as a follow-up.
+The accessibility category was collected but never asserted, which is how a missing `<main>` and the contrast failures shipped. `lighthouserc.json` asserts `color-contrast` at `minScore` 1 in both matrix entries. A counter-case page with `#999` text on white confirms the assertion enforces: LHCI reported `expected: >= 1, found: 0` and exited 1. The whole category is deliberately not asserted with a score, because that would fail on audits this batch did not touch and turn the gate into noise.
+
+The landmark was first asserted with `landmark-one-main` at `minScore` 1, then the assertion was removed. It cannot fail. The bundled Lighthouse 12.6.1 reports the audit as `notApplicable` with a null score when a page has one `<main>`, and as `informative` with a normalised score of 1 when the axe rule fails. LHCI 0.15.1 maps `notApplicable` to 1 and reads a numeric score before the display mode, so `minScore: 1` passes either way: a page with no `<main>` reported `found: 1`. An assertion that cannot fail is worse than none, because it looks like coverage. `scripts/check-single-main.mjs` replaces it. The script scans the built HTML under `dist/client`, or a directory argument, and names each page and its count when a page does not contain exactly one `<main>`. The `quality` job runs it immediately after the render-blocking check.
 
 ## Consequences
 
@@ -93,7 +95,7 @@ Wins:
 - Payload: projected home 2,116 KB to 130 to 180 KB, blog 4,555 KB to 300 to 500 KB, about and post around 150 KB each.
 - Critical path: no Google Fonts request, no runtime image transforms, no eager third-party script parse.
 - Caching: hashed assets immutable for a year, unhashed assets cached for a week, unchanged HTML answers with a cheap 304.
-- Accessibility: one main landmark per page and zero colour-contrast failures on the audited pages.
+- Accessibility: one main landmark per page, enforced by the single-main check, and zero colour-contrast failures on the audited pages.
 
 Costs and open items:
 
@@ -102,7 +104,7 @@ Costs and open items:
 - Deferred Clarity: a session that never interacts and ends before window load plus the settle is not measured.
 - Lighthouse's LCP simulation makes `/about` read about 150 ms worse in the gate while the observed paint is unchanged. The gate median carries that artifact; the page itself did not regress.
 - `/sitemap.xml` depends on the edge redirect. If `_redirects` is dropped, old crawler requests 404.
-- The accessibility category still measures more than the gate asserts. Only the two audits this batch fixed are red-line checks.
+- The accessibility category still measures more than the gate asserts. Only `color-contrast` and the single-main check are red-line checks.
 
 ## Alternatives
 
@@ -115,6 +117,7 @@ Costs and open items:
 - The `viewport` prefetch strategy: deferred until a byte measurement exists, because it fetches every in-view link on a phone.
 - Removing the Cloudflare beacon: rejected because the real-user Core Web Vitals data is the only field data feeding the epic; the decision is reversible in the dashboard.
 - Asserting the whole accessibility category at `minScore 0.9`: rejected because it would fail on audits outside this batch and turn the gate into noise.
+- Asserting `landmark-one-main`: removed after a counter-case page proved the assertion cannot fail; `scripts/check-single-main.mjs` enforces the landmark on the built HTML instead.
 
 ## References
 

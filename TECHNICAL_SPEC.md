@@ -199,10 +199,10 @@ Do not add a catch-all `/*` Cache-Control rule. The adapter skips its `/_astro/*
 
 Single workflow (`.github/workflows/ci.yml`):
 
-- `quality` job: lint, type check, test, build, Lighthouse CI, and the render-blocking third-party check (all pushes and PRs)
+- `quality` job: lint, type check, test, build, Lighthouse CI, the render-blocking third-party check, and the single-main check (all pushes and PRs)
 - `deploy` job: build + `wrangler deploy` (push to main, gated behind quality)
 
-Lighthouse CI runs `bunx lhci autorun` with `ASTRO_PREVIEW_BACKGROUND=1`, a median of 3 runs per page over five pages. It asserts performance (`minScore 0.9`), per-page byte budgets, `unsized-images`, `color-contrast`, and `landmark-one-main`; LCP stays a warning. `scripts/check-render-blocking-third-parties.mjs` then fails the job when a render-blocking request comes from a third-party host.
+Lighthouse CI runs `bunx lhci autorun` with `ASTRO_PREVIEW_BACKGROUND=1`, a median of 3 runs per page over five pages. It asserts performance (`minScore 0.9`), per-page byte budgets, `unsized-images`, and `color-contrast`; LCP stays a warning. `scripts/check-render-blocking-third-parties.mjs` then fails the job when a render-blocking request comes from a third-party host. `scripts/check-single-main.mjs` scans the built HTML under `dist/client` and fails when a page does not contain exactly one `<main>`. The `landmark-one-main` assertion was removed because Lighthouse 12.6.1 reports the audit as `notApplicable` with a null score when a main is present and as `informative` with a normalised score of 1 when it is missing, and LHCI 0.15.1 reads the numeric score before the display mode, so `minScore: 1` passes either way.
 
 The deploy step uses `cloudflare/wrangler-action@v4`.
 

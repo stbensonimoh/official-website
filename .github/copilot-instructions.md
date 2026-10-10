@@ -96,7 +96,8 @@ All components are `.astro` files. There is no React. Interactivity uses `is:inl
 - **Deploy:** `wrangler deploy` (Workers, not Pages) through GitHub Actions.
 - **Adapter:** `@astrojs/cloudflare` 14.2.3 with `output: 'server'`, `imageService: { build: 'compile' }`, and `session: false`.
 - **Bindings:** `ASSETS` only. The build does not provision `SESSION` or `IMAGES`.
-- **CI:** `.github/workflows/ci.yml` runs `quality` (lint, check, test, build, Lighthouse CI, render-blocking third-party check) and then `deploy` (main only, gated by quality). The deploy step uses `wrangler-action@v4`.
+- **CI:** `.github/workflows/ci.yml` runs `quality` (lint, check, test, build, Lighthouse CI, render-blocking third-party check, single-main check) and then `deploy` (main only, gated by quality). The deploy step uses `wrangler-action@v4`.
+- **Single-main check:** `node scripts/check-single-main.mjs [dir]` fails when any built HTML page under `dist/client` (or `dir`) does not contain exactly one `<main>`. It replaces the `landmark-one-main` Lighthouse assertion, which cannot fail: Lighthouse 12.6.1 marks the audit `notApplicable` with a null score when a main is present and `informative` with a normalised score of 1 when it is missing, and LHCI 0.15.1 reads the numeric score before the display mode.
 
 ## Testing
 
