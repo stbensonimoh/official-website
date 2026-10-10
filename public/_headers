@@ -12,16 +12,10 @@
 # HTML is intentionally left at the platform default
 # (`public, max-age=0, must-revalidate`): page contents change on every deploy under
 # stable paths, so browsers revalidate and get a cheap 304 via ETag instead of serving
-# stale markup. Feeds and sitemaps (rss.xml, sitemap.xml) are left on the default too,
+# stale markup. Feeds and sitemaps (rss.xml, sitemap-index.xml) are left on the default too,
 # so new posts appear on the next fetch. Revisit only alongside a deploy-time purge.
 
 /images/*
-  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
-
-/logo.svg
-  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
-
-/logo-white.svg
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
 /robots.txt
