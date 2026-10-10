@@ -29,7 +29,7 @@ The full path from commit to production:
 
 ```mermaid
 flowchart LR
-    A["push to main"] --> B["quality job<br/>lint, typecheck, test, build"]
+    A["push to main"] --> B["quality job<br/>lint, typecheck, test, build, and CI checks"]
     B -->|"all green"| C["deploy job<br/>astro build"]
     C --> D["wrangler-action@v4<br/>wrangler deploy"]
     D --> E["Cloudflare Worker<br/>official-website"]
@@ -41,7 +41,7 @@ Deployment is automatic. A single workflow, `.github/workflows/ci.yml`, handles 
 
 **Triggers:** pull requests that target `main`, pushes to `main`, and manual `workflow_dispatch` runs.
 
-**The `quality` job** runs on every trigger: `bun install`, ESLint, `astro check`, `bun test`, a full `astro build`, Lighthouse CI (`bunx lhci autorun`), and the render-blocking third-party check (`scripts/check-render-blocking-third-parties.mjs`). This job is the gate. Nothing deploys until it passes.
+**The `quality` job** runs on every trigger: `bun install`, ESLint, `astro check`, `bun test`, a full `astro build`, Lighthouse CI (`bunx lhci autorun`), the render-blocking third-party check (`scripts/check-render-blocking-third-parties.mjs`), and the single-main landmark check (`scripts/check-single-main.mjs`). This job is the gate. Nothing deploys until it passes.
 
 **The `deploy` job** runs only when the event is a push to `refs/heads/main` and the `quality` job passed. It checks out the code, installs dependencies, and runs `astro build` again. Jobs do not share artifacts, so the production bundle is built fresh. It then calls `cloudflare/wrangler-action@v4` with `command: deploy`. Two repository secrets authenticate the call:
 

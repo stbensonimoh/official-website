@@ -6,7 +6,7 @@ The site is deployed to Cloudflare Workers via GitHub Actions.
 
 The `.github/workflows/ci.yml` workflow has two jobs:
 
-1. **`quality`**: Runs on every PR and push to `main`: lint, typecheck, test, build, Lighthouse CI (`bunx lhci autorun`), and the render-blocking third-party check (`scripts/check-render-blocking-third-parties.mjs`)
+1. **`quality`**: Runs on every PR and push to `main`: lint, typecheck, test, build, Lighthouse CI (`bunx lhci autorun`), the render-blocking third-party check (`scripts/check-render-blocking-third-parties.mjs`), and the single-main landmark check (`scripts/check-single-main.mjs`)
 2. **`deploy`**: Runs only on push to `main`, **gated behind `quality` passing**: build, `wrangler deploy`
 
 Deployment only triggers after the quality gate passes: no broken code reaches production.

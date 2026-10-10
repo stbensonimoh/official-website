@@ -109,7 +109,7 @@ A Cloudflare WAF rule blocks common attack paths at the edge. See [SECURITY.md](
 
 ## Deployment
 
-The site deploys to Cloudflare Workers through GitHub Actions. The quality gates (lint, type check, test, build, Lighthouse CI budgets, and the render-blocking third-party check) must pass before the deploy job runs. See [DEPLOY.md](DEPLOY.md) and [docs/deployment.md](docs/deployment.md) for details.
+The site deploys to Cloudflare Workers through GitHub Actions. The quality gates (lint, type check, test, build, Lighthouse CI budgets, the render-blocking third-party check, and the single-main landmark check) must pass before the deploy job runs. See [DEPLOY.md](DEPLOY.md) and [docs/deployment.md](docs/deployment.md) for details.
 
 ## About the Author
 

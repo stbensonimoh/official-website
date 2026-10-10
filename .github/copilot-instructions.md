@@ -134,8 +134,8 @@ Bun's native test runner (`bun:test`):
 ## Documentation
 
 - `TECHNICAL_SPEC.md`: the current architecture and behavior.
-- `docs/adr/0001-performance-and-caching.md`: why the rendering, image, font, cache, sitemap, landmark, contrast, analytics, and router decisions are what they are, with their costs.
-- `docs/audits/2026-09-25-performance.md`: the measured baseline that drove the performance batch.
+- [`docs/adr/0001-performance-and-caching.md`](../docs/adr/0001-performance-and-caching.md): why the rendering, image, font, cache, sitemap, landmark, contrast, analytics, and router decisions are what they are, with their costs.
+- [`docs/audits/2026-09-25-performance.md`](../docs/audits/2026-09-25-performance.md): the measured baseline that drove the performance batch.
 
 ## Quick Commands
 
