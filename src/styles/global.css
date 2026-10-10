@@ -3,6 +3,13 @@
 
 @theme {
   --color-bensonpink: #ec2c7c;
+  /**
+   * Darker bensonpink for large panel backgrounds where white body text
+   * needs 4.5:1. White on #ec2c7c only reaches 4.02:1, so the full bleed
+   * About panel uses this shade (5.03:1). Keeps the brand pink for links,
+   * borders and accents unchanged.
+   */
+  --color-bensonpink-deep: #d41c6b;
   --color-bensonblack: #000000;
   --color-bensongrey: #666666;
 
@@ -33,7 +40,7 @@
 }
 
 .text-primary {
-  color: var(--primary) !important;
+  color: var(--primary-text) !important;
 }
 
 .text-secondary {
@@ -44,6 +51,14 @@
   --background: #ffffff;
   --foreground: #171717;
   --primary: #ec2c7c;
+  /**
+   * Text shade of the brand pink. The brand pink only reaches 4.02:1 on
+   * white, below the 4.5:1 AA threshold for normal size text, so every text
+   * usage (headings, body copy, links) uses this darker shade. Decoration
+   * (borders, gradients, accents) keeps --primary. Dark mode maps this back
+   * to its own accessible pink below.
+   */
+  --primary-text: #d41c6b;
   --secondary: #666666;
   --surface: #f8f8f8;
   --text-primary: var(--foreground);
@@ -57,6 +72,8 @@
   --background: #0a0a0a;
   --foreground: #ededed;
   --primary: #ff4d94;
+  /* Dark mode keeps its own accessible pink for text. */
+  --primary-text: var(--primary);
   --secondary: #a3a3a3;
   --surface: #1a1a1a;
   --logo-primary: #ff4d94;
@@ -74,7 +91,7 @@ body {
 
 .active,
 .active-menu-item {
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .article-body p {
@@ -197,7 +214,7 @@ article {
 }
 
 .prose a {
-  color: var(--primary);
+  color: var(--primary-text);
 }
 
 .prose code {
