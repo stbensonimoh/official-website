@@ -29,6 +29,20 @@ const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
   month: "long",
   day: "numeric",
 });
+
+const heroImageUrl = post.data.heroImage
+  ? cloudinaryUrl(post.data.heroImage, { width: 1600 })
+  : undefined;
+const heroImageSet = post.data.heroImage
+  ? [800, 1200, 1600]
+      .map((w) => `${cloudinaryUrl(post.data.heroImage, { width: w })} ${w}w`)
+      .join(", ")
+  : undefined;
+const heroWidth = 1600;
+const heroHeight =
+  post.data.heroImageWidth && post.data.heroImageHeight
+    ? Math.round(heroWidth * (post.data.heroImageHeight / post.data.heroImageWidth))
+    : Math.round((heroWidth * 9) / 16);
 ---
 
 <Layout
@@ -36,14 +50,27 @@ const formattedDate = post.data.pubDate.toLocaleDateString("en-US", {
   description={post.data.description}
   ogImage={post.data.heroImage}
   canonicalURL={`https://stbensonimoh.com/${postSlug}`}
+  preloadImage={heroImageUrl}
+  preloadImageSet={heroImageSet}
+  preloadImageSizes="100vw"
 >
   <main class="flex flex-col w-full">
     {
-      post.data.heroImage && (
-        <div
-          class="featured-image"
-          style={`background-image: url(${cloudinaryUrl(post.data.heroImage, { width: 1600 })}); background-repeat: no-repeat; background-size: cover; height: calc(100vh - 400px)`}
-        ></div>
+      heroImageUrl && (
+        <div class="featured-image overflow-hidden" style="height: calc(100vh - 400px)">
+          <img
+            src={heroImageUrl}
+            srcset={heroImageSet}
+            sizes="100vw"
+            width={heroWidth}
+            height={heroHeight}
+            alt=""
+            class="h-full w-full object-cover"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
       )
     }
     <div
