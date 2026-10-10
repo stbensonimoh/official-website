@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import BlogPostCard from "../components/BlogPostCard.astro";
 import { getReadingTime } from "../lib/posts";
-import { Picture } from "astro:assets";
+import { getImage } from "astro:assets";
 import blogHeader from "../assets/images/blog-header-image.png";
 
 export const prerender = true;
@@ -13,6 +13,26 @@ allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const featuredPosts = allPosts.filter((post) => post.data.tags.includes("featured")).slice(0, 1);
 const latestPosts = allPosts.slice(0, 2);
+
+// Rendered only at lg+, so the sources carry the same breakpoint Tailwind
+// emits for `lg:block`, in the same units: rem in a media query resolves
+// against the browser's default font-size setting, not the page root, so a px
+// condition stays fixed while the CSS breakpoint moves with that setting. The
+// img fallback is a transparent pixel: below lg no source matches and the
+// browser loads that instead of the real header image.
+const headerSizes = "(min-width: 1280px) 40vw, (min-width: 1024px) 35vw, 100vw";
+const headerSources = await Promise.all(
+  (["avif", "webp"] as const).map(async (format) => ({
+    format,
+    image: await getImage({
+      src: blogHeader,
+      format,
+      widths: [400, 600, 900, 1200],
+    }),
+  })),
+);
+const transparentPixel =
+  "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 ---
 
 <Layout title="Blog">
@@ -31,16 +51,26 @@ const latestPosts = allPosts.slice(0, 2);
             and life generally...
           </p>
         </div>
-        <Picture
-          src={blogHeader}
-          formats={["avif", "webp"]}
-          widths={[400, 600, 900, 1200]}
-          sizes="(min-width: 1280px) 40vw, (min-width: 1024px) 35vw, 100vw"
-          fallbackFormat="webp"
-          alt="Blog header illustration"
-          pictureAttributes={{ class: "hidden lg:block pt-12 xl:w-3/7 lg:w-2/5 lg:pr-12" }}
-          class="w-full h-auto"
-        />
+        <picture class="hidden lg:block pt-12 xl:w-3/7 lg:w-2/5 lg:pr-12">
+          {headerSources.map(({ format, image }) => (
+            <source
+              media="(min-width: 64rem)"
+              type={`image/${format}`}
+              srcset={image.srcSet.attribute}
+              sizes={headerSizes}
+            />
+          ))}
+          <img
+            src={transparentPixel}
+            alt="Blog header illustration"
+            width={blogHeader.width}
+            height={blogHeader.height}
+            loading="eager"
+            decoding="sync"
+            fetchpriority="high"
+            class="w-full h-auto"
+          />
+        </picture>
       </section>
     </div>
     <div class="second-section bg-background py-12 flex flex-col items-center">
