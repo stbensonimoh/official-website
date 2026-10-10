@@ -55,6 +55,9 @@ jobs:
       - name: Check render-blocking third parties
         run: node scripts/check-render-blocking-third-parties.mjs
 
+      - name: Check single main landmark per page
+        run: node scripts/check-single-main.mjs
+
       - name: Upload Lighthouse reports
         if: always()
         uses: actions/upload-artifact@v4

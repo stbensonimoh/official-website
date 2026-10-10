@@ -25,8 +25,7 @@
             "largest-contentful-paint": ["warn", { "maxNumericValue": 2500, "aggregationMethod": "median" }],
             "total-byte-weight": ["error", { "maxNumericValue": 512000, "aggregationMethod": "median" }],
             "unsized-images": ["error", { "minScore": 1, "aggregationMethod": "median" }],
-            "color-contrast": ["error", { "minScore": 1, "aggregationMethod": "median" }],
-            "landmark-one-main": ["error", { "minScore": 1, "aggregationMethod": "median" }]
+            "color-contrast": ["error", { "minScore": 1, "aggregationMethod": "median" }]
           }
         },
         {
@@ -36,8 +35,7 @@
             "largest-contentful-paint": ["warn", { "maxNumericValue": 2500, "aggregationMethod": "median" }],
             "total-byte-weight": ["error", { "maxNumericValue": 307200, "aggregationMethod": "median" }],
             "unsized-images": ["error", { "minScore": 1, "aggregationMethod": "median" }],
-            "color-contrast": ["error", { "minScore": 1, "aggregationMethod": "median" }],
-            "landmark-one-main": ["error", { "minScore": 1, "aggregationMethod": "median" }]
+            "color-contrast": ["error", { "minScore": 1, "aggregationMethod": "median" }]
           }
         }
       ]
