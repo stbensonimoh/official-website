@@ -42,6 +42,20 @@ const clarityId = import.meta.env.PUBLIC_CLARITY_TRACKING_ID;
 //    runs after HTML parsing (not render-blocking, ~10 KB), and its real-user
 //    Core Web Vitals data feeds the performance epic. To remove it, turn Web
 //    Analytics off in the Cloudflare dashboard.
+// 3. Clarity counts soft navigations itself (issue #210). Its runtime wraps
+//    history.pushState and history.replaceState; a changed URL stops the
+//    session and starts a new one 250 ms later (the default `restart` delay).
+//    Source: the served 0.8.72-beta runtime at
+//    scripts.clarity.ms/0.8.72-beta/clarity.js. ClientRouter navigates with
+//    pushState, so astro:page-load needs no hook, and Clarity exposes no
+//    page-view API to call there. The head swap dropping the tag node does
+//    not matter; the runtime and its history proxy live on window. Known
+//    exception: because the tag is deferred (#212), a first click in the
+//    seconds after a cold load races the runtime download against the
+//    router's fetch. When the runtime loses, pushState runs before history
+//    is wrapped, so the departing page is never counted and the runtime's
+//    first page view is the new URL. Bounded to that first navigation, and
+//    the accepted cost of the deferral.
 
 const pageTitle = title === siteMetadata.title ? title : `${title} - ${siteMetadata.title}`;
 // `build.format: 'file'` yields paths like `/about.html`; keep canonical and og URLs extensionless.
