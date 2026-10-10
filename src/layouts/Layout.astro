@@ -102,7 +102,9 @@ const pageUrl = (canonicalURL ? String(canonicalURL) : String(Astro.url))
   </head>
   <body>
     <Header />
-    <slot />
+    <main>
+      <slot />
+    </main>
     <ThemeToggle />
 
     <script is:inline data-astro-rerun>
