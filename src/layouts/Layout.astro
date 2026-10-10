@@ -12,6 +12,9 @@ export interface Props {
   description?: string;
   ogImage?: string;
   canonicalURL?: string | URL;
+  preloadImage?: string;
+  preloadImageSet?: string;
+  preloadImageSizes?: string;
 }
 
 const {
@@ -19,6 +22,9 @@ const {
   description = siteMetadata.description,
   ogImage = "https://res.cloudinary.com/stbensonimoh/image/upload/v1735318948/stbensonimoh_logo.png",
   canonicalURL,
+  preloadImage,
+  preloadImageSet,
+  preloadImageSizes,
 } = Astro.props;
 
 const clarityId = import.meta.env.PUBLIC_CLARITY_TRACKING_ID;
@@ -57,6 +63,16 @@ const pageUrl = (canonicalURL ? String(canonicalURL) : String(Astro.url))
     <meta name="twitter:creator" content={`@${siteMetadata.social.x}`} />
 
     <link rel="canonical" href={pageUrl} />
+    {preloadImage && (
+      <link
+        rel="preload"
+        as="image"
+        href={preloadImage}
+        imagesrcset={preloadImageSet}
+        imagesizes={preloadImageSet ? preloadImageSizes : undefined}
+        fetchpriority="high"
+      />
+    )}
     <ClientRouter />
 
     <Font cssVariable="--astro-font-roboto" preload />

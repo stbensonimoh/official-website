@@ -15,7 +15,7 @@ const authorImage = image || siteMetadata.author.image;
 ---
 
 <div class="flex items-center mb-4">
-  <img src={cloudinaryUrl(authorImage, { width: 96 })} alt={`${authorName} avatar`} class="w-12 rounded-full" />
+  <img src={cloudinaryUrl(authorImage, { width: 96 })} width={48} height={48} alt={`${authorName} avatar`} class="w-12 rounded-full" />
   <div class="ml-4 my-4">
     <p class="text-sm font-roboto text-foreground">{authorName}</p>
     <p class="text-xs font-roboto text-secondary">
