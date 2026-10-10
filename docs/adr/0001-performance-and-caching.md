@@ -100,7 +100,7 @@ Wins:
 Costs and open items:
 
 - ClientRouter: 16,338 bytes raw (4,962 bytes brotli) before the pin, 187 bytes raw (358 bytes brotli) more with it. A touch device on a fast connection does not prefetch, because the hover strategy has no tap branch.
-- Soft navigation drops analytics coverage in two ways: the theme resets after a swap (#209) and Clarity records no page view for soft navigations (#210). Both are pre-existing and tracked, not caused by the pin.
+- Soft navigation: the theme reset after a swap (#209) is fixed in this batch; the stored theme is reapplied on `astro:after-swap`, before paint, with tests in `src/layouts/layout.test.ts`. Clarity counts soft navigations natively (#210): its runtime wraps `history.pushState` and `history.replaceState`, and a changed URL stops the session and starts a new one 250 ms later (the default `restart` delay), so `astro:page-load` needs no hook and Clarity exposes no page-view API to call. The remaining cost is the cold-load exception: because the tag is deferred (#212), a first click in the seconds after a cold load races the runtime download against the router's fetch; when the runtime loses, the departing page is never counted. It is pre-existing and tracked, not caused by the pin.
 - Deferred Clarity: a session that never interacts and ends before window load plus the settle is not measured.
 - Lighthouse's LCP simulation makes `/about` read about 150 ms worse in the gate while the observed paint is unchanged. The gate median carries that artifact; the page itself did not regress.
 - `/sitemap.xml` depends on the edge redirect. If `_redirects` is dropped, old crawler requests 404.

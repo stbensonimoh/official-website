@@ -101,11 +101,13 @@ All components are `.astro` files. There is no React. Interactivity uses `is:inl
 
 ## Testing
 
-Bun's native test runner (`bun:test`):
+Bun's native test runner (`bun:test`). Tests colocate with their subject:
 
 - `src/lib/posts.test.ts`: `getReadingTime()` and `createSlug()` (8 tests)
 - `src/lib/theme.test.ts`: `themeStore` state machine (4 tests)
 - `src/lib/cloudinary.test.ts`: URL transforms and passthrough rules (7 tests)
+- `src/layouts/layout.test.ts`: theme reapply after a router swap and the Clarity loader (11 tests)
+- `src/pages/about.test.ts`: the About hero reserves its box before the image bytes arrive
 
 ## Conventions
 

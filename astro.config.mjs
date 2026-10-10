@@ -21,7 +21,9 @@ export default defineConfig({
   // so a touch device on a fast connection does not prefetch: tap only fires
   // with an explicit tap strategy or a slow connection. Mobile warm-up needs
   // `viewport` and a byte measurement first, it prefetches every in-view link
-  // on a phone. Soft nav costs: theme reset (#209), Clarity page views (#210).
+  // on a phone. Soft nav costs: the theme reset (#209) is fixed in this batch;
+  // the remaining cost is the cold-load analytics exception the deferred
+  // Clarity tag creates (#212).
   prefetch: {
     prefetchAll: true,
     defaultStrategy: 'hover',
