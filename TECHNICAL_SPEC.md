@@ -1,6 +1,7 @@
 # Technical Specification: Official Website for `stbensonimoh.com`
 
-**Version:** 3.0.0 | **Date:** 2026-10-07 | **Framework:** Astro 7.2.4
+**Version:** 3.1.0 | **Date:** 2026-10-10 | **Framework:** Astro 7.2.4
+**Decision record:** [ADR 0001: performance and caching decisions](docs/adr/0001-performance-and-caching.md)
 
 ---
 
@@ -32,11 +33,13 @@ The build prerenders every route. Cloudflare serves the pages as static assets. 
 
 ```
 ├── .github/workflows/ci.yml
+├── docs/                # Deployment runbook, ADRs, performance audits
+├── lighthouserc.json    # Lighthouse CI budgets and assertions
 ├── public/              # Static assets served as-is
 │   ├── images/
 │   ├── _headers         # Cache policy for unhashed assets
-│   ├── _redirects       # /feed.xml to /rss.xml
-│   └── robots.txt
+│   ├── _redirects       # /feed.xml to /rss.xml, /sitemap.xml to /sitemap-index.xml
+│   └── robots.txt       # Points crawlers at sitemap-index.xml
 ├── src/
 │   ├── assets/images/   # Source images, optimized at build time
 │   ├── components/      # Astro components
@@ -50,8 +53,7 @@ The build prerenders every route. Cloudflare serves the pages as static assets. 
 │   │   ├── contact.astro        # /contact
 │   │   ├── 404.astro            # /404
 │   │   ├── [slug].astro         # /[slug]
-│   │   ├── rss.xml.ts           # /rss.xml
-│   │   └── sitemap.xml.ts       # /sitemap.xml
+│   │   └── rss.xml.ts           # /rss.xml
 │   ├── styles/global.css        # Tailwind theme + custom CSS
 │   └── content.config.ts        # Content collection schema
 ├── astro.config.mjs
@@ -75,11 +77,12 @@ Every route sets `export const prerender = true`. The build writes one HTML file
 | `/404` | `404.astro` | `404.html` |
 | `/[slug]` | `[slug].astro` | one file per post |
 | `/rss.xml` | `rss.xml.ts` | `rss.xml` |
-| `/sitemap.xml` | `sitemap.xml.ts` | `sitemap.xml` |
+
+The `@astrojs/sitemap` integration writes `sitemap-index.xml` and `sitemap-0.xml` at build time. There is no sitemap endpoint in `src/pages`; a request for `/sitemap.xml` returns 301 to `/sitemap-index.xml` from `public/_redirects`.
 
 `build.format: 'file'` makes each route serve at its linked path. A request for `/about` returns `about.html` with status 200. No trailing-slash redirect occurs.
 
-`public/_redirects` holds the `/feed.xml` redirect to `/rss.xml` with status 301. A prerendered 3xx endpoint becomes a 200 page, so the redirect lives at the edge instead.
+`public/_redirects` holds two edge redirects: `/feed.xml` to `/rss.xml` and `/sitemap.xml` to `/sitemap-index.xml`, both with status 301. A prerendered 3xx endpoint becomes a 200 page, so the redirects live at the edge instead.
 
 `[slug].astro` exports `getStaticPaths()`. It maps `getCollection('blog')` to one path per post. The path uses `post.data.slug || post.id`. The page reads the entry with `getEntry('blog', slug)`. The entry id is the frontmatter slug when the frontmatter sets one.
 
@@ -91,7 +94,7 @@ All components are `.astro` files with vanilla JS for interactivity. Zero React.
 
 | Component | Type | Purpose |
 |-----------|------|---------|
-| `Layout.astro` | Layout | SEO meta, ClientRouter, font tags, theme init, Clarity, shared scripts |
+| `Layout.astro` | Layout | SEO meta, ClientRouter (prefetch pinned to hover), font tags, theme init, deferred Clarity loader, shared scripts, the only `<main>` landmark |
 | `Header.astro` | Static + JS | Desktop nav + mobile hamburger menu |
 | `Logo.astro` | Static | Theme-aware SVG via CSS custom properties |
 | `SocialIcons.astro` | Static | Inline SVG icons with click tracking |
@@ -100,6 +103,8 @@ All components are `.astro` files with vanilla JS for interactivity. Zero React.
 | `Button.astro` | Static | Styled `<a>` wrapper |
 | `AuthorBlob.astro` | Static | Avatar + author name + date + reading time |
 | `BlogPostCard.astro` | Static | Card with hero image, excerpt, read more |
+
+`Layout.astro` owns the single `<main>` element. Pages render into its slot and must not declare their own. `ClientRouter` handles soft navigation, and `astro.config.mjs` pins `prefetchAll: true` with the `hover` strategy, so a touch device on a fast connection does not prefetch. Two soft-navigation costs are tracked: the dark-mode reset after a swap (#209) and missing Clarity page views (#210).
 
 ---
 
@@ -134,6 +139,8 @@ Vanilla JS in `Layout.astro`. Three states: light, dark, system. State persists 
 
 Tailwind CSS v4 runs through the `@tailwindcss/vite` Vite plugin. Theme tokens live in the `@theme` block in `src/styles/global.css`. Dark mode uses `[data-theme="dark"]` overrides.
 
+The brand pink `--color-bensonpink` (`#ec2c7c`) is decoration only: white on it measures 4.02:1, below the WCAG AA 4.5:1 threshold for normal text. Text uses `--primary-text` (`#d41c6b`, 5.03:1 with white). The full-bleed About panel uses `--color-bensonpink-deep` (`#d41c6b`) behind white body text. Dark mode maps `--primary-text` to its own accessible pink.
+
 ---
 
 ## 9. Fonts
@@ -155,19 +162,21 @@ The Astro Fonts API downloads fonts at build time and serves them from this doma
 
 Local images live in `src/assets/images/`. Pages render them with `<Picture>`: AVIF and WebP sources, responsive `widths`, a `sizes` value, and `fallbackFormat="webp"`. The adapter uses `imageService: { build: 'compile' }`, so the build transforms each image once and writes hashed files to `dist/client/_astro/`.
 
+The homepage and blog heroes render `<picture>` elements in `index.astro` and `blog.astro`. Each `<source>` is gated with a `media` query that mirrors the Tailwind breakpoint (`48rem` and `64rem`), and the `<img>` fallback is a transparent pixel, so a hero that CSS hides at a breakpoint never fetches its image bytes. LCP images are eager with `fetchpriority="high"`; post heroes add a preload link.
+
 Remote Cloudinary images pass through `cloudinaryUrl()` in `src/lib/cloudinary.ts`. The helper inserts delivery transforms into the URL. Card heroes use `w_800`, post heroes use `w_1600`, and the author avatar uses `w_96`. The og and Twitter images and the RSS enclosure use `q_auto,w_1200` without `f_auto`, so the declared content type stays correct.
 
 ---
 
 ## 11. Analytics
 
-Microsoft Clarity loads through an inline `<script>` in `Layout.astro`. The script renders only when `PUBLIC_CLARITY_TRACKING_ID` is set at build time. Event tracking (nav, social, theme, mobile menu) runs in the Layout script. `src/lib/clarity.ts` calls the `window.clarity()` API directly.
+Microsoft Clarity loads from `Layout.astro` only when `PUBLIC_CLARITY_TRACKING_ID` is set at build time. The head installs the official queue function, then the tag script loads on the first interaction (`pointerdown`, `touchstart`, `keydown`), or after window load plus a 3 s settle and an idle callback. A window guard keeps the script to one download across ClientRouter soft navigations. Event tracking (nav, social, theme, mobile menu) runs in the Layout script and queues through `window.clarity`. `src/lib/clarity.ts` calls the `window.clarity()` API directly. The Cloudflare Web Analytics beacon is injected by the Cloudflare edge, not by this repository. It stays on for its real-user Core Web Vitals data and is removed in the Cloudflare dashboard, not in code.
 
 ---
 
 ## 12. SEO
 
-Per-page metadata comes from `Layout.astro` props (`title`, `description`, `ogImage`, `canonicalURL`). Canonical and og URLs strip the `.html` suffix and normalize `/index` to `/`. RSS uses `@astrojs/rss` at `/rss.xml`, with `/feed.xml` redirected at the edge. The sitemap endpoint writes `/sitemap.xml`, and the `@astrojs/sitemap` integration also writes `sitemap-index.xml`. `robots.txt` lives in `public/`.
+Per-page metadata comes from `Layout.astro` props (`title`, `description`, `ogImage`, `canonicalURL`). Canonical and og URLs strip the `.html` suffix and normalize `/index` to `/`. RSS uses `@astrojs/rss` at `/rss.xml`, with `/feed.xml` redirected at the edge. The `@astrojs/sitemap` integration is the single sitemap source: the build writes `sitemap-index.xml` and `sitemap-0.xml`, and `/sitemap.xml` returns 301 to the index from `public/_redirects`. `robots.txt` lives in `public/` and advertises `https://stbensonimoh.com/sitemap-index.xml`.
 
 ---
 
@@ -178,9 +187,9 @@ Per-page metadata comes from `Layout.astro` props (`title`, `description`, `ogIm
 | Path | Cache-Control |
 |------|---------------|
 | `/_astro/*` | `public, max-age=31536000, immutable` |
-| `/images/*`, `/logo.svg`, `/logo-white.svg` | `public, max-age=604800, stale-while-revalidate=86400` |
+| `/images/*`, `/favicon.svg`, `/favicon.ico`, `/favicon-32.png`, `/apple-touch-icon.png` | `public, max-age=604800, stale-while-revalidate=86400` |
 | `/robots.txt` | `public, max-age=86400` |
-| HTML, `/rss.xml`, `/sitemap.xml` | `public, max-age=0, must-revalidate` |
+| HTML, `/rss.xml`, `/sitemap-index.xml`, `/sitemap-0.xml` | `public, max-age=0, must-revalidate` |
 
 Do not add a catch-all `/*` Cache-Control rule. The adapter skips its `/_astro/*` rule when an existing rule matches that path, and matching rules merge headers.
 
@@ -190,8 +199,10 @@ Do not add a catch-all `/*` Cache-Control rule. The adapter skips its `/_astro/*
 
 Single workflow (`.github/workflows/ci.yml`):
 
-- `quality` job: lint, type check, test, build (all pushes and PRs)
+- `quality` job: lint, type check, test, build, Lighthouse CI, the render-blocking third-party check, and the single-main check (all pushes and PRs)
 - `deploy` job: build + `wrangler deploy` (push to main, gated behind quality)
+
+Lighthouse CI runs `bunx lhci autorun` with `ASTRO_PREVIEW_BACKGROUND=1`, a median of 3 runs per page over five pages. It asserts performance (`minScore 0.9`), per-page byte budgets, `unsized-images`, and `color-contrast`; LCP stays a warning. `scripts/check-render-blocking-third-parties.mjs` then fails the job when a render-blocking request comes from a third-party host. `scripts/check-single-main.mjs` scans the built HTML under `dist/client` and fails when a page does not contain exactly one `<main>`. The `landmark-one-main` assertion was removed because Lighthouse 12.6.1 reports the audit as `notApplicable` with a null score when a main is present and as `informative` with a normalised score of 1 when it is missing, and LHCI 0.15.1 reads the numeric score before the display mode, so `minScore: 1` passes either way.
 
 The deploy step uses `cloudflare/wrangler-action@v4`.
 

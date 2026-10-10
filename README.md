@@ -9,7 +9,7 @@ A modern, responsive personal website and blog built with Astro and Tailwind CSS
 - **Prerendered Pages**: Every route is static at build time and served from Cloudflare's edge
 - **Optimized Images**: Local images become AVIF and WebP at build time; remote Cloudinary images use delivery transforms
 - **Self-Hosted Fonts**: The Astro Fonts API serves fonts from this site, with one preloaded family and metric-matched fallbacks
-- **SPA Navigation**: Client-side routing via `<ClientRouter />` for instant page transitions
+- **SPA Navigation**: Client-side routing via `<ClientRouter />` with prefetch pinned to hover for instant page transitions
 - **Blog Platform**: MDX-powered blog with content collections and reading time estimation
 - **SEO Optimized**: Built-in OG/Twitter cards, RSS feed, and sitemap generation
 - **Theme System**: Light/Dark/System mode with FOUC prevention and localStorage persistence
@@ -57,6 +57,7 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 | `bun run test` | Run the Bun test suite |
 | `bun astro check` | Type-check all files |
 | `bun run preview` | Build, then serve the Worker locally with `astro preview` |
+| `bun run lighthouse` | Build, then run the Lighthouse CI gate against a preview server |
 | `bun run deploy` | Build, then deploy to Cloudflare Workers |
 | `bun run cf-typegen` | Regenerate Cloudflare binding types |
 
@@ -64,12 +65,15 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 
 ```
 ├── .github/               # GitHub workflows, templates, agent instructions
-├── docs/                  # Deployment runbook
+├── docs/                  # Deployment runbook, ADRs, performance audits
+│   ├── adr/               # Architecture decision records
+│   └── audits/            # Committed performance audits
 ├── public/                # Static assets served as-is
 │   ├── images/            # Images that astro:assets does not process
 │   ├── _headers           # Cache policy for unhashed assets
-│   ├── _redirects         # /feed.xml to /rss.xml
-│   └── robots.txt         # robots.txt for crawlers
+│   ├── _redirects         # /feed.xml to /rss.xml and /sitemap.xml to /sitemap-index.xml
+│   ├── favicon.svg        # Favicon set (SVG, ICO, PNG, and apple-touch)
+│   └── robots.txt         # robots.txt for crawlers, points at the sitemap index
 ├── src/
 │   ├── assets/images/     # Source images, optimized at build time
 │   ├── components/        # Astro components (Header, Logo, ThemeToggle, etc.)
@@ -77,7 +81,7 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 │   │   └── blog/          # Blog posts in MDX format
 │   ├── layouts/           # Page layouts (Layout.astro)
 │   ├── lib/               # Utilities (posts.ts, cloudinary.ts, clarity.ts, theme.ts)
-│   ├── pages/             # Routes and endpoints (/ , /about, /blog, /contact, /404, /[slug], /rss.xml, /sitemap.xml)
+│   ├── pages/             # Routes and endpoints (/ , /about, /blog, /contact, /404, /[slug], /rss.xml)
 │   ├── styles/            # Global CSS (Tailwind theme, custom utilities)
 │   └── content.config.ts  # Content collection schema
 ├── astro.config.mjs       # Astro configuration
@@ -85,6 +89,8 @@ Open [http://localhost:4321](http://localhost:4321) in your browser.
 ├── tsconfig.json          # TypeScript configuration
 └── wrangler.jsonc         # Cloudflare Workers configuration
 ```
+
+`@astrojs/sitemap` writes `sitemap-index.xml` and `sitemap-0.xml` at build time. `/sitemap.xml` is not a route; `public/_redirects` sends it to the index with a 301.
 
 ## Testing
 
@@ -103,7 +109,7 @@ A Cloudflare WAF rule blocks common attack paths at the edge. See [SECURITY.md](
 
 ## Deployment
 
-The site deploys to Cloudflare Workers through GitHub Actions. The quality gates (lint, type check, test, build) must pass before the deploy job runs. See [DEPLOY.md](DEPLOY.md) and [docs/deployment.md](docs/deployment.md) for details.
+The site deploys to Cloudflare Workers through GitHub Actions. The quality gates (lint, type check, test, build, Lighthouse CI budgets, the render-blocking third-party check, and the single-main landmark check) must pass before the deploy job runs. See [DEPLOY.md](DEPLOY.md) and [docs/deployment.md](docs/deployment.md) for details.
 
 ## About the Author
 
