@@ -97,11 +97,19 @@ const pageUrl = (canonicalURL ? String(canonicalURL) : String(Astro.url))
     <script is:inline>
       // Prevent FOUC: set theme before any rendering
       (function() {
-        var theme = localStorage.getItem('theme') || 'system';
-        if (theme === 'system') {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        function applyTheme() {
+          var theme = localStorage.getItem('theme') || 'system';
+          if (theme === 'system') {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.setAttribute('data-theme', theme);
         }
-        document.documentElement.setAttribute('data-theme', theme);
+        applyTheme();
+        // ClientRouter's swap drops the root data-theme attribute and this
+        // inline script does not re-run, so reapply the stored theme after the
+        // swap and before paint (#209). The listener lives on document, which
+        // survives the swap.
+        document.addEventListener('astro:after-swap', applyTheme);
       })();
     </script>
     {
