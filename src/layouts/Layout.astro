@@ -29,6 +29,20 @@ const {
 
 const clarityId = import.meta.env.PUBLIC_CLARITY_TRACKING_ID;
 
+// Analytics decisions (issue #189):
+// 1. Microsoft Clarity is deferred. The official queue function is installed
+//    in <head> so events still queue, but the tag script loads only on the
+//    first interaction, or once the page has finished loading and the browser
+//    is idle. That keeps the 731 B loader and the ~26 KB runtime off the
+//    critical path, away from LCP and the page's own rendering.
+// 2. The Cloudflare Web Analytics beacon is injected by the Cloudflare edge,
+//    not by this repository, so it cannot be changed in code. Verified in the
+//    production HTML: `static.cloudflareinsights.com/beacon.min.js` appears in
+//    the served markup. Decision: keep it. It is a `type="module"` script that
+//    runs after HTML parsing (not render-blocking, ~10 KB), and its real-user
+//    Core Web Vitals data feeds the performance epic. To remove it, turn Web
+//    Analytics off in the Cloudflare dashboard.
+
 const pageTitle = title === siteMetadata.title ? title : `${title} - ${siteMetadata.title}`;
 // `build.format: 'file'` yields paths like `/about.html`; keep canonical and og URLs extensionless.
 const pageUrl = (canonicalURL ? String(canonicalURL) : String(Astro.url))
@@ -94,8 +108,28 @@ const pageUrl = (canonicalURL ? String(canonicalURL) : String(Astro.url))
       clarityId && (
         <script is:inline set:html={`(function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          if (c.__clarityDeferred) return;
+          c.__clarityDeferred=1;
+          var loaded=0;
+          function load(){
+            if(loaded)return;
+            loaded=1;
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+          }
+          ['pointerdown','touchstart','keydown'].forEach(function(n){
+            c.addEventListener(n,load,{once:true,passive:true});
+          });
+          function idle(){
+            if(typeof c.requestIdleCallback==='function'){
+              c.requestIdleCallback(load,{timeout:2500});
+            }else{
+              c.setTimeout(load,2500);
+            }
+          }
+          function schedule(){c.setTimeout(idle,3000);}
+          if(l.readyState==='complete')schedule();
+          else c.addEventListener('load',schedule,{once:true});
         })(window,document,"clarity","script","${clarityId}");`} />
       )
     }
