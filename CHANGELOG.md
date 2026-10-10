@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.3](https://github.com/stbensonimoh/official-website/compare/v1.5.2...v1.5.3) (2026-10-10)
+
+
+### Performance Improvements
+
+* **images:** size residual images and prioritise LCP images ([#200](https://github.com/stbensonimoh/official-website/issues/200)) ([71ad127](https://github.com/stbensonimoh/official-website/commit/71ad1279060f65e5cf92b088176b67fea73eab56)), closes [#177](https://github.com/stbensonimoh/official-website/issues/177)
+
 ## [1.5.2](https://github.com/stbensonimoh/official-website/compare/v1.5.1...v1.5.2) (2026-10-09)
 
 
