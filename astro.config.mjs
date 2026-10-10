@@ -15,6 +15,17 @@ export default defineConfig({
     imageService: { build: 'compile' },
   }),
   session: false,
+  // Issue #181: keep <ClientRouter /> (Layout.astro) and its soft navigation for
+  // speed. Router: 16,338 B raw / 4,962 B brotli; the pin below documents
+  // ClientRouter's default and adds 187 B raw / 358 B brotli. Hover is pinned,
+  // so a touch device on a fast connection does not prefetch: tap only fires
+  // with an explicit tap strategy or a slow connection. Mobile warm-up needs
+  // `viewport` and a byte measurement first, it prefetches every in-view link
+  // on a phone. Soft nav costs: theme reset (#209), Clarity page views (#210).
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover',
+  },
   integrations: [mdx(), sitemap()],
   fonts: [
     {
