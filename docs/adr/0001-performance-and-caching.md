@@ -84,7 +84,7 @@ The router costs 16,338 bytes raw (4,962 bytes brotli), and the explicit prefetc
 
 ### 12. Extend the Lighthouse gate with the audits this batch fixed
 
-The accessibility category was collected but never asserted, which is how a missing `<main>` and the contrast failures shipped. `lighthouserc.json` now asserts `color-contrast` and `landmark-one-main` at `minScore` 1 in both matrix entries. The whole category is deliberately not asserted with a score, because that would fail on audits this batch did not touch and turn the gate into noise.
+The accessibility category was collected but never asserted, which is how a missing `<main>` and the contrast failures shipped. `lighthouserc.json` now asserts `color-contrast` and `landmark-one-main` at `minScore` 1 in both matrix entries. The whole category is deliberately not asserted with a score, because that would fail on audits this batch did not touch and turn the gate into noise. The landmark assertion is weaker than it looks: the bundled Lighthouse 12.6.1 normalises informative audits to a score of 1 even when the axe rule fails, and LHCI reads that numeric score before the display mode, so a page with no `<main>` still passes. It only fails when the audit is absent or errors, never because the page lacks a main. A stricter assertion, such as `maxLength` on the failing-elements table, is left as a follow-up.
 
 ## Consequences
 
