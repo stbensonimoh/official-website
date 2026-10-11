@@ -94,7 +94,7 @@ All components are `.astro` files with vanilla JS for interactivity. Zero React.
 
 | Component | Type | Purpose |
 |-----------|------|---------|
-| `Layout.astro` | Layout | SEO meta, ClientRouter (prefetch pinned to hover), font tags, theme init, deferred Clarity loader, shared scripts, the only `<main>` landmark |
+| `Layout.astro` | Layout | SEO meta, ClientRouter (prefetch pinned to hover), font tags, theme init, deferred Clarity loader, shared scripts, the only `<main>` landmark, and a skip link as the first body element |
 | `Header.astro` | Static + JS | Desktop nav + mobile hamburger menu |
 | `Logo.astro` | Static | Theme-aware SVG via CSS custom properties |
 | `SocialIcons.astro` | Static | Inline SVG icons with click tracking |
