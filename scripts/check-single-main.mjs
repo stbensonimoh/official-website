@@ -15,9 +15,12 @@
 // skips each tag as a unit, so a `<main>` written inside a quoted attribute
 // value is never counted. Bogus comments (`<!` not followed by `--` or
 // `doctype`), doctypes, and processing instructions (`<?`) end at the first
-// `>`, with no quote tracking, matching how browsers parse them. A `<` that
-// cannot start a tag, such as the one in `1 < 2`, is treated as text. Tag
-// names compare case-insensitively.
+// `>`, with no quote tracking. That matches browsers: a doctype with a public
+// or system identifier also ends at the first `>`, because a `>` inside those
+// quotes is an abrupt parse error that emits the doctype and resumes normal
+// parsing, so a `<main>` after it counts in both. Build output emits only
+// `<!doctype html>`. A `<` that cannot start a tag, such as the one in
+// `1 < 2`, is treated as text. Tag names compare case-insensitively.
 //
 // Known limits, all fail-closed or absent from this site's build output:
 // - An unquoted attribute value containing a quote character reads the quote

@@ -15,12 +15,21 @@ import { fileURLToPath } from "node:url";
 const SCRIPT = fileURLToPath(new URL("./check-single-main.mjs", import.meta.url));
 const fixtureDirs = [];
 
-function runCheck(html) {
+function makeFixtureDir() {
   const dir = mkdtempSync(join(tmpdir(), "single-main-check-"));
   fixtureDirs.push(dir);
-  writeFileSync(join(dir, "index.html"), html);
+  return dir;
+}
+
+function runCheckIn(dir) {
   const result = spawnSync("node", [SCRIPT, dir], { encoding: "utf8" });
   return { status: result.status, stdout: result.stdout, stderr: result.stderr };
+}
+
+function runCheck(html) {
+  const dir = makeFixtureDir();
+  writeFileSync(join(dir, "index.html"), html);
+  return runCheckIn(dir);
 }
 
 function expectPass(html) {
@@ -108,6 +117,33 @@ describe("counting", () => {
   test("fails on an unterminated script body", () => {
     expectFail("<script>const x = 1;", "unterminated script body");
   });
+
+  test("fails on an unterminated tag", () => {
+    expectFail("<main>a</main><div", "unterminated tag");
+  });
+
+  test("fails on an unterminated tag inside a template", () => {
+    expectFail("<template><div", "unterminated tag inside template");
+  });
+
+  test("fails on an unterminated template body", () => {
+    expectFail("<template><main>a</main>", "unterminated template body");
+  });
+});
+
+describe("build directory guards", () => {
+  test("fails when the build directory is missing", () => {
+    const missing = join(makeFixtureDir(), "missing");
+    const { status, stderr } = runCheckIn(missing);
+    expect(status).toBe(1);
+    expect(stderr).toContain("no build output directory");
+  });
+
+  test("fails when the build directory has no HTML files", () => {
+    const { status, stderr } = runCheckIn(makeFixtureDir());
+    expect(status).toBe(1);
+    expect(stderr).toContain("no .html files");
+  });
 });
 
 describe("bogus comments and processing instructions", () => {
@@ -124,6 +160,14 @@ describe("bogus comments and processing instructions", () => {
   test("ends a doctype at the first > with no quote tracking", () => {
     expectFail('<!doctype html ">" <main>a</main><main>b</main>', "found 2");
     expectPass('<!doctype html ">" <main>a</main>');
+  });
+
+  // Browsers end the doctype at the first `>` even inside a quoted public
+  // identifier (abrupt parse error), then parse the rest as markup, so the
+  // main here is a real landmark. The scan agrees, so it counts one.
+  test("ends a doctype at the first > inside a quoted public identifier", () => {
+    expectPass('<!doctype html public "a > <main> b">');
+    expectFail('<!doctype html public "a > <main> b"><main>content</main>', "found 2");
   });
 });
 
