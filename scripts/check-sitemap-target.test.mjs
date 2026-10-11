@@ -111,6 +111,10 @@ describe("robots.txt", () => {
     expectFail(makeFixture(), "no robots.txt");
   });
 
+  test("fails when robots.txt is a directory", () => {
+    expectFail(makeFixture({ dirs: ["robots.txt"] }), "robots.txt is not a readable file");
+  });
+
   test("fails when robots.txt has no Sitemap: line", () => {
     expectFail(makeFixture({ robots: "User-agent: *\nAllow: /\n" }), "no Sitemap: line");
   });
@@ -177,14 +181,43 @@ describe("relative and decorated paths", () => {
   });
 });
 
-describe("host comparison", () => {
+describe("origin comparison", () => {
   test("fails when the advertised host differs from the config site", () => {
     expectFail(
       makeFixture({
         robots: okRobots("https://other.example/sitemap-index.xml"),
         files: { "sitemap-index.xml": SITEMAP },
       }),
-      "but astro.config.mjs site is example.com",
+      "but astro.config.mjs site is https://example.com",
+    );
+  });
+
+  test("fails when the advertised scheme differs from the config site", () => {
+    expectFail(
+      makeFixture({
+        robots: okRobots("http://example.com/sitemap-index.xml"),
+        files: { "sitemap-index.xml": SITEMAP },
+      }),
+      "on http://example.com",
+    );
+  });
+
+  test("fails when the advertised port is not the site port", () => {
+    expectFail(
+      makeFixture({
+        robots: okRobots("https://example.com:8443/sitemap-index.xml"),
+        files: { "sitemap-index.xml": SITEMAP },
+      }),
+      "on https://example.com:8443",
+    );
+  });
+
+  test("passes when the advertised URL spells out the default port", () => {
+    expectPass(
+      makeFixture({
+        robots: okRobots("https://example.com:443/sitemap-index.xml"),
+        files: { "sitemap-index.xml": SITEMAP },
+      }),
     );
   });
 
@@ -204,6 +237,17 @@ describe("host comparison", () => {
         config: "export default {};\n",
       }),
       "has no site value",
+    );
+  });
+
+  test("fails when the config site is not an absolute URL", () => {
+    expectFail(
+      makeFixture({
+        robots: okRobots(`${SITE}/sitemap-index.xml`),
+        files: { "sitemap-index.xml": SITEMAP },
+        config: 'export default { site: "not-a-url" };\n',
+      }),
+      "site is not an absolute URL",
     );
   });
 });

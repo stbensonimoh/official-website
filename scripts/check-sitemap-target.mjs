@@ -7,25 +7,25 @@
 // A robots.txt with no usable `Sitemap:` line fails too: a crawler that finds
 // no pointer is as unserved as one that finds a broken pointer.
 //
-// The advertised host must match the `site` value in astro.config.mjs. A
+// The advertised origin must match the `site` value in astro.config.mjs. A
 // mismatch is fatal, not a warning: crawlers fetch the URL exactly as
-// advertised, so a wrong host loses the sitemap the same way a wrong path
-// does. The config is imported as a module, the same way Astro reads it,
-// instead of being pattern-matched, so quote style, comments, or a computed
-// value cannot fool the comparison. The check runs after a successful build in
-// the same job, and that build imports the same file, so an import failure is
-// a real failure rather than a new way to go red.
+// advertised, so a wrong origin loses the sitemap the same way a wrong path
+// does. Origins are compared, not hostnames, so a wrong scheme or a
+// non-default port fails; default ports normalise away. The config is
+// imported as a module, the same way Astro reads it, instead of being
+// pattern-matched, so quote style, comments, or a computed value cannot fool
+// the comparison. The check runs after a successful build in the same job,
+// and that build imports the same file, so an import failure is a real
+// failure rather than a new way to go red.
 //
 // Relative values resolve from the directory root. Query strings and fragments
 // are stripped before the file lookup: a file on disk has neither, and static
 // hosts ignore both.
 //
-// Known limits, all fail-closed:
+// Known limits:
 // - Percent-encoded path segments are matched literally, not decoded.
 // - A sitemap index is not followed. The advertised file itself must be
 //   non-empty; its contents are the sitemap integration's business.
-// - Hostnames are compared, so a scheme or port difference is not reported.
-//   This site advertises https on the default port.
 //
 // Pass a directory to check a fixture, or run it with no argument to check
 // dist/client. ASTRO_CONFIG_PATH overrides the config location for tests.
@@ -47,9 +47,15 @@ function fail(message) {
 // Every `Sitemap:` line counts, not just the first: a second broken pointer
 // would otherwise pass silently.
 function readSitemapValues(robotsPath) {
+  let contents;
+  try {
+    contents = readFileSync(robotsPath, "utf8");
+  } catch {
+    fail(`robots.txt is not a readable file: ${robotsPath}`);
+  }
   const values = [];
   let sawLine = false;
-  for (const line of readFileSync(robotsPath, "utf8").split(/\r?\n/)) {
+  for (const line of contents.split(/\r?\n/)) {
     const match = /^\s*sitemap\s*:\s*(.*)$/i.exec(line);
     if (!match) continue;
     sawLine = true;
@@ -61,14 +67,15 @@ function readSitemapValues(robotsPath) {
   return values;
 }
 
-// Split an advertised value into its host and path. Absolute URLs keep their
-// host; relative values have none, so the host comparison is skipped for them.
+// Split an advertised value into its origin and path. Absolute URLs keep their
+// origin; relative values have none, so the origin comparison is skipped for
+// them.
 function splitValue(value) {
   try {
     const url = new URL(value);
-    return { host: url.hostname.toLowerCase(), pathname: url.pathname };
+    return { origin: url.origin, pathname: url.pathname };
   } catch {
-    return { host: null, pathname: value.split(/[?#]/)[0] };
+    return { origin: null, pathname: value.split(/[?#]/)[0] };
   }
 }
 
@@ -93,19 +100,19 @@ const site = config.default?.site;
 if (typeof site !== "string" || site === "") {
   fail(`${CONFIG_PATH} has no site value. The sitemap integration needs one.`);
 }
-let siteHost;
+let siteOrigin;
 try {
-  siteHost = new URL(site).hostname.toLowerCase();
+  siteOrigin = new URL(site).origin;
 } catch {
   fail(`${CONFIG_PATH} site is not an absolute URL: ${site}`);
 }
 
 const rootWithSep = ROOT.endsWith(sep) ? ROOT : ROOT + sep;
 for (const value of values) {
-  const { host, pathname } = splitValue(value);
-  if (host !== null && host !== siteHost) {
+  const { origin, pathname } = splitValue(value);
+  if (origin !== null && origin !== siteOrigin) {
     fail(
-      `robots.txt advertises ${value} on host ${host}, but astro.config.mjs site is ${siteHost}.`,
+      `robots.txt advertises ${value} on ${origin}, but astro.config.mjs site is ${siteOrigin}.`,
     );
   }
   const target = resolve(ROOT, pathname.startsWith("/") ? `.${pathname}` : `./${pathname}`);
