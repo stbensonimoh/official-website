@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.6.0](https://github.com/stbensonimoh/official-website/compare/v1.5.4...v1.6.0) (2026-10-11)
+
+
+### Features
+
+* **a11y:** add skip link to the main landmark ([#215](https://github.com/stbensonimoh/official-website/issues/215)) ([#219](https://github.com/stbensonimoh/official-website/issues/219)) ([c8331c5](https://github.com/stbensonimoh/official-website/commit/c8331c5aee67ae38636f0fe69bf25dccb4361874))
+
+
+### Bug Fixes
+
+* **a11y:** keep the theme across soft navigation ([#216](https://github.com/stbensonimoh/official-website/issues/216)) ([3d9a91f](https://github.com/stbensonimoh/official-website/commit/3d9a91f5b6439af6311ae91c399285b2e3f8fbb7))
+* **about:** reserve the hero image box so /about cannot shift ([#217](https://github.com/stbensonimoh/official-website/issues/217)) ([4450de3](https://github.com/stbensonimoh/official-website/commit/4450de3f764cd61f0eb4dbfca43be128ce2d3f73))
+* **ci:** harden the single-main check with a fail-closed scanner ([#220](https://github.com/stbensonimoh/official-website/issues/220)) ([a6ee268](https://github.com/stbensonimoh/official-website/commit/a6ee268eddd83b035b88360cf42db6246a71c2a9))
+
 ## [1.5.4](https://github.com/stbensonimoh/official-website/compare/v1.5.3...v1.5.4) (2026-10-10)
 
 
