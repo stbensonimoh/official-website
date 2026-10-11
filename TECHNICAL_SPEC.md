@@ -104,7 +104,7 @@ All components are `.astro` files with vanilla JS for interactivity. Zero React.
 | `AuthorBlob.astro` | Static | Avatar + author name + date + reading time |
 | `BlogPostCard.astro` | Static | Card with hero image, excerpt, read more |
 
-`Layout.astro` owns the single `<main>` element. Pages render into its slot and must not declare their own. `ClientRouter` handles soft navigation, and `astro.config.mjs` pins `prefetchAll: true` with the `hover` strategy, so a touch device on a fast connection does not prefetch. Two soft-navigation costs are tracked: the dark-mode reset after a swap (#209) and missing Clarity page views (#210).
+`Layout.astro` owns the single `<main>` element. Pages render into its slot and must not declare their own. `ClientRouter` handles soft navigation, and `astro.config.mjs` pins `prefetchAll: true` with the `hover` strategy, so a touch device on a fast connection does not prefetch. Soft navigation: the dark-mode reset after a swap (#209) is fixed in this batch; the stored theme is reapplied on `astro:after-swap`, before paint, with tests in `src/layouts/layout.test.ts`. Clarity counts soft navigations natively (#210): its runtime wraps `history.pushState` and `history.replaceState`, and a changed URL stops the session and starts a new one 250 ms later (the default `restart` delay), so `astro:page-load` needs no hook and Clarity exposes no page-view API to call. The remaining cost is the cold-load exception: because the tag is deferred (#212), a first click in the seconds after a cold load races the runtime download against the router's fetch; when the runtime loses, the departing page is never counted.
 
 ---
 
@@ -210,11 +210,13 @@ The deploy step uses `cloudflare/wrangler-action@v4`.
 
 ## 15. Testing
 
-Bun's native test runner. Tests live in `src/lib/`:
+Bun's native test runner. Tests colocate with their subject:
 
 - `posts.test.ts`: reading time and slug generation (8 tests)
 - `theme.test.ts`: theme store state machine (4 tests)
 - `cloudinary.test.ts`: URL transforms and passthrough rules (7 tests)
+- `layout.test.ts`: theme reapply after a router swap and the Clarity loader (11 tests)
+- `about.test.ts`: the About hero reserves its box before the image bytes arrive
 
 Run: `bun test`, `bun test --watch`, `bun test --coverage`.
 
