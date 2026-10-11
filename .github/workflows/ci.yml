@@ -58,6 +58,9 @@ jobs:
       - name: Check single main landmark per page
         run: node scripts/check-single-main.mjs
 
+      - name: Check sitemap target in robots.txt
+        run: node scripts/check-sitemap-target.mjs
+
       - name: Upload Lighthouse reports
         if: always()
         uses: actions/upload-artifact@v4
