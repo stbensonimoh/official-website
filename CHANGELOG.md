@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/stbensonimoh/official-website/compare/v1.6.0...v1.7.0) (2026-10-11)
+
+
+### Features
+
+* **ci:** check that the sitemap advertised in robots.txt exists ([#222](https://github.com/stbensonimoh/official-website/issues/222)) ([911850e](https://github.com/stbensonimoh/official-website/commit/911850e789a6d5a0157e726661d1ef3acbe784ad))
+
 ## [1.6.0](https://github.com/stbensonimoh/official-website/compare/v1.5.4...v1.6.0) (2026-10-11)
 
 
