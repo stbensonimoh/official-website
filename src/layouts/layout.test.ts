@@ -23,6 +23,30 @@ function extractClarityScript(source: string): string {
   return match[1].replaceAll("${clarityId}", "test-project-id");
 }
 
+// Strips HTML comments by walking the source with indexOf, not by a regex
+// substitution. A single regex pass can leave a comment opener behind on
+// overlapping input (`<!-<!--->`), which CodeQL reports as incomplete
+// multi-character sanitization (js/incomplete-multi-character-sanitization).
+// The scanner cannot reintroduce one: every kept slice ends before the next
+// `<!--`, and an unterminated comment drops its tail rather than emit a
+// partial opener.
+function stripHtmlComments(source: string): string {
+  let stripped = "";
+  let cursor = 0;
+  while (cursor < source.length) {
+    const start = source.indexOf("<!--", cursor);
+    if (start === -1) {
+      stripped += source.slice(cursor);
+      break;
+    }
+    stripped += source.slice(cursor, start);
+    const end = source.indexOf("-->", start + "<!--".length);
+    if (end === -1) break;
+    cursor = end + "-->".length;
+  }
+  return stripped;
+}
+
 type Listener = (event?: unknown) => void;
 
 function createThemeHarness(storedTheme: string, systemDark: boolean) {
@@ -185,6 +209,42 @@ describe("Layout theme script (#209)", () => {
     harness.attrs.delete("data-theme");
     harness.document.dispatch("astro:after-swap");
     expect(harness.attrs.get("data-theme")).toBe("light");
+  });
+});
+
+describe("Layout skip link (#215)", () => {
+  // The link must be the first focusable element in the document, so it has to
+  // be the first element in the body, before <Header />. It targets the main
+  // landmark, which needs tabindex="-1" for fragment navigation to move focus.
+  // Comments are stripped first: they must not be able to fake the contract.
+  const source = stripHtmlComments(layoutSource);
+  const body = source.slice(
+    source.indexOf("<body>") + "<body>".length,
+    source.indexOf("</body>"),
+  );
+  const firstTag = body.match(/<([a-zA-Z][\w:-]*)[^>]*>/)?.[0] ?? "";
+  const mainTag = source.match(/<main[^>]*>/)?.[0] ?? "";
+
+  test("is the first element in the body, before the header", () => {
+    const firstTagName = body.match(/<([a-zA-Z][\w:-]*)/)?.[1].toLowerCase();
+    expect(firstTagName).toBe("a");
+    expect(firstTag).toContain('href="#main-content"');
+  });
+
+  test("targets a main landmark that can receive focus", () => {
+    expect(mainTag).toContain('id="main-content"');
+    expect(mainTag).toContain('tabindex="-1"');
+  });
+
+  test("suppresses the browser's default focus ring on the main landmark", () => {
+    // The main landmark is not an operable control, so it needs no focus
+    // indicator. The skip link keeps its own ring.
+    expect(mainTag).toContain("focus:outline-none");
+  });
+
+  test("is visually hidden until focused", () => {
+    expect(firstTag).toContain("sr-only");
+    expect(firstTag).toContain("focus:not-sr-only");
   });
 });
 

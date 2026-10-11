@@ -157,8 +157,28 @@ const pageUrl = (canonicalURL ? String(canonicalURL) : String(Astro.url))
     }
   </head>
   <body>
+    <!--
+      First focusable element in the document (#215): the first Tab reveals it
+      and Enter moves focus into the main landmark. sr-only keeps it out of the
+      visual flow; focus:fixed keeps it from pushing content when it appears.
+      focus:fixed depends on Tailwind emitting `.focus\:fixed:focus` after
+      `.focus\:not-sr-only:focus` in the built CSS: not-sr-only sets
+      position: static, and fixed must win or the revealed link sits in flow
+      and pushes the page down by its own height.
+    -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded focus:bg-background focus:px-4 focus:py-2 focus:text-foreground focus:outline focus:outline-2 focus:outline-offset-2 focus:outline-primary"
+    >
+      Skip to main content
+    </a>
     <Header />
-    <main>
+    <!--
+      The main landmark is not an operable control, so it needs no focus
+      indicator. focus:outline-none suppresses the browser's default ring when
+      the skip link moves focus here; the skip link keeps its own ring.
+    -->
+    <main id="main-content" tabindex="-1" class="focus:outline-none">
       <slot />
     </main>
     <ThemeToggle />
